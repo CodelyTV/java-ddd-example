@@ -11,12 +11,12 @@ allprojects {
   sourceSets {
     main {
       java { srcDirs = ['main'] }
+      resources { srcDirs = ['main/resources'] }
     }
+
     test {
       java { srcDirs = ['test'] }
-    }
-    resources {
-      java { srcDirs = ['resources'] }
+      resources { srcDirs = ['test/resources'] }
     }
   }
 
