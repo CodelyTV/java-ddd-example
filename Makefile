@@ -7,3 +7,6 @@ build:
 
 test:
 	@./gradlew check --warning-mode all
+
+start:
+	@./gradlew :app:run
