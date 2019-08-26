@@ -1,24 +1,73 @@
-apply plugin: 'java'
+// Common for all projects
+allprojects {
+  apply plugin: 'java'
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+  sourceCompatibility = 1.8
+  targetCompatibility = 1.8
 
-repositories {
+  repositories {
     mavenCentral()
-}
+  }
 
-dependencies {
+  dependencies {
+    // Prod
     implementation 'org.apache.logging.log4j:log4j-core:2.12.1'
     implementation 'com.vlkan.log4j2:log4j2-logstash-layout:0.19'
 
+    // Test
     testCompile 'org.junit.jupiter:junit-jupiter-api:5.5.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.5.1'
-}
+  }
 
-test {
+  test {
     useJUnitPlatform()
 
     testLogging {
-        events "passed", "skipped", "failed"
+      events "passed", "skipped", "failed"
     }
+  }
+
+  task hello {
+    doLast { task ->
+      println "I'm $task.project.name"
+    }
+  }
+}
+
+// All subprojects (located in src/*)
+subprojects {
+  group = "tv.codely.${rootProject.name}"
+
+  sourceSets {
+    main {
+      java { srcDirs = ['main'] }
+      resources { srcDirs = ['main/resources'] }
+    }
+
+    test {
+      java { srcDirs = ['test'] }
+      resources { srcDirs = ['test/resources'] }
+    }
+  }
+}
+
+// Main project (located in app/)
+sourceSets {
+  main {
+    java { srcDirs = ['app/main'] }
+    resources { srcDirs = ['app/main/resources'] }
+  }
+
+  test {
+    java { srcDirs = ['app/test'] }
+    resources { srcDirs = ['app/test/resources'] }
+  }
+}
+apply plugin: 'application'
+
+mainClassName = 'tv.codely.Starter'
+
+dependencies {
+  compile project(":backoffice")
+  compile project(":mooc")
 }
