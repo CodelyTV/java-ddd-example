@@ -1,7 +1,5 @@
 rootProject.name = 'java-ddd-skeleton'
 
-include 'app'
-
 include ':backoffice'
 project(':backoffice').projectDir = new File('src/backoffice')
 

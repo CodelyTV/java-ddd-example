@@ -1,3 +1,4 @@
+// Common things for all projects
 allprojects {
   apply plugin: 'java'
 
@@ -7,6 +8,30 @@ allprojects {
   repositories {
     mavenCentral()
   }
+
+  task hello {
+    doLast { task ->
+      println "I'm $task.project.name"
+    }
+  }
+}
+
+// Main project (located in app/)
+sourceSets {
+  main {
+    java { srcDirs = ['app/main'] }
+    resources { srcDirs = ['app/main/resources'] }
+  }
+
+  test {
+    java { srcDirs = ['app/test'] }
+    resources { srcDirs = ['app/test/resources'] }
+  }
+}
+
+// All subprojects (located in src/*)
+subprojects {
+  group = "tv.codely.${rootProject.name}"
 
   sourceSets {
     main {
@@ -19,16 +44,6 @@ allprojects {
       resources { srcDirs = ['test/resources'] }
     }
   }
-
-  task hello {
-    doLast { task ->
-      println "I'm $task.project.name"
-    }
-  }
-}
-
-subprojects {
-  group = "tv.codely.${rootProject.name}"
 
   dependencies {
     // Prod
