@@ -1,4 +1,4 @@
-// Common things for all projects
+// Common for all projects
 allprojects {
   apply plugin: 'java'
 
@@ -7,6 +7,24 @@ allprojects {
 
   repositories {
     mavenCentral()
+  }
+
+  dependencies {
+    // Prod
+    implementation 'org.apache.logging.log4j:log4j-core:2.12.1'
+    implementation 'com.vlkan.log4j2:log4j2-logstash-layout:0.19'
+
+    // Test
+    testCompile 'org.junit.jupiter:junit-jupiter-api:5.5.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.5.1'
+  }
+
+  test {
+    useJUnitPlatform()
+
+    testLogging {
+      events "passed", "skipped", "failed"
+    }
   }
 
   task hello {
@@ -42,24 +60,6 @@ subprojects {
     test {
       java { srcDirs = ['test'] }
       resources { srcDirs = ['test/resources'] }
-    }
-  }
-
-  dependencies {
-    // Prod
-    implementation 'org.apache.logging.log4j:log4j-core:2.12.1'
-    implementation 'com.vlkan.log4j2:log4j2-logstash-layout:0.19'
-
-    // Test
-    testCompile 'org.junit.jupiter:junit-jupiter-api:5.5.1'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.5.1'
-  }
-
-  test {
-    useJUnitPlatform()
-
-    testLogging {
-      events "passed", "skipped", "failed"
     }
   }
 }

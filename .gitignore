@@ -5,5 +5,5 @@ build/
 # Ignore Gradle GUI config
 gradle-app.setting
 
-/app/var/log/*
-!/app/var/log/.gitkeep
+/var/log/*
+!/var/log/.gitkeep
