@@ -52,6 +52,15 @@ subprojects {
 }
 
 // Main project (located in app/)
+buildscript {
+  repositories {
+    mavenCentral()
+  }
+  dependencies {
+    classpath("org.springframework.boot:spring-boot-gradle-plugin:2.1.6.RELEASE")
+  }
+}
+
 sourceSets {
   main {
     java { srcDirs = ['app/main'] }
@@ -63,11 +72,21 @@ sourceSets {
     resources { srcDirs = ['app/test/resources'] }
   }
 }
+
 apply plugin: 'application'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+bootJar {
+  baseName = 'java-ddd-skeleton'
+  version =  '0.0.1'
+}
 
 mainClassName = 'tv.codely.Starter'
 
 dependencies {
+  compile("org.springframework.boot:spring-boot-starter-web")
+
   compile project(":backoffice")
   compile project(":mooc")
 }
