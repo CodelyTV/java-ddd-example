@@ -1,7 +1,7 @@
-package tv.codely.mooc.controller.courses;
+package tv.codely.app.mooc.controller.courses;
 
 import org.junit.jupiter.api.Test;
-import tv.codely.mooc.controller.RequestTestCase;
+import tv.codely.app.mooc.controller.RequestTestCase;
 
 public final class CoursesPutControllerShould extends RequestTestCase {
     @Test

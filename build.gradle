@@ -1,6 +1,8 @@
 // Common for all projects
 allprojects {
   apply plugin: 'java'
+  apply plugin: 'io.spring.dependency-management'
+  apply plugin: 'org.springframework.boot'
 
   sourceCompatibility = 1.8
   targetCompatibility = 1.8
@@ -55,6 +57,20 @@ subprojects {
       resources { srcDirs = ['test/resources'] }
     }
   }
+
+  dependencies {
+    compile("org.springframework.boot:spring-boot-starter-web")
+
+    testCompile("org.springframework.boot:spring-boot-starter-test")
+  }
+
+  bootJar {
+    enabled = false
+  }
+
+  jar {
+    enabled = true
+  }
 }
 
 // Main project (located in app/)
@@ -80,21 +96,21 @@ sourceSets {
 }
 
 apply plugin: 'application'
-apply plugin: 'org.springframework.boot'
-apply plugin: 'io.spring.dependency-management'
 
 bootJar {
   baseName = 'java-ddd-skeleton'
   version = '0.0.1'
 }
 
-mainClassName = 'tv.codely.Starter'
+mainClassName = 'tv.codely.app.Starter'
 
 dependencies {
   compile("org.springframework.boot:spring-boot-starter-web")
 
-  compile project(":backoffice")
-  compile project(":mooc")
+//  implementation project(":shared")
+  implementation project(":backoffice")
+  implementation project(":mooc")
 
   testCompile("org.springframework.boot:spring-boot-starter-test")
 }
+

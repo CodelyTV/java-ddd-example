@@ -1,4 +1,4 @@
-package tv.codely.mooc.controller;
+package tv.codely.app.mooc.controller;
 
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

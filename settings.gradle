@@ -1,11 +1,10 @@
 rootProject.name = 'java-ddd-skeleton'
 
+include ':shared'
+project(':shared').projectDir = new File('src/shared')
+
 include ':backoffice'
 project(':backoffice').projectDir = new File('src/backoffice')
 
 include ':mooc'
 project(':mooc').projectDir = new File('src/mooc')
-
-include ':shared'
-project(':shared').projectDir = new File('src/shared')
-
