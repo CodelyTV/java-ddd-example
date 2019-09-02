@@ -1,4 +1,4 @@
-package tv.codely.app.mooc.controller.courses;
+package tv.codely.apps.mooc.controller.courses;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

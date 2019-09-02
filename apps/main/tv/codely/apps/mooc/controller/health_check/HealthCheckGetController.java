@@ -1,4 +1,4 @@
-package tv.codely.app.mooc.controller.health_check;
+package tv.codely.apps.mooc.controller.health_check;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

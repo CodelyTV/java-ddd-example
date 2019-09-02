@@ -74,7 +74,7 @@ subprojects {
   }
 }
 
-// Main project (located in app/)
+// Main project (located in apps/)
 buildscript {
   repositories {
     mavenCentral()
@@ -86,13 +86,13 @@ buildscript {
 
 sourceSets {
   main {
-    java { srcDirs = ['app/main'] }
-    resources { srcDirs = ['app/main/resources'] }
+    java { srcDirs = ['apps/main'] }
+    resources { srcDirs = ['apps/main/resources'] }
   }
 
   test {
-    java { srcDirs = ['app/test'] }
-    resources { srcDirs = ['app/test/resources'] }
+    java { srcDirs = ['apps/test'] }
+    resources { srcDirs = ['apps/test/resources'] }
   }
 }
 
@@ -103,7 +103,7 @@ bootJar {
   version = '0.0.1'
 }
 
-mainClassName = 'tv.codely.app.Starter'
+mainClassName = 'tv.codely.apps.Starter'
 
 dependencies {
   compile("org.springframework.boot:spring-boot-starter-web")

@@ -1,4 +1,4 @@
-package tv.codely.app;
+package tv.codely.apps;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -10,7 +10,7 @@ import org.springframework.context.annotation.ComponentScan;
 import java.util.Arrays;
 
 @SpringBootApplication
-@ComponentScan({"tv.codely.app", "tv.codely.mooc", "tv.codely.backoffice"})
+@ComponentScan({"tv.codely.apps", "tv.codely.mooc", "tv.codely.backoffice"})
 public class Starter {
     public static void main(String[] args) {
         SpringApplication.run(Starter.class, args);
