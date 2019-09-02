@@ -5,7 +5,7 @@ import tv.codely.apps.mooc.controller.RequestTestCase;
 
 final class HealthCheckGetControllerShould extends RequestTestCase {
     @Test
-    public void check_the_app_is_working_ok() throws Exception {
+    void check_the_app_is_working_ok() throws Exception {
         this.assertResponse("/health-check", 200, "{'status': 'ok'}");
     }
 }
