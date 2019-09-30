@@ -6,11 +6,16 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.FilterType;
+import tv.codely.shared.domain.Service;
 
 import java.util.Arrays;
 
 @SpringBootApplication
-@ComponentScan({"tv.codely.apps", "tv.codely.mooc", "tv.codely.backoffice"})
+@ComponentScan(
+    includeFilters = @ComponentScan.Filter(type = FilterType.ANNOTATION, classes = Service.class),
+    value = {"tv.codely.apps", "tv.codely.mooc"}
+)
 public class Starter {
     public static void main(String[] args) {
         SpringApplication.run(Starter.class, args);
@@ -27,7 +32,6 @@ public class Starter {
             for (String beanName : beanNames) {
                 System.out.println(beanName);
             }
-
         };
     }
 }
