@@ -1,22 +1,29 @@
 package tv.codely.mooc.courses.application.create;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import tv.codely.mooc.courses.domain.*;
+import tv.codely.mooc.courses.CoursesModuleUnitTestCase;
+import tv.codely.mooc.courses.domain.Course;
+import tv.codely.mooc.courses.domain.CourseMother;
 
-import static org.mockito.Mockito.*;
+final class CourseCreatorShould extends CoursesModuleUnitTestCase {
+    CourseCreator creator;
 
-final class CourseCreatorShould {
+    @BeforeEach
+    protected void setUp() {
+        super.setUp();
+
+        creator = new CourseCreator(repository);
+    }
+
     @Test
     void create_a_valid_course() {
-        CourseRepository repository = mock(CourseRepository.class);
-        CourseCreator    creator    = new CourseCreator(repository);
-
         CreateCourseRequest request = CreateCourseRequestMother.random();
 
         Course course = CourseMother.fromRequest(request);
 
         creator.create(request);
 
-        verify(repository, atLeastOnce()).save(course);
+        shouldHaveSaved(course);
     }
 }
