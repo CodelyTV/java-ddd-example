@@ -3,17 +3,17 @@ package tv.codely.mooc.courses.domain;
 import java.util.Objects;
 
 public final class Course {
-    private final String id;
+    private final CourseId id;
     private final String name;
     private final String duration;
 
-    public Course(String id, String name, String duration) {
+    public Course(CourseId id, String name, String duration) {
         this.id       = id;
         this.name     = name;
         this.duration = duration;
     }
 
-    public String id() {
+    public CourseId id() {
         return id;
     }
 
@@ -30,13 +30,13 @@ public final class Course {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof Course)) {
+        if (o == null || getClass() != o.getClass()) {
             return false;
         }
         Course course = (Course) o;
-        return Objects.equals(id, course.id) &&
-               Objects.equals(name, course.name) &&
-               Objects.equals(duration, course.duration);
+        return id.equals(course.id) &&
+               name.equals(course.name) &&
+               duration.equals(course.duration);
     }
 
     @Override

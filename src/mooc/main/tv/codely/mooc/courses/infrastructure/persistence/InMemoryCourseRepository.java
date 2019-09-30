@@ -1,6 +1,7 @@
 package tv.codely.mooc.courses.infrastructure.persistence;
 
 import tv.codely.mooc.courses.domain.Course;
+import tv.codely.mooc.courses.domain.CourseId;
 import tv.codely.mooc.courses.domain.CourseRepository;
 import tv.codely.shared.domain.Service;
 
@@ -13,10 +14,10 @@ public final class InMemoryCourseRepository implements CourseRepository {
 
     @Override
     public void save(Course course) {
-        courses.put(course.id(), course);
+        courses.put(course.id().value(), course);
     }
 
-    public Optional<Course> search(String id) {
-        return Optional.ofNullable(courses.get(id));
+    public Optional<Course> search(CourseId id) {
+        return Optional.ofNullable(courses.get(id.value()));
     }
 }
