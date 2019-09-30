@@ -1,9 +1,7 @@
 package tv.codely.mooc.courses.application.create;
 
 import org.junit.jupiter.api.Test;
-import tv.codely.mooc.courses.domain.Course;
-import tv.codely.mooc.courses.domain.CourseId;
-import tv.codely.mooc.courses.domain.CourseRepository;
+import tv.codely.mooc.courses.domain.*;
 
 import static org.mockito.Mockito.*;
 
@@ -19,9 +17,11 @@ final class CourseCreatorShould {
             "duration"
         );
 
-        CourseId id = new CourseId(request.id());
-
-        Course course = new Course(id, request.name(), request.duration());
+        Course course = new Course(
+            new CourseId(request.id()),
+            new CourseName(request.name()),
+            new CourseDuration(request.duration())
+        );
 
         creator.create(request);
 

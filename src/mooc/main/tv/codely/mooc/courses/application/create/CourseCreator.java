@@ -1,8 +1,6 @@
 package tv.codely.mooc.courses.application.create;
 
-import tv.codely.mooc.courses.domain.Course;
-import tv.codely.mooc.courses.domain.CourseId;
-import tv.codely.mooc.courses.domain.CourseRepository;
+import tv.codely.mooc.courses.domain.*;
 import tv.codely.shared.domain.Service;
 
 @Service
@@ -14,7 +12,11 @@ public final class CourseCreator {
     }
 
     public void create(CreateCourseRequest request) {
-        Course course = new Course(new CourseId(request.id()), request.name(), request.duration());
+        CourseId       id       = new CourseId(request.id());
+        CourseName     name     = new CourseName(request.name());
+        CourseDuration duration = new CourseDuration(request.duration());
+
+        Course course = new Course(id, name, duration);
 
         this.repository.save(course);
     }

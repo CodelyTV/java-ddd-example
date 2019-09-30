@@ -2,7 +2,9 @@ package tv.codely.mooc.courses.infrastructure.persistence;
 
 import org.junit.jupiter.api.Test;
 import tv.codely.mooc.courses.domain.Course;
+import tv.codely.mooc.courses.domain.CourseDuration;
 import tv.codely.mooc.courses.domain.CourseId;
+import tv.codely.mooc.courses.domain.CourseName;
 
 import java.util.Optional;
 
@@ -13,10 +15,10 @@ final class InMemoryCourseRepositoryShould {
     @Test
     void save_a_course() {
         InMemoryCourseRepository repository = new InMemoryCourseRepository();
-        Course                   course     = new Course(
+        Course course = new Course(
             new CourseId("decf33ca-81a7-419f-a07a-74f214e928e5"),
-            "name",
-            "duration"
+            new CourseName("name"),
+            new CourseDuration("duration")
         );
 
         repository.save(course);
@@ -27,8 +29,8 @@ final class InMemoryCourseRepositoryShould {
         InMemoryCourseRepository repository = new InMemoryCourseRepository();
         Course                   course     = new Course(
             new CourseId("decf33ca-81a7-419f-a07a-74f214e928e5"),
-            "name",
-            "duration"
+            new CourseName("name"),
+            new CourseDuration("duration")
         );
 
         repository.save(course);
