@@ -12,13 +12,11 @@ final class CourseCreatorShould {
         CourseRepository repository = mock(CourseRepository.class);
         CourseCreator    creator    = new CourseCreator(repository);
 
-        String id       = "some-id";
-        String name     = "name";
-        String duration = "duration";
+        CreateCourseRequest request = new CreateCourseRequest("some-id", "name", "duration");
 
-        Course course = new Course(id, name, duration);
+        Course course = new Course(request.id(), request.name(), request.duration());
 
-        creator.create(course.id(), course.name(), course.duration());
+        creator.create(request);
 
         verify(repository, atLeastOnce()).save(course);
     }

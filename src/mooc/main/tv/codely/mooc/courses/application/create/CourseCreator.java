@@ -12,8 +12,8 @@ public final class CourseCreator {
         this.repository = repository;
     }
 
-    public void create(String id, String name, String duration) {
-        Course course = new Course(id, name, duration);
+    public void create(CreateCourseRequest request) {
+        Course course = new Course(request.id(), request.name(), request.duration());
 
         this.repository.save(course);
     }
