@@ -11,17 +11,9 @@ final class CourseCreatorShould {
         CourseRepository repository = mock(CourseRepository.class);
         CourseCreator    creator    = new CourseCreator(repository);
 
-        CreateCourseRequest request = new CreateCourseRequest(
-            "decf33ca-81a7-419f-a07a-74f214e928e5",
-            "name",
-            "duration"
-        );
+        CreateCourseRequest request = CreateCourseRequestMother.random();
 
-        Course course = new Course(
-            new CourseId(request.id()),
-            new CourseName(request.name()),
-            new CourseDuration(request.duration())
-        );
+        Course course = CourseMother.fromRequest(request);
 
         creator.create(request);
 

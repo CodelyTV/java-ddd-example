@@ -18,7 +18,8 @@ allprojects {
 
     // Test
     testCompile 'org.junit.jupiter:junit-jupiter-api:5.3.2'
-    testCompile "org.mockito:mockito-core:2.+"
+    testCompile 'org.mockito:mockito-core:2.+'
+    testCompile 'com.github.javafaker:javafaker:1.0.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.3.2'
   }
 
@@ -60,9 +61,9 @@ subprojects {
   }
 
   dependencies {
-    compile("org.springframework.boot:spring-boot-starter-web")
+    compile('org.springframework.boot:spring-boot-starter-web')
 
-    testCompile("org.springframework.boot:spring-boot-starter-test")
+    testCompile('org.springframework.boot:spring-boot-starter-test')
   }
 
   bootJar {
@@ -80,7 +81,7 @@ buildscript {
     mavenCentral()
   }
   dependencies {
-    classpath("org.springframework.boot:spring-boot-gradle-plugin:2.1.6.RELEASE")
+    classpath('org.springframework.boot:spring-boot-gradle-plugin:2.1.6.RELEASE')
   }
 }
 
@@ -106,12 +107,12 @@ bootJar {
 mainClassName = 'tv.codely.apps.Starter'
 
 dependencies {
-  compile("org.springframework.boot:spring-boot-starter-web")
+  compile('org.springframework.boot:spring-boot-starter-web')
 
 //  implementation project(":shared")
   implementation project(":backoffice")
   implementation project(":mooc")
 
-  testCompile("org.springframework.boot:spring-boot-starter-test")
+  testCompile('org.springframework.boot:spring-boot-starter-test')
 }
 

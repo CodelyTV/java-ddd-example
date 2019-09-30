@@ -1,3 +1,5 @@
 dependencies {
   implementation project(":shared")
+
+  testImplementation project(":shared").sourceSets.test.output
 }
