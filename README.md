@@ -6,8 +6,7 @@
 > ⚡ Start your Java projects as fast as possible
 
 [![CodelyTV](https://img.shields.io/badge/codely-tv-green.svg?style=flat-square)](https://codely.tv)
-[![Workflow Status](https://github.com/CodelyTV/java-ddd-skeleton/workflows/Main%20Workflow/badge.svg)](https://github
-.com/CodelyTV/java-ddd-skeleton/actions)
+[![Workflow Status](https://github.com/CodelyTV/java-ddd-skeleton/workflows/Main%20Workflow/badge.svg)](https://github.com/CodelyTV/java-ddd-skeleton/actions)
 
 ## ℹ️ Introduction
 

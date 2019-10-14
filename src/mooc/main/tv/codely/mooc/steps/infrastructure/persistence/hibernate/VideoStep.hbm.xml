@@ -9,8 +9,6 @@
             <key-property column="id" name="value" length="36" access="field" />
         </composite-id>
 
-<!--        <discriminator column="type"  />-->
-
         <component name="title" class="tv.codely.mooc.steps.domain.StepTitle" access="field">
             <property name="value" column="title" type="string" access="field" />
         </component>
