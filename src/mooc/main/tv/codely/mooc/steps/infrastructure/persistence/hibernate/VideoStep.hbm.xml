@@ -1,0 +1,39 @@
+<?xml version = "1.0" encoding = "utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="tv.codely.mooc.steps.domain.Step" table="steps">
+        <composite-id name="id" class="tv.codely.mooc.steps.domain.StepId" access="field">
+            <key-property column="id" name="value" length="36" access="field" />
+        </composite-id>
+
+<!--        <discriminator column="type"  />-->
+
+        <component name="title" class="tv.codely.mooc.steps.domain.StepTitle" access="field">
+            <property name="value" column="title" type="string" access="field" />
+        </component>
+
+        <joined-subclass name="tv.codely.mooc.steps.domain.challenge.ChallengeStep" table="steps_challenges">
+            <key column="id" />
+
+            <component name="statement" class="tv.codely.mooc.steps.domain.challenge.ChallengeStepStatement"
+                       access="field">
+                <property name="value" column="statement" type="string" access="field" />
+            </component>
+        </joined-subclass>
+
+        <joined-subclass name="tv.codely.mooc.steps.domain.video.VideoStep" table="steps_videos">
+            <key column="id" />
+
+            <component name="videoUrl" class="tv.codely.shared.domain.VideoUrl" access="field">
+                <property name="value" column="url" type="string" access="field" />
+            </component>
+
+            <component name="text" class="tv.codely.mooc.steps.domain.video.VideoStepText" access="field">
+                <property name="value" column="text" type="string" access="field" />
+            </component>
+        </joined-subclass>
+    </class>
+</hibernate-mapping>
