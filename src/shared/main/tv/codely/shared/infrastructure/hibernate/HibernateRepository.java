@@ -8,8 +8,8 @@ import java.util.Optional;
 
 @Transactional
 public abstract class HibernateRepository<T> {
-    private final SessionFactory sessionFactory;
-    private final Class<T>       aggregateClass;
+    protected final SessionFactory sessionFactory;
+    protected final Class<T>       aggregateClass;
 
     public HibernateRepository(SessionFactory sessionFactory, Class<T> aggregateClass) {
         this.sessionFactory = sessionFactory;

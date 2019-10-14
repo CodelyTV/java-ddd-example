@@ -1,5 +1,7 @@
 package tv.codely.apps.mooc.backend.controller;
 
+import org.hibernate.SessionFactory;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -8,6 +10,12 @@ import org.springframework.http.HttpMethod;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultMatcher;
+import tv.codely.shared.domain.bus.event.DomainEvent;
+import tv.codely.shared.domain.bus.event.EventBus;
+import tv.codely.shared.infrastructure.hibernate.DatabaseCleaner;
+
+import javax.transaction.Transactional;
+import java.util.Collections;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -18,11 +26,24 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-public abstract class RequestTestCase {
+//@Transactional
+public abstract class ApplicationTestCase {
     @Autowired
-    private MockMvc mockMvc;
+    private MockMvc  mockMvc;
+    @Autowired
+    private EventBus eventBus;
+//    @Autowired
+//    private SessionFactory sessionFactory;
 
-    public void assertResponse(
+//
+//    @BeforeEach
+//    protected void setUp() {
+//        DatabaseCleaner cleaner = new DatabaseCleaner(sessionFactory);
+//
+//        cleaner.clean();
+//    }
+
+    protected void assertResponse(
         String endpoint,
         Integer expectedStatusCode,
         String expectedResponse
@@ -37,7 +58,7 @@ public abstract class RequestTestCase {
             .andExpect(response);
     }
 
-    public void assertRequestWithBody(
+    protected void assertRequestWithBody(
         String method,
         String endpoint,
         String body,
@@ -47,5 +68,9 @@ public abstract class RequestTestCase {
             .perform(request(HttpMethod.valueOf(method), endpoint).content(body).contentType(APPLICATION_JSON))
             .andExpect(status().is(expectedStatusCode))
             .andExpect(content().string(""));
+    }
+
+    protected void givenISendAnEventToTheBus(DomainEvent<?> domainEvent) {
+        eventBus.publish(Collections.singletonList(domainEvent));
     }
 }

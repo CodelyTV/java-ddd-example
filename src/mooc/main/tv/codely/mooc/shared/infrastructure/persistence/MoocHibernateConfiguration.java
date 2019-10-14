@@ -52,7 +52,7 @@ public class MoocHibernateConfiguration {
         String[] files = new File(path).list((current, name) -> new File(current, name).isDirectory());
 
         if (null == files) {
-            path = "./main/tv/codely/" + contextName + "/";
+            path  = "./main/tv/codely/" + contextName + "/";
             files = new File(path).list((current, name) -> new File(current, name).isDirectory());
         }
 

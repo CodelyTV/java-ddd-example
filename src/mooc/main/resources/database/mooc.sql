@@ -5,6 +5,13 @@ CREATE TABLE `courses` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+CREATE TABLE `courses_counter` (
+    `id` CHAR(36) NOT NULL,
+    `total` INT NOT NULL,
+    `existing_courses` JSON NOT NULL,
+    PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 CREATE TABLE `steps` (
     `id` CHAR(36) NOT NULL,
     `title` VARCHAR(155) NOT NULL,

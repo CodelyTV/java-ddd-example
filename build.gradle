@@ -16,6 +16,14 @@ allprojects {
     implementation 'org.apache.logging.log4j:log4j-core:2.12.1'
     implementation 'com.vlkan.log4j2:log4j2-logstash-layout:0.19'
 
+    implementation 'org.hibernate:hibernate-core:5.4.5.Final'
+    implementation 'org.springframework:spring-orm:5.1.10.RELEASE'
+    implementation 'org.apache.tomcat:tomcat-dbcp:9.0.26'
+    implementation 'com.sun.xml.bind:jaxb-impl:2.1.2'
+    implementation 'javax.xml.bind:jaxb-api:2.3.1'
+
+    runtime 'mysql:mysql-connector-java:8.0.17'
+
     // Test
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.3.2'
     testImplementation 'org.mockito:mockito-core:2.+'
@@ -62,13 +70,6 @@ subprojects {
 
   dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web:2.1.8.RELEASE'
-    implementation 'org.hibernate:hibernate-core:5.4.5.Final'
-    implementation 'org.springframework:spring-orm:5.1.10.RELEASE'
-    implementation 'org.apache.tomcat:tomcat-dbcp:9.0.26'
-    implementation 'com.sun.xml.bind:jaxb-impl:2.1.2'
-    implementation 'javax.xml.bind:jaxb-api:2.3.1'
-
-    runtime 'mysql:mysql-connector-java:8.0.17'
 
     testImplementation rootProject.sourceSets.main.output
     testImplementation 'org.springframework.boot:spring-boot-starter-test:2.1.8.RELEASE'
@@ -127,5 +128,6 @@ dependencies {
   implementation project(":mooc")
 
   testImplementation 'org.springframework.boot:spring-boot-starter-test:2.1.8.RELEASE'
+  testImplementation project(":shared").sourceSets.test.output
 }
 

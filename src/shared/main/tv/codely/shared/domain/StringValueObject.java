@@ -3,7 +3,7 @@ package tv.codely.shared.domain;
 import java.util.Objects;
 
 public abstract class StringValueObject {
-    private final String value;
+    private String value;
 
     public StringValueObject(String value) {
         this.value = value;

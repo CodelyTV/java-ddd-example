@@ -25,13 +25,23 @@ public abstract class DomainEvent<T extends DomainEvent<?>> {
     }
 
     protected abstract String eventName();
-
     protected abstract HashMap<String, Serializable> toPrimitives();
-
     protected abstract T fromPrimitives(
         String aggregateId,
         HashMap<String, Serializable> body,
         String eventId,
         String occurredOn
     );
+
+    public String aggregateId() {
+        return aggregateId;
+    }
+
+    public String eventId() {
+        return eventId;
+    }
+
+    public String occurredOn() {
+        return occurredOn;
+    }
 }
