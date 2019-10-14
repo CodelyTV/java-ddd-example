@@ -12,6 +12,8 @@ public abstract class CoursesModuleUnitTestCase extends UnitTestCase {
 
     @BeforeEach
     protected void setUp() {
+        super.setUp();
+
         repository = mock(CourseRepository.class);
     }
 
