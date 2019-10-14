@@ -6,8 +6,4 @@ public final class CourseId extends Identifier {
     public CourseId(String value) {
         super(value);
     }
-
-    public String getValue() {
-        return value();
-    }
 }

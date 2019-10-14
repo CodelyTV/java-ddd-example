@@ -51,13 +51,14 @@ public class MoocHibernateConfiguration {
     }
 
     private String[] subdirectoriesFor(String path) {
-        String[] files =  new File(path).list((current, name) -> new File(current, name).isDirectory());
+        String[] files = new File(path).list((current, name) -> new File(current, name).isDirectory());
 
         if (null == files) {
             return new String[0];
         }
 
-        return files;}
+        return files;
+    }
 
     private String[] mappingFilesIn(String path) {
         String[] files = new File(path).list((current, name) -> new File(current, name).getName().contains(".hbm.xml"));
