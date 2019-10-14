@@ -9,7 +9,7 @@ import tv.codely.shared.domain.Service;
 @SpringBootApplication(exclude = HibernateJpaAutoConfiguration.class)
 @ComponentScan(
     includeFilters = @ComponentScan.Filter(type = FilterType.ANNOTATION, classes = Service.class),
-    value = {"tv.codely.apps.mooc", "tv.codely.mooc", "tv.codely.shared"}
+    value = {"tv.codely.shared", "tv.codely.mooc", "tv.codely.apps.mooc"}
 )
 public class MoocBackendApplication {
 }

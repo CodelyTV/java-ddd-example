@@ -13,6 +13,12 @@ public final class Course {
         this.duration = duration;
     }
 
+    public Course() {
+        id       = null;
+        name     = null;
+        duration = null;
+    }
+
     public CourseId id() {
         return id;
     }
