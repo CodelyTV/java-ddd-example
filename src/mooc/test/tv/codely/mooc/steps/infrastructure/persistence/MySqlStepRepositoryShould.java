@@ -1,25 +1,21 @@
 package tv.codely.mooc.steps.infrastructure.persistence;
 
 import org.junit.jupiter.api.Test;
-import tv.codely.mooc.courses.domain.Course;
-import tv.codely.mooc.courses.domain.CourseIdMother;
-import tv.codely.mooc.courses.domain.CourseMother;
 import tv.codely.mooc.steps.StepsModuleInfrastructureTestCase;
 import tv.codely.mooc.steps.domain.Step;
 import tv.codely.mooc.steps.domain.StepIdMother;
-import tv.codely.mooc.steps.domain.challenge.ChallengeStep;
 import tv.codely.mooc.steps.domain.challenge.ChallengeStepMother;
-import tv.codely.mooc.steps.domain.video.VideoStep;
 import tv.codely.mooc.steps.domain.video.VideoStepMother;
 
+import javax.transaction.Transactional;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
+@Transactional
 final class MySqlStepRepositoryShould extends StepsModuleInfrastructureTestCase {
     @Test
     void save_a_step() {
