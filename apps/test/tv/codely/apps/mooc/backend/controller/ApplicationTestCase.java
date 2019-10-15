@@ -12,9 +12,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultMatcher;
 import tv.codely.shared.domain.bus.event.DomainEvent;
 import tv.codely.shared.domain.bus.event.EventBus;
-import tv.codely.shared.infrastructure.hibernate.DatabaseCleaner;
 
 import javax.transaction.Transactional;
+import java.util.Arrays;
 import java.util.Collections;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON;
@@ -26,22 +26,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-//@Transactional
+@Transactional
 public abstract class ApplicationTestCase {
     @Autowired
     private MockMvc  mockMvc;
     @Autowired
     private EventBus eventBus;
-//    @Autowired
-//    private SessionFactory sessionFactory;
-
-//
-//    @BeforeEach
-//    protected void setUp() {
-//        DatabaseCleaner cleaner = new DatabaseCleaner(sessionFactory);
-//
-//        cleaner.clean();
-//    }
 
     protected void assertResponse(
         String endpoint,
@@ -70,7 +60,7 @@ public abstract class ApplicationTestCase {
             .andExpect(content().string(""));
     }
 
-    protected void givenISendAnEventToTheBus(DomainEvent<?> domainEvent) {
-        eventBus.publish(Collections.singletonList(domainEvent));
+    protected void givenISendEventsToTheBus(DomainEvent<?>... domainEvents) {
+        eventBus.publish(Arrays.asList(domainEvents));
     }
 }
