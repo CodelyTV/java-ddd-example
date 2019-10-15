@@ -34,7 +34,7 @@ public class Starter {
 
         if (!isApiCommand) {
             ConsoleCommand command = (ConsoleCommand) context.getBean(
-                commands().get(commandKey(applicationName, commandName))
+                commands().get(applicationName).get(commandName)
             );
 
             command.execute(Arrays.copyOfRange(args, 2, args.length));
@@ -52,12 +52,12 @@ public class Starter {
     }
 
     private static void ensureCommandExist(String applicationName, String commandName) {
-        if (!"api".equals(commandName) && !commands().containsKey(commandKey(applicationName, commandName))) {
+        if (!"api".equals(commandName) && !existCommand(applicationName, commandName)) {
             throw new RuntimeException(String.format(
                 "The command <%s> for application <%s> doesn't exist. Valids (application.command):\n- api\n- %s",
                 commandName,
                 applicationName,
-                String.join("\n- ", commands().keySet())
+                String.join("\n- ", commands().get(applicationName).keySet())
             ));
         }
     }
@@ -65,18 +65,22 @@ public class Starter {
     private static HashMap<String, Class<?>> applications() {
         HashMap<String, Class<?>> applications = new HashMap<>();
 
-        applications.put("mooc", MoocBackendApplication.class);
+        applications.put("mooc_backend", MoocBackendApplication.class);
 
         return applications;
     }
 
-    private static HashMap<String, Class<?>> commands() {
-        HashMap<String, Class<?>> commands = new HashMap<>();
+    private static HashMap<String, HashMap<String, Class<?>>> commands() {
+        HashMap<String, HashMap<String, Class<?>>> commands = new HashMap<>();
+
+        commands.put("mooc_backend", MoocBackendApplication.commands());
 
         return commands;
     }
 
-    private static String commandKey(String contextName, String commandName) {
-        return String.format("%s.%s", contextName, commandName);
+    private static Boolean existCommand(String applicationName, String commandName) {
+        HashMap<String, HashMap<String, Class<?>>> commands = commands();
+
+        return commands.containsKey(applicationName) && commands.get(applicationName).containsKey(commandName);
     }
 }

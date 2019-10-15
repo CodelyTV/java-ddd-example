@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
 @Transactional
-final class MySqlStepRepositoryShould extends StepsModuleInfrastructureTestCase {
+class MySqlStepRepositoryShould extends StepsModuleInfrastructureTestCase {
     @Test
     void save_a_step() {
         for (Step step : steps()) {

@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
 @Transactional
-final class MySqlCourseRepositoryShould extends CoursesModuleInfrastructureTestCase {
+class MySqlCourseRepositoryShould extends CoursesModuleInfrastructureTestCase {
     @Test
     void save_a_course() {
         Course course = CourseMother.random();
