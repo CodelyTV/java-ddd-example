@@ -17,7 +17,8 @@ public final class CoursesCounterIncrementer {
     }
 
     public void increment(CourseId id) {
-        CoursesCounter counter = repository.search().orElse(CoursesCounter.initialize(uuidGenerator.generate()));
+        CoursesCounter counter = repository.search()
+                                           .orElseGet(() -> CoursesCounter.initialize(uuidGenerator.generate()));
 
         if (!counter.hasIncremented(id)) {
             counter.increment(id);
