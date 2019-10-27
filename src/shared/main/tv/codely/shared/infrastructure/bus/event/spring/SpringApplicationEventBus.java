@@ -1,4 +1,4 @@
-package tv.codely.shared.infrastructure.bus.event;
+package tv.codely.shared.infrastructure.bus.event.spring;
 
 import org.springframework.context.ApplicationEventPublisher;
 import tv.codely.shared.domain.Service;
@@ -7,7 +7,6 @@ import tv.codely.shared.domain.bus.event.EventBus;
 
 import java.util.List;
 
-@Service
 public class SpringApplicationEventBus implements EventBus {
     private final ApplicationEventPublisher publisher;
 

@@ -36,7 +36,7 @@ public final class CourseCreatedDomainEvent extends DomainEvent<CourseCreatedDom
     }
 
     @Override
-    protected HashMap<String, Serializable> toPrimitives() {
+    public HashMap<String, Serializable> toPrimitives() {
         return new HashMap<String, Serializable>() {{
             put("name", name);
             put("duration", duration);
@@ -44,7 +44,7 @@ public final class CourseCreatedDomainEvent extends DomainEvent<CourseCreatedDom
     }
 
     @Override
-    protected CourseCreatedDomainEvent fromPrimitives(
+    public CourseCreatedDomainEvent fromPrimitives(
         String aggregateId,
         HashMap<String, Serializable> body,
         String eventId,
