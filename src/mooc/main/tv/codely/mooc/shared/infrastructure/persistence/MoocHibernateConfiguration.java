@@ -97,7 +97,7 @@ public class MoocHibernateConfiguration {
     private Properties hibernateProperties() {
         Properties hibernateProperties = new Properties();
         hibernateProperties.put(AvailableSettings.HBM2DDL_AUTO, "none");
-        hibernateProperties.put(AvailableSettings.SHOW_SQL, "true");
+        hibernateProperties.put(AvailableSettings.SHOW_SQL, "false");
         hibernateProperties.put(AvailableSettings.DIALECT, "org.hibernate.dialect.MySQL8Dialect");
 
         return hibernateProperties;

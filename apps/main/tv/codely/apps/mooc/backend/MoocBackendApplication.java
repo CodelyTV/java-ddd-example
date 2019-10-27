@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfigurat
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.FilterType;
 import tv.codely.apps.mooc.backend.command.AnotherFakeCommand;
-import tv.codely.apps.mooc.backend.command.FakeCommand;
+import tv.codely.apps.mooc.backend.command.ConsumeMySqlDomainEventsCommand;
 import tv.codely.shared.domain.Service;
 
 import java.util.HashMap;
@@ -18,7 +18,7 @@ import java.util.HashMap;
 public class MoocBackendApplication {
     public static HashMap<String, Class<?>> commands() {
         return new HashMap<String, Class<?>>() {{
-            put("fake", FakeCommand.class);
+            put("domain-events:mysql:consume", ConsumeMySqlDomainEventsCommand.class);
             put("another_fake", AnotherFakeCommand.class);
         }};
     }

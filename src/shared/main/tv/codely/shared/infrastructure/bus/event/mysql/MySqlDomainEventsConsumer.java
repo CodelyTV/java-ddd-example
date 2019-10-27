@@ -9,7 +9,6 @@ import tv.codely.shared.infrastructure.bus.event.DomainEventsInformation;
 import tv.codely.shared.infrastructure.bus.event.spring.SpringApplicationEventBus;
 
 import javax.transaction.Transactional;
-import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.sql.Timestamp;
@@ -22,7 +21,7 @@ public class MySqlDomainEventsConsumer {
     private final SessionFactory            sessionFactory;
     private final DomainEventsInformation   domainEventsInformation;
     private final SpringApplicationEventBus bus;
-    private final Integer                   CHUNKS = 200;
+    private final Integer                   CHUNKS    = 200;
 
     public MySqlDomainEventsConsumer(
         SessionFactory sessionFactory,
@@ -36,24 +35,28 @@ public class MySqlDomainEventsConsumer {
 
     @Transactional
     public void consume() {
-        NativeQuery query = sessionFactory.getCurrentSession().createSQLQuery(
-            "SELECT * FROM domain_events ORDER BY occurred_on ASC LIMIT 100;"
-        );
+        while (true) {
+            NativeQuery query = sessionFactory.getCurrentSession().createSQLQuery(
+                "SELECT * FROM domain_events ORDER BY occurred_on ASC LIMIT :chunk"
+            );
 
-        List<Object[]> events = query.list();
+            query.setParameter("chunk", CHUNKS);
 
-        try {
-            for (Object[] event : events) {
-                executeSubscribers(
-                    (String) event[0],
-                    (String) event[1],
-                    (String) event[2],
-                    (String) event[3],
-                    (Timestamp) event[4]
-                );
+            List<Object[]> events = query.list();
+
+            try {
+                for (Object[] event : events) {
+                    executeSubscribers(
+                        (String) event[0],
+                        (String) event[1],
+                        (String) event[2],
+                        (String) event[3],
+                        (Timestamp) event[4]
+                    );
+                }
+            } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException | InstantiationException e) {
+                e.printStackTrace();
             }
-        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException | InstantiationException e) {
-            e.printStackTrace();
         }
     }
 
