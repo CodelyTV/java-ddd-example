@@ -7,6 +7,7 @@ import tv.codely.shared.domain.bus.event.EventBus;
 
 import java.util.List;
 
+@Service
 public class SpringApplicationEventBus implements EventBus {
     private final ApplicationEventPublisher publisher;
 

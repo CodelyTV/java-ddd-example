@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import tv.codely.mooc.MoocContextInfrastructureTestCase;
 import tv.codely.mooc.courses.domain.CourseCreatedDomainEvent;
 import tv.codely.mooc.courses.domain.CourseCreatedDomainEventMother;
+import tv.codely.shared.infrastructure.bus.event.mysql.MySqlDomainEventsConsumer;
 import tv.codely.shared.infrastructure.bus.event.mysql.MySqlEventBus;
 
 import javax.transaction.Transactional;
@@ -15,10 +16,15 @@ class MySqlEventBusShould extends MoocContextInfrastructureTestCase {
     @Autowired
     private MySqlEventBus eventBus;
 
+    @Autowired
+    private MySqlDomainEventsConsumer consumer;
+
     @Test
     void publish_and_consume_domain_events_from_msql() {
         CourseCreatedDomainEvent domainEvent = CourseCreatedDomainEventMother.random();
 
         eventBus.publish(Collections.singletonList(domainEvent));
+
+        consumer.consume();
     }
 }

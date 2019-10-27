@@ -24,6 +24,9 @@ public abstract class DomainEvent<T extends DomainEvent<?>> {
         this.occurredOn  = occurredOn;
     }
 
+    protected DomainEvent() {
+    }
+
     public abstract String eventName();
     public abstract HashMap<String, Serializable> toPrimitives();
     public abstract T fromPrimitives(
