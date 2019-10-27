@@ -57,6 +57,8 @@ public class MySqlDomainEventsConsumer {
             } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException | InstantiationException e) {
                 e.printStackTrace();
             }
+
+            sessionFactory.getCurrentSession().clear();
         }
     }
 
