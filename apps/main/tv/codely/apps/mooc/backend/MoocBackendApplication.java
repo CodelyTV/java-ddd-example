@@ -15,7 +15,6 @@ import java.util.HashMap;
     includeFilters = @ComponentScan.Filter(type = FilterType.ANNOTATION, classes = Service.class),
     value = {"tv.codely.shared", "tv.codely.mooc", "tv.codely.apps.mooc"}
 )
-@EnableBinding(Sink.class)
 public class MoocBackendApplication {
     public static HashMap<String, Class<?>> commands() {
         return new HashMap<String, Class<?>>() {{
