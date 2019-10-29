@@ -9,11 +9,13 @@ import tv.codely.shared.infrastructure.bus.event.DomainEventJsonSerializer;
 import java.util.List;
 
 @Service
-public final class RabbitMqEventBus implements EventBus {
+public class RabbitMqEventBus implements EventBus {
     private final RabbitTemplate rabbitTemplate;
+    private final String         exchangeName;
 
     public RabbitMqEventBus(RabbitTemplate rabbitTemplate) {
         this.rabbitTemplate = rabbitTemplate;
+        this.exchangeName   = "domain_events";
     }
 
     @Override
@@ -24,6 +26,6 @@ public final class RabbitMqEventBus implements EventBus {
     private void publish(DomainEvent<?> domainEvent) {
         String serializedDomainEvent = DomainEventJsonSerializer.serialize(domainEvent);
 
-        rabbitTemplate.convertAndSend(domainEvent.eventName(), serializedDomainEvent);
+        rabbitTemplate.convertAndSend(exchangeName, domainEvent.eventName(), serializedDomainEvent);
     }
 }
