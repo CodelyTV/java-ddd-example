@@ -1,21 +1,26 @@
 package tv.codely.shared.infrastructure.bus.event.rabbitmq;
 
+import org.springframework.amqp.AmqpException;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import tv.codely.shared.domain.Service;
 import tv.codely.shared.domain.bus.event.DomainEvent;
 import tv.codely.shared.domain.bus.event.EventBus;
 import tv.codely.shared.infrastructure.bus.event.DomainEventJsonSerializer;
+import tv.codely.shared.infrastructure.bus.event.mysql.MySqlEventBus;
 
+import java.util.Collections;
 import java.util.List;
 
 @Service
 public class RabbitMqEventBus implements EventBus {
     private final RabbitTemplate rabbitTemplate;
+    private final MySqlEventBus  failoverPublisher;
     private final String         exchangeName;
 
-    public RabbitMqEventBus(RabbitTemplate rabbitTemplate) {
-        this.rabbitTemplate = rabbitTemplate;
-        this.exchangeName   = "domain_events";
+    public RabbitMqEventBus(RabbitTemplate rabbitTemplate, MySqlEventBus failoverPublisher) {
+        this.rabbitTemplate    = rabbitTemplate;
+        this.failoverPublisher = failoverPublisher;
+        this.exchangeName      = "domain_events";
     }
 
     @Override
@@ -24,8 +29,12 @@ public class RabbitMqEventBus implements EventBus {
     }
 
     private void publish(DomainEvent<?> domainEvent) {
-        String serializedDomainEvent = DomainEventJsonSerializer.serialize(domainEvent);
+        try {
+            String serializedDomainEvent = DomainEventJsonSerializer.serialize(domainEvent);
 
-        rabbitTemplate.convertAndSend(exchangeName, domainEvent.eventName(), serializedDomainEvent);
+            rabbitTemplate.convertAndSend(exchangeName, domainEvent.eventName(), serializedDomainEvent);
+        } catch (AmqpException error) {
+            failoverPublisher.publish(Collections.singletonList(domainEvent));
+        }
     }
 }
