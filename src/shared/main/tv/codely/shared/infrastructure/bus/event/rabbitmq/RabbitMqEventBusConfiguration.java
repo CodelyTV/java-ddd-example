@@ -1,7 +1,6 @@
 package tv.codely.shared.infrastructure.bus.event.rabbitmq;
 
 import org.springframework.amqp.core.*;
-import org.springframework.amqp.rabbit.annotation.EnableRabbit;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import tv.codely.shared.infrastructure.bus.event.DomainEventSubscribersInformation;
