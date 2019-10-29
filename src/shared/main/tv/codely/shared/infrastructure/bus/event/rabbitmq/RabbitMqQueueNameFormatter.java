@@ -1,16 +1,10 @@
 package tv.codely.shared.infrastructure.bus.event.rabbitmq;
 
-import tv.codely.shared.domain.Utils;
 import tv.codely.shared.infrastructure.bus.event.DomainEventSubscriberInformation;
 
 public final class RabbitMqQueueNameFormatter {
     public static String format(DomainEventSubscriberInformation information) {
-        return String.format(
-            "codelytv.%s.%s.%s",
-            information.contextName(),
-            information.moduleName(),
-            Utils.toSnake(information.className())
-        );
+        return information.formatRabbitMqQueueName();
     }
 
     public static String formatRetry(DomainEventSubscriberInformation information) {
