@@ -76,8 +76,6 @@ public final class RabbitMqDomainEventsConsumer {
             ));
         } catch (Exception error) {
             handleConsumptionError(message, queue);
-
-            throw error;
         }
     }
 
