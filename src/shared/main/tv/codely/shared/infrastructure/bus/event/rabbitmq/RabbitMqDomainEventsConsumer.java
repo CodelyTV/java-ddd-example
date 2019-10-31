@@ -11,16 +11,15 @@ import tv.codely.shared.domain.bus.event.DomainEvent;
 import tv.codely.shared.infrastructure.bus.event.DomainEventJsonDeserializer;
 import tv.codely.shared.infrastructure.bus.event.DomainEventSubscribersInformation;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 
 @Service
 public final class RabbitMqDomainEventsConsumer {
     private final String                            CONSUMER_NAME          = "domain_events_consumer";
-    private final DomainEventSubscribersInformation information;
+    private DomainEventSubscribersInformation information;
     private final DomainEventJsonDeserializer       deserializer;
-    private final ApplicationContext context;
+    private final ApplicationContext                context;
     private final HashMap<String, Object>           domainEventSubscribers = new HashMap<>();
     RabbitListenerEndpointRegistry registry;
 
@@ -47,37 +46,34 @@ public final class RabbitMqDomainEventsConsumer {
     }
 
     @RabbitListener(id = CONSUMER_NAME, autoStartup = "false")
-    public void consumer(Message message) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException, InstantiationException {
-        String serializedMessage = new String(message.getBody());
-        DomainEvent<?> domainEvent= deserializer.deserialize(serializedMessage);
+    public void consumer(Message message) throws Exception {
+        String         serializedMessage = new String(message.getBody());
+        DomainEvent<?> domainEvent       = deserializer.deserialize(serializedMessage);
 
-        String queue             = message.getMessageProperties().getConsumerQueue();
-
-        System.out.println(serializedMessage);
-        System.out.println(message.getMessageProperties().getConsumerQueue());
+        String queue = message.getMessageProperties().getConsumerQueue();
 
         Object subscriber = domainEventSubscribers.containsKey(queue)
             ? domainEventSubscribers.get(queue)
             : subscriberFor(queue);
 
-        System.out.println("VAAAAAAA");
-        System.out.println("VAAAAAAA");
-        System.out.println("VAAAAAAA");
-        System.out.println("VAAAAAAA");
-        System.out.println("VAAAAAAA");
-        Method sumInstanceMethod = subscriber.getClass().getMethod("on", domainEvent.getClass());
+        Method subscriberOnMethod = subscriber.getClass().getMethod("on", domainEvent.getClass());
 
         try {
-            sumInstanceMethod.invoke(subscriber, domainEvent);
+            subscriberOnMethod.invoke(subscriber, domainEvent);
         } catch (Exception error) {
-            System.out.println("IMPROVE THIS");
+            throw new Exception(String.format(
+                "The subscriber <%s> should implement a method `on` listening the domain event <%s>",
+                queue,
+                domainEvent.eventName()
+            ));
         }
-
-        System.out.println("asd");
-        System.out.println();
     }
 
-    private Object subscriberFor(String queue) {
+    public void withSubscribersInformation(DomainEventSubscribersInformation information) {
+        this.information = information;
+    }
+
+    private Object subscriberFor(String queue) throws Exception {
         String[] queueParts     = queue.split("\\.");
         String   subscriberName = Utils.toCamelFirstLower(queueParts[queueParts.length - 1]);
 
@@ -87,10 +83,7 @@ public final class RabbitMqDomainEventsConsumer {
 
             return subscriber;
         } catch (Exception e) {
-            System.out.println(String.join("\n", context.getBeanDefinitionNames()));
-            System.out.println(e.getMessage());
+            throw new Exception(String.format("There are not registered subscribers for <%s> queue", queue));
         }
-
-        return null;
     }
 }
