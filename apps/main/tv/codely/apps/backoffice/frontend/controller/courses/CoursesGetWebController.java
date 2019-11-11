@@ -14,6 +14,7 @@ public final class CoursesGetWebController {
         return new ModelAndView("pages/courses", new HashMap<String, Serializable>() {{
             put("title", "Courses");
             put("description", "Courses CodelyTV - Backoffice");
+            put("courses_counter", 5);
         }});
     }
 }
