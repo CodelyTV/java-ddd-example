@@ -16,6 +16,7 @@
 <@header/>
 
 <div class="container mx-auto px-4 p-5">
+    <h1 class="font-sans text-gray-800 text-center text-5xl mb-10"><@page_title/></h1>
     <@main/>
 </div>
 
