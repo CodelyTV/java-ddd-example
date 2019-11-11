@@ -23,7 +23,7 @@ public final class CoursesGetWebController {
     public ModelAndView index() throws QueryNotRegisteredError {
         CoursesCounterResponse counterResponse = bus.ask(new FindCoursesCounterQuery());
 
-        return new ModelAndView("pages/courses", new HashMap<String, Serializable>() {{
+        return new ModelAndView("pages/courses/courses", new HashMap<String, Serializable>() {{
             put("title", "Courses");
             put("description", "Courses CodelyTV - Backoffice");
             put("courses_counter", counterResponse.total());
