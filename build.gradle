@@ -135,6 +135,8 @@ mainClassName = 'tv.codely.apps.Starter'
 
 dependencies {
   implementation 'org.springframework.boot:spring-boot-starter-web:2.1.8.RELEASE'
+  implementation 'org.springframework:spring-context-support:5.2.1.RELEASE'
+  implementation 'org.freemarker:freemarker-gae:2.3.29'
 
   implementation project(":shared")
   implementation project(":backoffice")
