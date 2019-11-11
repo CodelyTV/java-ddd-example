@@ -25,11 +25,9 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Bean
     public ViewResolver getViewResolver() {
-
         FreeMarkerViewResolver resolver = new FreeMarkerViewResolver();
         resolver.setCache(false);
         resolver.setSuffix(".ftl");
-
         return resolver;
     }
 
@@ -38,6 +36,9 @@ public class WebConfig implements WebMvcConfigurer {
         FreeMarkerConfigurer configurer = new FreeMarkerConfigurer();
         configurer.setTemplateLoaderPath("classpath:/backoffice_frontend/templates/");
         configurer.setDefaultEncoding("UTF-8");
+//        configurer.setFreemarkerVariables(new HashMap<String, Object>() {{
+//            put("flash", new Flash());
+//        }});
 
         return configurer;
     }
