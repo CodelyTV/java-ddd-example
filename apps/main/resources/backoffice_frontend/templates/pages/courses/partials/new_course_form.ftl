@@ -5,8 +5,15 @@
             <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
                 Identificador
             </label>
-            <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                   id="grid-first-name" name="id" type="text" placeholder="En formado UUID" value="1fd9336b-14c7-4f6a-a290-3ded86a10278">
+            <input class="<#if errors['id']?? >border border-red-500</#if> appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                   id="grid-first-name" type="text" name="id" placeholder="En formado UUID"
+                   value="${(inputs['id'])!generated_uuid}">
+
+            <#if errors['id']?? >
+                <#list errors['id'] as errorMessage>
+                    <p class="text-red-500 text-xs italic">${errorMessage}</p>
+                </#list>
+            </#if>
         </div>
     </div>
     <div class="flex flex-wrap -mx-3 mb-6">
@@ -14,15 +21,28 @@
             <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
                 Nombre
             </label>
-            <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                   id="grid-first-name" name="name" type="text" placeholder="DDD en PHP">
+            <input class="<#if errors['name']?? >border border-red-500</#if> appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                   id="grid-first-name" type="text" name="name" placeholder="DDD en PHP"
+                   value="${(inputs['name'])!""}">
+
+            <#if errors['name']?? >
+                <#list errors['name'] as errorMessage>
+                    <p class="text-red-500 text-xs italic">${errorMessage}</p>
+                </#list>
+            </#if>
         </div>
         <div class="w-full md:w-1/2 px-3">
             <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
                 Duración (en inglés)
             </label>
-            <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                   id="grid-last-name" name="duration" type="text" placeholder="8 days">
+            <input class="<#if errors['duration']?? >border border-red-500</#if> appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                   id="grid-last-name" type="text" name="duration" placeholder="8 days"
+                   value="${(inputs['duration'])!""}">
+            <#if errors['duration']?? >
+                <#list errors['duration'] as errorMessage>
+                    <p class="text-red-500 text-xs italic">${errorMessage}</p>
+                </#list>
+            </#if>
         </div>
     </div>
     <div class="flex flex-wrap mb-6">
