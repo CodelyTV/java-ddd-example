@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.util.HashMap;
 
 public final class DomainEventJsonSerializer {
-    public static String serialize(DomainEvent<?> domainEvent) {
+    public static String serialize(DomainEvent domainEvent) {
         HashMap<String, Serializable> attributes = domainEvent.toPrimitives();
         attributes.put("id", domainEvent.aggregateId());
 

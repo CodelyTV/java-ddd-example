@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Objects;
 
-public final class CourseCreatedDomainEvent extends DomainEvent<CourseCreatedDomainEvent> {
+public final class CourseCreatedDomainEvent extends DomainEvent {
     private final String name;
     private final String duration;
 
