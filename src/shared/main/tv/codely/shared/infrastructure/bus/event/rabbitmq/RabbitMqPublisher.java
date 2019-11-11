@@ -16,7 +16,7 @@ public final class RabbitMqPublisher {
         this.rabbitTemplate = rabbitTemplate;
     }
 
-    public void publish(DomainEvent<?> domainEvent, String exchangeName) throws AmqpException {
+    public void publish(DomainEvent domainEvent, String exchangeName) throws AmqpException {
         String serializedDomainEvent = DomainEventJsonSerializer.serialize(domainEvent);
 
         Message message = new Message(

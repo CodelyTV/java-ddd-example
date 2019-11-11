@@ -7,11 +7,11 @@ import java.util.List;
 
 public final class DomainEventSubscriberInformation {
     private final Class<?>                              subscriberClass;
-    private final List<Class<? extends DomainEvent<?>>> subscribedEvents;
+    private final List<Class<? extends DomainEvent>> subscribedEvents;
 
     public DomainEventSubscriberInformation(
         Class<?> subscriberClass,
-        List<Class<? extends DomainEvent<?>>> subscribedEvents
+        List<Class<? extends DomainEvent>> subscribedEvents
     ) {
         this.subscriberClass  = subscriberClass;
         this.subscribedEvents = subscribedEvents;
@@ -39,7 +39,7 @@ public final class DomainEventSubscriberInformation {
         return nameParts[nameParts.length - 1];
     }
 
-    public List<Class<? extends DomainEvent<?>>> subscribedEvents() {
+    public List<Class<? extends DomainEvent>> subscribedEvents() {
         return subscribedEvents;
     }
 
