@@ -7,18 +7,14 @@ import tv.codely.shared.domain.bus.event.EventBus;
 @Service
 public final class CourseCreator {
     private final CourseRepository repository;
-    private final EventBus eventBus;
+    private final EventBus         eventBus;
 
     public CourseCreator(CourseRepository repository, EventBus eventBus) {
         this.repository = repository;
         this.eventBus   = eventBus;
     }
 
-    public void create(CreateCourseRequest request) {
-        CourseId       id       = new CourseId(request.id());
-        CourseName     name     = new CourseName(request.name());
-        CourseDuration duration = new CourseDuration(request.duration());
-
+    public void create(CourseId id, CourseName name, CourseDuration duration) {
         Course course = Course.create(id, name, duration);
 
         repository.save(course);
