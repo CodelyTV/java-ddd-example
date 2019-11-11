@@ -24,17 +24,11 @@ public final class MySqlCoursesCounterRepository extends HibernateRepository<Cou
 
     @Override
     public Optional<CoursesCounter> search() {
-
         CriteriaBuilder               builder  = sessionFactory.getCriteriaBuilder();
         CriteriaQuery<CoursesCounter> criteria = builder.createQuery(aggregateClass);
         criteria.from(aggregateClass);
         List<CoursesCounter> coursesCounter = sessionFactory.getCurrentSession().createQuery(criteria).getResultList();
 
         return 0 == coursesCounter.size() ? Optional.empty() : Optional.ofNullable(coursesCounter.get(0));
-
-//        return byId(new CoursesCounterId("2a4743fc-12a1-4563-9bb7-b02f398e5a88"));
-//        List<CoursesCounter> coursesCounter = sessionFactory.getCurrentSession().createQuery("FROM courses_counter").list();
-
-//        return 0 == coursesCounter.size() ? Optional.empty() : Optional.ofNullable(coursesCounter.get(0));
     }
 }

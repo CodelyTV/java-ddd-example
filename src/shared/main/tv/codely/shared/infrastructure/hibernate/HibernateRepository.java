@@ -17,7 +17,7 @@ public abstract class HibernateRepository<T> {
     }
 
     protected void persist(T entity) {
-        sessionFactory.getCurrentSession().save(entity);
+        sessionFactory.getCurrentSession().saveOrUpdate(entity);
     }
 
     protected Optional<T> byId(Identifier id) {
