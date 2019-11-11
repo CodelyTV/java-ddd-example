@@ -2,10 +2,7 @@ package tv.codely.shared.infrastructure.bus.query;
 
 import org.springframework.context.ApplicationContext;
 import tv.codely.shared.domain.Service;
-import tv.codely.shared.domain.bus.query.Query;
-import tv.codely.shared.domain.bus.query.QueryBus;
-import tv.codely.shared.domain.bus.query.QueryHandler;
-import tv.codely.shared.domain.bus.query.QueryNotRegisteredError;
+import tv.codely.shared.domain.bus.query.*;
 
 @Service
 public final class InMemoryQueryBus implements QueryBus {
@@ -18,11 +15,11 @@ public final class InMemoryQueryBus implements QueryBus {
     }
 
     @Override
-    public void ask(Query query) throws QueryNotRegisteredError {
+    public Response ask(Query query) throws QueryNotRegisteredError {
         Class<? extends QueryHandler> queryHandlerClass = information.search(query.getClass());
 
         QueryHandler handler = context.getBean(queryHandlerClass);
 
-        handler.handle(query);
+        return handler.handle(query);
     }
 }
