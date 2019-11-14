@@ -1,4 +1,4 @@
-package tv.codely.mooc.shared.infrastructure.persistence;
+package tv.codely.backoffice.shared.infrastructure.persistence;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,12 +14,12 @@ import java.io.IOException;
 
 @Configuration
 @EnableTransactionManagement
-public class MoocHibernateConfiguration {
+public class BackofficeHibernateConfiguration {
     private final HibernateConfigurationFactory factory;
     private final Parameter                     config;
-    private final String                        CONTEXT_NAME = "mooc";
+    private final String                        CONTEXT_NAME = "backoffice";
 
-    public MoocHibernateConfiguration(HibernateConfigurationFactory factory, Parameter config) {
+    public BackofficeHibernateConfiguration(HibernateConfigurationFactory factory, Parameter config) {
         this.factory = factory;
         this.config  = config;
     }
@@ -37,11 +37,11 @@ public class MoocHibernateConfiguration {
     @Bean
     public DataSource dataSource() throws IOException, ParameterNotExist {
         return factory.dataSource(
-            config.get("MOOC_DATABASE_HOST"),
-            config.getInt("MOOC_DATABASE_PORT"),
-            config.get("MOOC_DATABASE_NAME"),
-            config.get("MOOC_DATABASE_USER"),
-            config.get("MOOC_DATABASE_PASSWORD")
+            config.get("BACKOFFICE_DATABASE_HOST"),
+            config.getInt("BACKOFFICE_DATABASE_PORT"),
+            config.get("BACKOFFICE_DATABASE_NAME"),
+            config.get("BACKOFFICE_DATABASE_USER"),
+            config.get("BACKOFFICE_DATABASE_PASSWORD")
         );
     }
 }

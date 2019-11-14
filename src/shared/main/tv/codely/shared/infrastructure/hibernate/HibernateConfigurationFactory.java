@@ -4,16 +4,26 @@ import org.apache.tomcat.dbcp.dbcp2.BasicDataSource;
 import org.hibernate.cfg.AvailableSettings;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
+import org.springframework.core.io.support.ResourcePatternResolver;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
+import tv.codely.shared.domain.Service;
 
 import javax.sql.DataSource;
 import java.io.File;
+import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
+@Service
 public final class HibernateConfigurationFactory {
+    private final ResourcePatternResolver resourceResolver;
+
+    public HibernateConfigurationFactory(ResourcePatternResolver resourceResolver) {
+        this.resourceResolver = resourceResolver;
+    }
+
     public PlatformTransactionManager hibernateTransactionManager(LocalSessionFactoryBean sessionFactory) {
         HibernateTransactionManager transactionManager = new HibernateTransactionManager();
         transactionManager.setSessionFactory(sessionFactory.getObject());
@@ -33,7 +43,13 @@ public final class HibernateConfigurationFactory {
         return sessionFactory;
     }
 
-    public DataSource dataSource(String host, Integer port, String databaseName, String username, String password) {
+    public DataSource dataSource(
+        String host,
+        Integer port,
+        String databaseName,
+        String username,
+        String password
+    ) throws IOException {
         BasicDataSource dataSource = new BasicDataSource();
         dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
         dataSource.setUrl(
@@ -46,6 +62,14 @@ public final class HibernateConfigurationFactory {
         );
         dataSource.setUsername(username);
         dataSource.setPassword(password);
+
+        Resource mysqlResource  = resourceResolver.getResource(String.format(
+            "classpath:database/%s.sql",
+            databaseName
+        ));
+        String   mysqlSentences = new Scanner(mysqlResource.getInputStream(), "UTF-8").useDelimiter("\\A").next();
+
+        dataSource.setConnectionInitSqls(new ArrayList<>(Arrays.asList(mysqlSentences.split(";"))));
 
         return dataSource;
     }

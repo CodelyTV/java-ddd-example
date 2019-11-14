@@ -25,7 +25,7 @@ public final class CoursesPutController {
     ) throws CommandNotRegisteredError {
         bus.dispatch(new CreateCourseCommand(id, request.name(), request.duration()));
 
-        return new ResponseEntity(HttpStatus.CREATED);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 }
 
