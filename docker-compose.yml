@@ -1,0 +1,40 @@
+version: '3'
+
+services:
+  mysql:
+    container_name: codelytv-java_ddd_skeleton-mooc-mysql
+    image: mysql:8
+    ports:
+      - "3360:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+    command: ["--default-authentication-plugin=mysql_native_password"]
+
+  rabbitmq:
+    container_name: codelytv-java_ddd_skeleton-rabbitmq
+    image: 'rabbitmq:3.7-management'
+    restart: unless-stopped
+    ports:
+      - 5630:5672
+      - 8090:15672
+    environment:
+      - RABBITMQ_DEFAULT_USER=codelytv
+      - RABBITMQ_DEFAULT_PASS=c0d3ly
+
+  java:
+    container_name: codelytv-ddd_skeleton-java
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - "8030:8080"
+    volumes:
+      - .:/app:delegated
+    env_file:
+      - .env
+    tty: true
+    depends_on:
+      - mysql
+      - rabbitmq

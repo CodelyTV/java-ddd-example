@@ -11,6 +11,8 @@ import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import tv.codely.shared.infrastructure.config.Parameter;
+import tv.codely.shared.infrastructure.config.ParameterNotExist;
 
 import javax.sql.DataSource;
 import java.io.File;
@@ -20,14 +22,14 @@ import java.util.stream.Collectors;
 @Configuration
 @EnableTransactionManagement
 public class MoocHibernateConfiguration {
-    private final Dotenv config;
+    private final Parameter config;
 
-    public MoocHibernateConfiguration(Dotenv config) {
+    public MoocHibernateConfiguration(Parameter config) {
         this.config = config;
     }
 
     @Bean
-    public LocalSessionFactoryBean sessionFactory() {
+    public LocalSessionFactoryBean sessionFactory() throws ParameterNotExist {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
         sessionFactory.setDataSource(dataSource());
         sessionFactory.setHibernateProperties(hibernateProperties());
@@ -83,7 +85,7 @@ public class MoocHibernateConfiguration {
     }
 
     @Bean
-    public DataSource dataSource() {
+    public DataSource dataSource() throws ParameterNotExist {
         BasicDataSource dataSource = new BasicDataSource();
         dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
         dataSource.setUrl(
@@ -101,7 +103,7 @@ public class MoocHibernateConfiguration {
     }
 
     @Bean
-    public PlatformTransactionManager hibernateTransactionManager() {
+    public PlatformTransactionManager hibernateTransactionManager() throws ParameterNotExist {
         HibernateTransactionManager transactionManager = new HibernateTransactionManager();
         transactionManager.setSessionFactory(sessionFactory().getObject());
         return transactionManager;
