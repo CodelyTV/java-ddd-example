@@ -20,11 +20,16 @@ class MySqlEventBusShould extends MoocContextInfrastructureTestCase {
     private MySqlDomainEventsConsumer consumer;
 
     @Test
-    void publish_and_consume_domain_events_from_msql() {
+    void publish_and_consume_domain_events_from_msql() throws InterruptedException {
         CourseCreatedDomainEvent domainEvent = CourseCreatedDomainEventMother.random();
 
         eventBus.publish(Collections.singletonList(domainEvent));
 
-        consumer.consume();
+        Thread consumerProcess = new Thread(() -> consumer.consume());
+        consumerProcess.start();
+
+        Thread.sleep(100);
+
+        consumer.stop();
     }
 }

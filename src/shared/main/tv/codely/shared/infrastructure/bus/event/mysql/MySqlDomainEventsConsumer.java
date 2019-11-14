@@ -21,7 +21,8 @@ public class MySqlDomainEventsConsumer {
     private final SessionFactory            sessionFactory;
     private final DomainEventsInformation   domainEventsInformation;
     private final SpringApplicationEventBus bus;
-    private final Integer                   CHUNKS    = 200;
+    private final Integer                   CHUNKS     = 200;
+    private       Boolean                   shouldStop = false;
 
     public MySqlDomainEventsConsumer(
         SessionFactory sessionFactory,
@@ -35,7 +36,7 @@ public class MySqlDomainEventsConsumer {
 
     @Transactional
     public void consume() {
-        while (true) {
+        while (!shouldStop) {
             NativeQuery query = sessionFactory.getCurrentSession().createSQLQuery(
                 "SELECT * FROM domain_events ORDER BY occurred_on ASC LIMIT :chunk"
             );
@@ -60,6 +61,10 @@ public class MySqlDomainEventsConsumer {
 
             sessionFactory.getCurrentSession().clear();
         }
+    }
+
+    public void stop() {
+        shouldStop = true;
     }
 
     private void executeSubscribers(
