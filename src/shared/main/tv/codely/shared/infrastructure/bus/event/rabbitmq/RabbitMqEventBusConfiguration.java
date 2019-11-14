@@ -1,10 +1,14 @@
 package tv.codely.shared.infrastructure.bus.event.rabbitmq;
 
+import io.github.cdimascio.dotenv.Dotenv;
 import org.springframework.amqp.core.*;
+import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import tv.codely.shared.infrastructure.bus.event.DomainEventSubscribersInformation;
 import tv.codely.shared.infrastructure.bus.event.DomainEventsInformation;
+import tv.codely.shared.infrastructure.config.Parameter;
+import tv.codely.shared.infrastructure.config.ParameterNotExist;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -16,15 +20,30 @@ import java.util.stream.Collectors;
 public class RabbitMqEventBusConfiguration {
     private final DomainEventSubscribersInformation domainEventSubscribersInformation;
     private final DomainEventsInformation           domainEventsInformation;
+    private final Parameter config;
     private final String                            exchangeName;
 
     public RabbitMqEventBusConfiguration(
         DomainEventSubscribersInformation domainEventSubscribersInformation,
-        DomainEventsInformation domainEventsInformation
-    ) {
+        DomainEventsInformation domainEventsInformation,
+        Parameter config
+    ) throws ParameterNotExist {
         this.domainEventSubscribersInformation = domainEventSubscribersInformation;
         this.domainEventsInformation           = domainEventsInformation;
-        this.exchangeName                      = "domain_events";
+        this.config                            = config;
+        this.exchangeName                      = config.get("RABBITMQ_EXCHANGE");
+    }
+
+    @Bean
+    public CachingConnectionFactory connection() throws ParameterNotExist {
+        CachingConnectionFactory factory = new CachingConnectionFactory();
+
+        factory.setHost(config.get("RABBITMQ_HOST"));
+        factory.setPort(config.getInt("RABBITMQ_PORT"));
+        factory.setUsername(config.get("RABBITMQ_LOGIN"));
+        factory.setPassword(config.get("RABBITMQ_PASSWORD"));
+
+        return factory;
     }
 
     @Bean

@@ -1,5 +1,6 @@
 package tv.codely.mooc.shared.infrastructure.persistence;
 
+import io.github.cdimascio.dotenv.Dotenv;
 import org.apache.tomcat.dbcp.dbcp2.BasicDataSource;
 import org.hibernate.cfg.AvailableSettings;
 import org.springframework.context.annotation.Bean;
@@ -19,6 +20,12 @@ import java.util.stream.Collectors;
 @Configuration
 @EnableTransactionManagement
 public class MoocHibernateConfiguration {
+    private final Dotenv config;
+
+    public MoocHibernateConfiguration(Dotenv config) {
+        this.config = config;
+    }
+
     @Bean
     public LocalSessionFactoryBean sessionFactory() {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
@@ -80,9 +87,15 @@ public class MoocHibernateConfiguration {
         BasicDataSource dataSource = new BasicDataSource();
         dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
         dataSource.setUrl(
-            "jdbc:mysql://localhost:3306/mooc?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC");
-        dataSource.setUsername("root");
-        dataSource.setPassword("");
+            String.format(
+                "jdbc:mysql://%s:%s/%s?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC",
+                config.get("MOOC_DATABASE_HOST"),
+                config.get("MOOC_DATABASE_PORT"),
+                config.get("MOOC_DATABASE_NAME")
+            )
+        );
+        dataSource.setUsername(config.get("MOOC_DATABASE_USER"));
+        dataSource.setPassword(config.get("MOOC_DATABASE_PASSWORD"));
 
         return dataSource;
     }
