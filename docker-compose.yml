@@ -9,6 +9,11 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=
       - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+    entrypoint:
+      sh -c "
+        echo 'CREATE DATABASE IF NOT EXISTS mooc;' > /docker-entrypoint-initdb.d/init.sql;
+        /usr/local/bin/docker-entrypoint.sh --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+      "
     command: ["--default-authentication-plugin=mysql_native_password"]
 
   rabbitmq:

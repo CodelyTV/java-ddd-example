@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
+import org.springframework.core.io.support.ResourcePatternResolver;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -16,6 +17,8 @@ import tv.codely.shared.infrastructure.config.ParameterNotExist;
 
 import javax.sql.DataSource;
 import java.io.File;
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -23,13 +26,15 @@ import java.util.stream.Collectors;
 @EnableTransactionManagement
 public class MoocHibernateConfiguration {
     private final Parameter config;
+    private final ResourcePatternResolver resourceResolver;
 
-    public MoocHibernateConfiguration(Parameter config) {
+    public MoocHibernateConfiguration(Parameter config, ResourcePatternResolver resourceResolver) {
         this.config = config;
+        this.resourceResolver = resourceResolver;
     }
 
     @Bean
-    public LocalSessionFactoryBean sessionFactory() throws ParameterNotExist {
+    public LocalSessionFactoryBean sessionFactory() throws ParameterNotExist, IOException, URISyntaxException {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
         sessionFactory.setDataSource(dataSource());
         sessionFactory.setHibernateProperties(hibernateProperties());
@@ -85,7 +90,7 @@ public class MoocHibernateConfiguration {
     }
 
     @Bean
-    public DataSource dataSource() throws ParameterNotExist {
+    public DataSource dataSource() throws ParameterNotExist, IOException {
         BasicDataSource dataSource = new BasicDataSource();
         dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
         dataSource.setUrl(
@@ -99,11 +104,16 @@ public class MoocHibernateConfiguration {
         dataSource.setUsername(config.get("MOOC_DATABASE_USER"));
         dataSource.setPassword(config.get("MOOC_DATABASE_PASSWORD"));
 
+        Resource mysqlResource = resourceResolver.getResource("classpath:database/mooc.sql");
+        String mysqlSentences  = new Scanner(mysqlResource.getInputStream(), "UTF-8").useDelimiter("\\A").next();
+
+        dataSource.setConnectionInitSqls(new ArrayList<>(Arrays.asList(mysqlSentences.split(";"))));
+
         return dataSource;
     }
 
     @Bean
-    public PlatformTransactionManager hibernateTransactionManager() throws ParameterNotExist {
+    public PlatformTransactionManager hibernateTransactionManager() throws ParameterNotExist, IOException, URISyntaxException {
         HibernateTransactionManager transactionManager = new HibernateTransactionManager();
         transactionManager.setSessionFactory(sessionFactory().getObject());
         return transactionManager;
