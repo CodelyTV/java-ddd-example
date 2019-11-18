@@ -5,7 +5,33 @@ Content-Type: application/json
 {
   "query": {
     "term": {
-      "name": "Pepe"
+      "name": "git avanzado"
+    }
+  }
+}
+
+###
+
+# ELASTIC - debug
+POST localhost:9200/backoffice_courses/_search
+Content-Type: application/json
+
+{
+  "from": 0,
+  "size": 1000,
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "term": {
+            "name": {
+              "value": "pepe2"
+            }
+          }
+        }
+      ],
+      "adjust_pure_negative": true,
+      "boost": 1.0
     }
   }
 }

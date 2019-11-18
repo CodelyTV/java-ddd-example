@@ -18,5 +18,9 @@ public enum OrderType {
     public boolean isAsc() {
         return this == ASC;
     }
+
+    public String value() {
+        return type;
+    }
 }
 
