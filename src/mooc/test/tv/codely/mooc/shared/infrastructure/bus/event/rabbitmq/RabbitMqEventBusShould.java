@@ -4,7 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import tv.codely.mooc.MoocContextInfrastructureTestCase;
-import tv.codely.mooc.courses.domain.CourseCreatedDomainEvent;
+import tv.codely.shared.domain.course.CourseCreatedDomainEvent;
 import tv.codely.mooc.courses.domain.CourseCreatedDomainEventMother;
 import tv.codely.shared.infrastructure.bus.event.DomainEventSubscriberInformation;
 import tv.codely.shared.infrastructure.bus.event.DomainEventSubscribersInformation;

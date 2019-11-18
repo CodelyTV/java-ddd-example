@@ -1,5 +1,7 @@
 package tv.codely.mooc.courses.domain;
 
+import tv.codely.shared.domain.course.CourseCreatedDomainEvent;
+
 public final class CourseCreatedDomainEventMother {
     public static CourseCreatedDomainEvent create(CourseId id, CourseName name, CourseDuration duration) {
         return new CourseCreatedDomainEvent(id.value(), name.value(), duration.value());

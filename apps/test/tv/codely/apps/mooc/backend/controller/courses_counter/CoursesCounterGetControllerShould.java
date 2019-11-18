@@ -2,7 +2,7 @@ package tv.codely.apps.mooc.backend.controller.courses_counter;
 
 import org.junit.jupiter.api.Test;
 import tv.codely.apps.mooc.backend.controller.ApplicationTestCase;
-import tv.codely.mooc.courses.domain.CourseCreatedDomainEvent;
+import tv.codely.shared.domain.course.CourseCreatedDomainEvent;
 
 public final class CoursesCounterGetControllerShould extends ApplicationTestCase {
     @Test

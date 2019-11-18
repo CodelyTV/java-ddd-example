@@ -1,13 +1,10 @@
 package tv.codely.backoffice.shared.infrastructure.persistence;
 
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.FilterType;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-import tv.codely.shared.domain.Service;
 import tv.codely.shared.infrastructure.config.Parameter;
 import tv.codely.shared.infrastructure.config.ParameterNotExist;
 import tv.codely.shared.infrastructure.hibernate.HibernateConfigurationFactory;
@@ -27,12 +24,12 @@ public class BackofficeHibernateConfiguration {
         this.config  = config;
     }
 
-    @Bean("backoffice-platform_transaction_manager")
+    @Bean("backoffice-transaction_manager")
     public PlatformTransactionManager hibernateTransactionManager() throws IOException, ParameterNotExist {
         return factory.hibernateTransactionManager(sessionFactory());
     }
 
-    @Bean("backoffice-local_session_factory")
+    @Bean("backoffice-session_factory")
     public LocalSessionFactoryBean sessionFactory() throws IOException, ParameterNotExist {
         return factory.sessionFactory(CONTEXT_NAME, dataSource());
     }

@@ -1,0 +1,14 @@
+<?xml version = "1.0" encoding = "utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="tv.codely.backoffice.courses.domain.BackofficeCourse" table="courses">
+        <id name="id" column="id" access="field" length="36" />
+
+        <property name="name" column="name" type="string" access="field" />
+
+        <property name="duration" column="duration" type="string" access="field" />
+    </class>
+</hibernate-mapping>

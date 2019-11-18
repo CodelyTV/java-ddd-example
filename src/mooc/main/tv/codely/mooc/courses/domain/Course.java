@@ -1,6 +1,7 @@
 package tv.codely.mooc.courses.domain;
 
 import tv.codely.shared.domain.AggregateRoot;
+import tv.codely.shared.domain.course.CourseCreatedDomainEvent;
 
 import java.util.Objects;
 
