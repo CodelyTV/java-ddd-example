@@ -3,10 +3,8 @@ package tv.codely.shared.infrastructure.hibernate;
 import org.hibernate.SessionFactory;
 import tv.codely.shared.domain.Identifier;
 
-import javax.transaction.Transactional;
 import java.util.Optional;
 
-@Transactional
 public abstract class HibernateRepository<T> {
     protected final SessionFactory sessionFactory;
     protected final Class<T>       aggregateClass;

@@ -13,3 +13,10 @@ test:
 
 run:
 	@./gradlew :run
+
+# Start the app
+start-mooc_backend:
+	@./gradlew :run --args='mooc_backend server'
+
+start-backoffice_frontend:
+	@./gradlew :run --args='backoffice_frontend server'

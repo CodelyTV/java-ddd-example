@@ -2,7 +2,7 @@ package tv.codely.shared.infrastructure.bus.event.mysql;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.query.NativeQuery;
-import org.springframework.context.annotation.Primary;
+import org.springframework.beans.factory.annotation.Qualifier;
 import tv.codely.shared.domain.Service;
 import tv.codely.shared.domain.Utils;
 import tv.codely.shared.domain.bus.event.DomainEvent;
@@ -16,7 +16,7 @@ import java.util.List;
 public final class MySqlEventBus implements EventBus {
     private final SessionFactory sessionFactory;
 
-    public MySqlEventBus(SessionFactory sessionFactory) {
+    public MySqlEventBus(@Qualifier("mooc-session_factory")  SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
 
