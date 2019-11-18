@@ -14,4 +14,7 @@
     </div>
 
     <#include "partials/new_course_form.ftl">
+    <div class="clearfix mb-10"></div>
+    <hr class="mb-10">
+    <#include "partials/list_courses.ftl">
 </#macro>
