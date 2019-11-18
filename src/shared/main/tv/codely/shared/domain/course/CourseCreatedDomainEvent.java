@@ -1,4 +1,4 @@
-package tv.codely.mooc.courses.domain;
+package tv.codely.shared.domain.course;
 
 import tv.codely.shared.domain.bus.event.DomainEvent;
 
@@ -64,6 +64,14 @@ public final class CourseCreatedDomainEvent extends DomainEvent {
             (String) body.get("name"),
             (String) body.get("duration")
         );
+    }
+
+    public String name() {
+        return name;
+    }
+
+    public String duration() {
+        return duration;
     }
 
     @Override

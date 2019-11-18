@@ -8,8 +8,6 @@ import tv.codely.mooc.courses_counter.domain.CoursesCounterRepository;
 import tv.codely.shared.domain.Service;
 import tv.codely.shared.infrastructure.hibernate.HibernateRepository;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,10 +25,7 @@ public class MySqlCoursesCounterRepository extends HibernateRepository<CoursesCo
 
     @Override
     public Optional<CoursesCounter> search() {
-        CriteriaBuilder               builder  = sessionFactory.getCriteriaBuilder();
-        CriteriaQuery<CoursesCounter> criteria = builder.createQuery(aggregateClass);
-        criteria.from(aggregateClass);
-        List<CoursesCounter> coursesCounter = sessionFactory.getCurrentSession().createQuery(criteria).getResultList();
+        List<CoursesCounter> coursesCounter = all();
 
         return 0 == coursesCounter.size() ? Optional.empty() : Optional.ofNullable(coursesCounter.get(0));
     }

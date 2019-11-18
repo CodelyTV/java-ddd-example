@@ -1,4 +1,4 @@
-CREATE TABLE `courses` (
+CREATE TABLE IF NOT EXISTS `courses` (
     `id` CHAR(36) NOT NULL,
     `name` VARCHAR(255) NOT NULL,
     `duration` VARCHAR(255) NOT NULL,

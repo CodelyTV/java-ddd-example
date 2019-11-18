@@ -2,7 +2,7 @@ package tv.codely.mooc.courses_counter.application.increment;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import tv.codely.mooc.courses.domain.CourseCreatedDomainEvent;
+import tv.codely.shared.domain.course.CourseCreatedDomainEvent;
 import tv.codely.mooc.courses.domain.CourseCreatedDomainEventMother;
 import tv.codely.mooc.courses.domain.CourseId;
 import tv.codely.mooc.courses.domain.CourseIdMother;
