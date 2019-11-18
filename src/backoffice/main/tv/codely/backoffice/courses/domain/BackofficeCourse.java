@@ -1,5 +1,9 @@
 package tv.codely.backoffice.courses.domain;
 
+import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
+
 public final class BackofficeCourse {
     private final String id;
     private final String name;
@@ -17,6 +21,14 @@ public final class BackofficeCourse {
         this.duration = duration;
     }
 
+    public static BackofficeCourse fromPrimitives(Map<String, Object> plainData) {
+        return new BackofficeCourse(
+            (String) plainData.get("id"),
+            (String) plainData.get("name"),
+            (String) plainData.get("duration")
+        );
+    }
+
     public String id() {
         return id;
     }
@@ -27,5 +39,13 @@ public final class BackofficeCourse {
 
     public String duration() {
         return duration;
+    }
+
+    public HashMap<String, Serializable> toPrimitives() {
+        return new HashMap<String, Serializable>() {{
+            put("id", id);
+            put("name", name);
+            put("duration", duration);
+        }};
     }
 }

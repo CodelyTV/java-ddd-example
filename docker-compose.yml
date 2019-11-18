@@ -27,6 +27,16 @@ services:
       - RABBITMQ_DEFAULT_USER=codelytv
       - RABBITMQ_DEFAULT_PASS=c0d3ly
 
+  elasticsearch:
+    container_name: codelytv-java_ddd_skeleton-elasticsearch
+    image: 'elasticsearch:6.8.4'
+    restart: unless-stopped
+    ports:
+      - 9300:9300
+      - 9200:9200
+    environment:
+      - discovery.type=single-node
+
   java:
     container_name: codelytv-ddd_skeleton-java
     build:
