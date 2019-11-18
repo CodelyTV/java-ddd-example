@@ -1,14 +1,18 @@
 package tv.codely.apps.backoffice.frontend.controller.courses;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import tv.codely.backoffice.courses.application.BackofficeCoursesResponse;
-import tv.codely.backoffice.courses.application.search_all.SearchAllBackofficeCoursesQuery;
+import tv.codely.backoffice.courses.application.search_by_criteria.SearchBackofficeCoursesByCriteriaQuery;
 import tv.codely.shared.domain.bus.query.QueryBus;
 import tv.codely.shared.domain.bus.query.QueryNotRegisteredError;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -20,13 +24,41 @@ public final class ApiCoursesGetController {
     }
 
     @GetMapping("/api/courses")
-    public List<HashMap<String, String>> index() throws QueryNotRegisteredError {
-        BackofficeCoursesResponse courses = bus.ask(new SearchAllBackofficeCoursesQuery());
+    public List<HashMap<String, String>> index(@RequestParam HashMap<String, Serializable> params) throws QueryNotRegisteredError {
+        BackofficeCoursesResponse courses = bus.ask(
+            new SearchBackofficeCoursesByCriteriaQuery(
+                parseFilters(params),
+                Optional.ofNullable((String) params.get("order_by")),
+                Optional.ofNullable((String) params.get("order")),
+                Optional.ofNullable((Integer) params.get("limit")),
+                Optional.ofNullable((Integer) params.get("offset"))
+            )
+        );
 
         return courses.courses().stream().map(response -> new HashMap<String, String>() {{
             put("id", response.id());
             put("name", response.name());
             put("duration", response.duration());
         }}).collect(Collectors.toList());
+    }
+
+    private List<HashMap<String, String>> parseFilters(HashMap<String, Serializable> params) {
+        int maxParams = params.size();
+
+        List<HashMap<String, String>> filters = new ArrayList<>();
+
+        for (int possibleFilterKey = 0; possibleFilterKey < maxParams; possibleFilterKey++) {
+            if (params.containsKey(String.format("filters[%s][field]", possibleFilterKey))) {
+                int key = possibleFilterKey;
+
+                filters.add(new HashMap<String, String>() {{
+                    put("field", (String) params.get(String.format("filters[%s][field]", key)));
+                    put("operator", (String) params.get(String.format("filters[%s][operator]", key)));
+                    put("value", (String) params.get(String.format("filters[%s][value]", key)));
+                }});
+            }
+        }
+
+        return filters;
     }
 }
