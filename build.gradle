@@ -16,11 +16,15 @@ allprojects {
     set('springCloudVersion', "Hoxton.M3")
   }
 
+  ext {
+    set('elasticsearch.version', '6.8.4')
+  }
+
   dependencies {
     // Prod
     implementation 'org.apache.logging.log4j:log4j-core:2.12.1'
+    implementation 'org.apache.logging.log4j:log4j-api:2.12.1'
     implementation 'com.vlkan.log4j2:log4j2-logstash-layout:0.19'
-
     implementation 'io.github.cdimascio:java-dotenv:5.1.3'
 
     implementation 'org.hibernate:hibernate-core:5.4.5.Final'
@@ -30,7 +34,8 @@ allprojects {
     implementation 'javax.xml.bind:jaxb-api:2.3.1'
     implementation 'org.reflections:reflections:0.9.11'
     implementation 'org.springframework.boot:spring-boot-starter-amqp'
-
+    implementation 'org.elasticsearch.client:elasticsearch-rest-client:6.8.4'
+    implementation 'org.elasticsearch.client:elasticsearch-rest-high-level-client:6.8.4'
     runtime 'mysql:mysql-connector-java:8.0.17'
 
     // Test

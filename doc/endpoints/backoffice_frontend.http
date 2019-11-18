@@ -1,0 +1,31 @@
+# ELASTIC - Search
+POST localhost:9200/backoffice_courses/_search
+Content-Type: application/json
+
+{
+  "query": {
+    "term": {
+      "name": "Pepe"
+    }
+  }
+}
+
+###
+# ELASTIC - Search
+POST localhost:9200/backoffice_courses/_search
+Content-Type: application/json
+
+###
+
+PUT localhost:9200/backoffice_courses/_settings
+Content-Type: application/json
+
+{
+  "index": {
+    "blocks": {
+      "read_only_allow_delete": "false"
+    }
+  }
+}
+
+###
