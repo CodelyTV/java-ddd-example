@@ -31,4 +31,8 @@ public final class Criteria {
     public Optional<Integer> offset() {
         return offset;
     }
+
+    public boolean hasFilters() {
+        return filters.filters().size() > 0;
+    }
 }

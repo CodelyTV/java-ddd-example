@@ -29,7 +29,7 @@ public final class ElasticsearchBackofficeCourseRepository extends Elasticsearch
 
     @Override
     public List<BackofficeCourse> matching(Criteria criteria) {
-        return searchAllInElastic(BackofficeCourse::fromPrimitives);
+        return searchByCriteria(criteria, BackofficeCourse::fromPrimitives);
     }
 
     @Override
