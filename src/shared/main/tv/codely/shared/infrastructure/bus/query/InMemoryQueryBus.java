@@ -15,7 +15,7 @@ public final class InMemoryQueryBus implements QueryBus {
     }
 
     @Override
-    public Response ask(Query query) throws QueryNotRegisteredError {
+    public Response ask(Query query) throws QueryNotRegisteredError, QueryHandlerExecutionError {
         Class<? extends QueryHandler> queryHandlerClass = information.search(query.getClass());
 
         QueryHandler handler = context.getBean(queryHandlerClass);

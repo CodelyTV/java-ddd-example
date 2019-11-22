@@ -20,6 +20,10 @@ public final class Order {
         return new Order(new OrderBy(""), OrderType.NONE);
     }
 
+    public static Order desc(String orderBy) {
+        return new Order(new OrderBy(orderBy), OrderType.DESC);
+    }
+
     public OrderBy orderBy() {
         return orderBy;
     }

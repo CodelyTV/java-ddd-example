@@ -9,7 +9,6 @@ public final class Criteria {
     private final Optional<Integer> offset;
 
     public Criteria(Filters filters, Order order, Optional<Integer> limit, Optional<Integer> offset) {
-
         this.filters = filters;
         this.order   = order;
         this.limit   = limit;

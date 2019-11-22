@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import tv.codely.mooc.courses.application.create.CreateCourseCommand;
 import tv.codely.shared.domain.bus.command.CommandBus;
+import tv.codely.shared.domain.bus.command.CommandHandlerExecutionError;
 import tv.codely.shared.domain.bus.command.CommandNotRegisteredError;
 
 @RestController
@@ -22,7 +23,7 @@ public final class CoursesPutController {
     public ResponseEntity<String> index(
         @PathVariable String id,
         @RequestBody Request request
-    ) throws CommandNotRegisteredError {
+    ) throws CommandNotRegisteredError, CommandHandlerExecutionError {
         bus.dispatch(new CreateCourseCommand(id, request.name(), request.duration()));
 
         return new ResponseEntity<>(HttpStatus.CREATED);

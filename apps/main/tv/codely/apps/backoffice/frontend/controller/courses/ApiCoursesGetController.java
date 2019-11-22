@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 import tv.codely.backoffice.courses.application.BackofficeCoursesResponse;
 import tv.codely.backoffice.courses.application.search_by_criteria.SearchBackofficeCoursesByCriteriaQuery;
 import tv.codely.shared.domain.bus.query.QueryBus;
+import tv.codely.shared.domain.bus.query.QueryHandlerExecutionError;
 import tv.codely.shared.domain.bus.query.QueryNotRegisteredError;
 
 import java.io.Serializable;
@@ -24,7 +25,7 @@ public final class ApiCoursesGetController {
     }
 
     @GetMapping("/api/courses")
-    public List<HashMap<String, String>> index(@RequestParam HashMap<String, Serializable> params) throws QueryNotRegisteredError {
+    public List<HashMap<String, String>> index(@RequestParam HashMap<String, Serializable> params) throws QueryNotRegisteredError, QueryHandlerExecutionError {
         BackofficeCoursesResponse courses = bus.ask(
             new SearchBackofficeCoursesByCriteriaQuery(
                 parseFilters(params),
