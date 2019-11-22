@@ -2,6 +2,9 @@
 
 all: build
 
+up:
+	@docker-compose up -d
+
 build:
 	@./gradlew build --warning-mode all
 
