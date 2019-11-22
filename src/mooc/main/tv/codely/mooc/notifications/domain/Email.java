@@ -2,6 +2,8 @@ package tv.codely.mooc.notifications.domain;
 
 import tv.codely.shared.domain.AggregateRoot;
 
+import java.util.Objects;
+
 public abstract class Email extends AggregateRoot {
     private final EmailId id;
     private final String  from;
@@ -35,5 +37,26 @@ public abstract class Email extends AggregateRoot {
 
     public String body() {
         return body;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Email email = (Email) o;
+        return id.equals(email.id) &&
+               from.equals(email.from) &&
+               to.equals(email.to) &&
+               subject.equals(email.subject) &&
+               body.equals(email.body);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, from, to, subject, body);
     }
 }

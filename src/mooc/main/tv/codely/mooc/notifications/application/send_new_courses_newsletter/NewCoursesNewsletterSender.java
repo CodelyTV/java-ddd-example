@@ -35,10 +35,13 @@ public final class NewCoursesNewsletterSender {
     }
 
     public void send() throws QueryNotRegisteredError, QueryHandlerExecutionError {
-        StudentsResponse students = queryBus.ask(new SearchAllStudentsQuery());
-        CoursesResponse  courses  = queryBus.ask(new SearchLastCoursesQuery(TOTAL_COURSES));
+        CoursesResponse courses = queryBus.ask(new SearchLastCoursesQuery(TOTAL_COURSES));
 
-        students.students().forEach(student -> send(student, courses));
+        if (courses.courses().size() > 0) {
+            StudentsResponse students = queryBus.ask(new SearchAllStudentsQuery());
+
+            students.students().forEach(student -> send(student, courses));
+        }
     }
 
     public void send(StudentResponse student, CoursesResponse courses) {

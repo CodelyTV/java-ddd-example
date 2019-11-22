@@ -4,6 +4,7 @@ import tv.codely.shared.domain.bus.event.DomainEvent;
 
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.Objects;
 
 public final class NewCoursesNewsletterEmailSent extends DomainEvent {
     private final String studentId;
@@ -56,5 +57,22 @@ public final class NewCoursesNewsletterEmailSent extends DomainEvent {
             occurredOn,
             (String) body.get("student_id")
         );
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        NewCoursesNewsletterEmailSent that = (NewCoursesNewsletterEmailSent) o;
+        return studentId.equals(that.studentId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(studentId);
     }
 }
