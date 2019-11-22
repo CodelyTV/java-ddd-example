@@ -3,7 +3,7 @@ package tv.codely.mooc.notifications.application.send_new_courses_newsletter;
 import tv.codely.mooc.courses.application.CoursesResponse;
 import tv.codely.mooc.courses.application.search_last.SearchLastCoursesQuery;
 import tv.codely.mooc.notifications.domain.EmailSender;
-import tv.codely.mooc.notifications.domain.NewCoursesNewsletterEmail;
+import tv.codely.mooc.notifications.domain.NewCoursesNewsletter;
 import tv.codely.mooc.students.application.StudentResponse;
 import tv.codely.mooc.students.application.StudentsResponse;
 import tv.codely.mooc.students.application.search_all.SearchAllStudentsQuery;
@@ -19,8 +19,8 @@ public final class NewCoursesNewsletterSender {
     private final static Integer       TOTAL_COURSES = 3;
     private final        QueryBus      queryBus;
     private final        EmailSender   sender;
-    private              UuidGenerator uuidGenerator;
-    private              EventBus      eventBus;
+    private final        UuidGenerator uuidGenerator;
+    private final        EventBus      eventBus;
 
     public NewCoursesNewsletterSender(
         QueryBus queryBus,
@@ -45,10 +45,10 @@ public final class NewCoursesNewsletterSender {
     }
 
     public void send(StudentResponse student, CoursesResponse courses) {
-        NewCoursesNewsletterEmail email = NewCoursesNewsletterEmail.send(uuidGenerator.generate(), student, courses);
+        NewCoursesNewsletter newsletter = NewCoursesNewsletter.send(uuidGenerator.generate(), student, courses);
 
-        sender.send(email);
+        sender.send(newsletter);
 
-        eventBus.publish(email.pullDomainEvents());
+        eventBus.publish(newsletter.pullDomainEvents());
     }
 }
