@@ -2,10 +2,7 @@ package tv.codely.shared.infrastructure.bus.command;
 
 import org.springframework.context.ApplicationContext;
 import tv.codely.shared.domain.Service;
-import tv.codely.shared.domain.bus.command.Command;
-import tv.codely.shared.domain.bus.command.CommandBus;
-import tv.codely.shared.domain.bus.command.CommandHandler;
-import tv.codely.shared.domain.bus.command.CommandNotRegisteredError;
+import tv.codely.shared.domain.bus.command.*;
 
 @Service
 public final class InMemoryCommandBus implements CommandBus {
@@ -18,7 +15,7 @@ public final class InMemoryCommandBus implements CommandBus {
     }
 
     @Override
-    public void dispatch(Command command) throws CommandNotRegisteredError {
+    public void dispatch(Command command) throws CommandNotRegisteredError, CommandHandlerExecutionError {
         Class<? extends CommandHandler> commandHandlerClass = information.search(command.getClass());
 
         CommandHandler handler = context.getBean(commandHandlerClass);

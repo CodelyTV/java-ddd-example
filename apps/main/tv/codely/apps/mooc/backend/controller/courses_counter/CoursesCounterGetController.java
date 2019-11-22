@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.RestController;
 import tv.codely.mooc.courses_counter.application.find.CoursesCounterResponse;
 import tv.codely.mooc.courses_counter.application.find.FindCoursesCounterQuery;
 import tv.codely.shared.domain.bus.query.QueryBus;
+import tv.codely.shared.domain.bus.query.QueryHandlerExecutionError;
 import tv.codely.shared.domain.bus.query.QueryNotRegisteredError;
 
 import java.util.HashMap;
@@ -18,7 +19,7 @@ public final class CoursesCounterGetController {
     }
 
     @GetMapping("/courses-counter")
-    public HashMap<String, Integer> index() throws QueryNotRegisteredError {
+    public HashMap<String, Integer> index() throws QueryNotRegisteredError, QueryHandlerExecutionError {
         CoursesCounterResponse response = bus.ask(new FindCoursesCounterQuery());
 
         return new HashMap<String, Integer>() {{

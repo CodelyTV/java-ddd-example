@@ -7,8 +7,10 @@ import tv.codely.mooc.courses.domain.Course;
 import tv.codely.mooc.courses.domain.CourseId;
 import tv.codely.mooc.courses.domain.CourseRepository;
 import tv.codely.shared.domain.Service;
+import tv.codely.shared.domain.criteria.Criteria;
 import tv.codely.shared.infrastructure.hibernate.HibernateRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -26,5 +28,10 @@ public class MySqlCourseRepository extends HibernateRepository<Course> implement
     @Override
     public Optional<Course> search(CourseId id) {
         return byId(id);
+    }
+
+    @Override
+    public List<Course> matching(Criteria criteria) {
+        return byCriteria(criteria);
     }
 }
