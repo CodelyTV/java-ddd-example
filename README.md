@@ -12,6 +12,8 @@
 
 This is a repository intended to serve as a starting point if you want to bootstrap a Java project with JUnit and Gradle.
 
+Here you have the [course on CodelyTV Pro where we explain step by step all this](https://pro.codely.tv/library/domain-driven-design-ddd/87157/about/?utm_source=github&utm_medium=social&utm_campaign=readme) (Spanish)
+
 ## 🏁 How To Start
 
 1. Install Java 8: `brew cask install corretto8`
