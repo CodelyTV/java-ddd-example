@@ -8,11 +8,13 @@
         },
         "name": {
           "type": "text",
-          "index": true
+          "index": true,
+          "fielddata": true
         },
         "duration": {
           "type": "text",
-          "index": true
+          "index": true,
+          "fielddata": true
         }
       }
     }
