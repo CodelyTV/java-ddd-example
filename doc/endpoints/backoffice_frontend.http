@@ -60,9 +60,6 @@ Content-Type: application/json
   }
 }
 
-
-
-
 ###
 # ELASTIC - DELETE
 DELETE localhost:9200/backoffice_courses

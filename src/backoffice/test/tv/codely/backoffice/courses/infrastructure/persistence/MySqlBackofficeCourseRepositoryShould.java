@@ -2,21 +2,25 @@ package tv.codely.backoffice.courses.infrastructure.persistence;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import tv.codely.backoffice.BackofficeContextInfrastructureTestCase;
 import tv.codely.backoffice.courses.domain.BackofficeCourse;
 import tv.codely.backoffice.courses.domain.BackofficeCourseCriteriaMother;
 import tv.codely.backoffice.courses.domain.BackofficeCourseMother;
+import tv.codely.backoffice.courses.domain.BackofficeCourseRepository;
 import tv.codely.shared.domain.criteria.Criteria;
 
 import javax.transaction.Transactional;
 import java.util.Arrays;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.containsInAnyOrder;
 
 @Transactional
 class MySqlBackofficeCourseRepositoryShould extends BackofficeContextInfrastructureTestCase {
     @Autowired
-    private MySqlBackofficeCourseRepository repository;
+    @Qualifier("mySqlBackofficeCourseRepository")
+    private BackofficeCourseRepository repository;
 
     @Test
     void save_a_course() {
@@ -31,7 +35,7 @@ class MySqlBackofficeCourseRepositoryShould extends BackofficeContextInfrastruct
         repository.save(course);
         repository.save(anotherCourse);
 
-        assertEquals(Arrays.asList(course, anotherCourse), repository.searchAll());
+        assertThat(Arrays.asList(course, anotherCourse), containsInAnyOrder(repository.searchAll().toArray()));
     }
 
     @Test
@@ -48,6 +52,9 @@ class MySqlBackofficeCourseRepositoryShould extends BackofficeContextInfrastruct
         repository.save(intellijCourse);
         repository.save(cobolCourse);
 
-        assertEquals(Arrays.asList(matchingCourse, anotherMatchingCourse), repository.matching(criteria));
+        assertThat(
+            Arrays.asList(matchingCourse, anotherMatchingCourse),
+            containsInAnyOrder(repository.matching(criteria).toArray())
+        );
     }
 }

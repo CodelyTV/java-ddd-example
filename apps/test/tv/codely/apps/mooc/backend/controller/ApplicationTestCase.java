@@ -60,6 +60,17 @@ public abstract class ApplicationTestCase {
             .andExpect(content().string(""));
     }
 
+    protected void assertRequest(
+        String method,
+        String endpoint,
+        Integer expectedStatusCode
+    ) throws Exception {
+        mockMvc
+            .perform(request(HttpMethod.valueOf(method), endpoint))
+            .andExpect(status().is(expectedStatusCode))
+            .andExpect(content().string(""));
+    }
+
     protected void givenISendEventsToTheBus(DomainEvent... domainEvents) {
         eventBus.publish(Arrays.asList(domainEvents));
     }
