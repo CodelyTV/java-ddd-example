@@ -15,6 +15,13 @@ public final class Criteria {
         this.offset  = offset;
     }
 
+    public Criteria(Filters filters, Order order) {
+        this.filters = filters;
+        this.order   = order;
+        this.limit   = Optional.empty();
+        this.offset  = Optional.empty();
+    }
+
     public Filters filters() {
         return filters;
     }

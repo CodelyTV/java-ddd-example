@@ -32,6 +32,8 @@ allprojects {
     implementation 'org.apache.tomcat:tomcat-dbcp:9.0.26'
     implementation 'com.sun.xml.bind:jaxb-impl:2.1.2'
     implementation 'javax.xml.bind:jaxb-api:2.3.1'
+    implementation 'org.springframework:spring-context-support:5.2.1.RELEASE'
+    implementation 'org.freemarker:freemarker-gae:2.3.29'
     implementation 'org.reflections:reflections:0.9.11'
     implementation 'org.springframework.boot:spring-boot-starter-amqp'
     implementation 'org.elasticsearch.client:elasticsearch-rest-client:6.8.4'
@@ -142,8 +144,6 @@ mainClassName = 'tv.codely.apps.Starter'
 
 dependencies {
   implementation 'org.springframework.boot:spring-boot-starter-web:2.1.8.RELEASE'
-  implementation 'org.springframework:spring-context-support:5.2.1.RELEASE'
-  implementation 'org.freemarker:freemarker-gae:2.3.29'
 
   implementation project(":shared")
   implementation project(":backoffice")

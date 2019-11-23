@@ -3,6 +3,7 @@ package tv.codely.backoffice.courses.domain;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public final class BackofficeCourse {
     private final String id;
@@ -47,5 +48,24 @@ public final class BackofficeCourse {
             put("name", name);
             put("duration", duration);
         }};
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        BackofficeCourse that = (BackofficeCourse) o;
+        return id.equals(that.id) &&
+               name.equals(that.name) &&
+               duration.equals(that.duration);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, duration);
     }
 }

@@ -12,7 +12,6 @@ import tv.codely.shared.infrastructure.hibernate.HibernateRepository;
 import java.util.List;
 
 @Service
-@Transactional("backoffice-transaction_manager")
 public class MySqlBackofficeCourseRepository extends HibernateRepository<BackofficeCourse> implements BackofficeCourseRepository {
     public MySqlBackofficeCourseRepository(@Qualifier("backoffice-session_factory") SessionFactory sessionFactory) {
         super(sessionFactory, BackofficeCourse.class);

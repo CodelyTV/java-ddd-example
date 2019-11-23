@@ -42,6 +42,10 @@ POST localhost:9200/backoffice_courses/_search
 Content-Type: application/json
 
 ###
+# ELASTIC - DELETE
+DELETE localhost:9200/backoffice_courses
+
+###
 
 PUT localhost:9200/backoffice_courses/_settings
 Content-Type: application/json
