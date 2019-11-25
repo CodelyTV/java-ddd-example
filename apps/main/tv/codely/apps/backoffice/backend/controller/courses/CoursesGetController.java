@@ -1,8 +1,6 @@
-package tv.codely.apps.backoffice.frontend.controller.courses;
+package tv.codely.apps.backoffice.backend.controller.courses;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import tv.codely.backoffice.courses.application.BackofficeCoursesResponse;
 import tv.codely.backoffice.courses.application.search_by_criteria.SearchBackofficeCoursesByCriteriaQuery;
 import tv.codely.shared.domain.bus.query.QueryBus;
@@ -17,15 +15,18 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
-public final class ApiCoursesGetController {
+@CrossOrigin(origins = "*", methods = {RequestMethod.GET})
+public final class CoursesGetController {
     private final QueryBus bus;
 
-    public ApiCoursesGetController(QueryBus bus) {
+    public CoursesGetController(QueryBus bus) {
         this.bus = bus;
     }
 
-    @GetMapping("/api/courses")
-    public List<HashMap<String, String>> index(@RequestParam HashMap<String, Serializable> params) throws QueryNotRegisteredError, QueryHandlerExecutionError {
+    @GetMapping("/courses")
+    public List<HashMap<String, String>> index(
+        @RequestParam HashMap<String, Serializable> params
+    ) throws QueryNotRegisteredError, QueryHandlerExecutionError {
         BackofficeCoursesResponse courses = bus.ask(
             new SearchBackofficeCoursesByCriteriaQuery(
                 parseFilters(params),
