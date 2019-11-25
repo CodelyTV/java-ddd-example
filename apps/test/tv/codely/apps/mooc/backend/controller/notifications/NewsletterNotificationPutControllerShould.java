@@ -1,9 +1,9 @@
 package tv.codely.apps.mooc.backend.controller.notifications;
 
 import org.junit.jupiter.api.Test;
-import tv.codely.apps.mooc.backend.controller.ApplicationTestCase;
+import tv.codely.apps.mooc.MoocApplicationTestCase;
 
-final class NewsletterNotificationPutControllerShould extends ApplicationTestCase {
+final class NewsletterNotificationPutControllerShould extends MoocApplicationTestCase {
     @Test
     void create_a_valid_non_existing_course() throws Exception {
         assertRequest(
