@@ -7,10 +7,10 @@ import tv.codely.mooc.courses.application.CoursesResponseMother;
 import tv.codely.mooc.courses.application.search_last.SearchLastCoursesQuery;
 import tv.codely.mooc.courses.application.search_last.SearchLastCoursesQueryMother;
 import tv.codely.mooc.notifications.application.NotificationsModuleUnitTestCase;
-import tv.codely.mooc.notifications.domain.NewCoursesNewsletterEmail;
-import tv.codely.mooc.notifications.domain.NewCoursesNewsletterEmailMother;
+import tv.codely.mooc.notifications.domain.NewCoursesNewsletter;
 import tv.codely.mooc.notifications.domain.NewCoursesNewsletterEmailSent;
 import tv.codely.mooc.notifications.domain.NewCoursesNewsletterEmailSentMother;
+import tv.codely.mooc.notifications.domain.NewCoursesNewsletterMother;
 import tv.codely.mooc.students.application.StudentResponse;
 import tv.codely.mooc.students.application.StudentResponseMother;
 import tv.codely.mooc.students.application.StudentsResponse;
@@ -70,37 +70,34 @@ final class SendNewCoursesNewsletterCommandHandlerShould extends NotificationsMo
         SearchLastCoursesQuery coursesQuery    = SearchLastCoursesQueryMother.create(3);
         CoursesResponse        coursesResponse = CoursesResponseMother.times(3);
 
-        StudentResponse        student          = StudentResponseMother.random();
-        StudentResponse        anotherStudent   = StudentResponseMother.random();
         SearchAllStudentsQuery studentsQuery    = SearchAllStudentsQueryMother.random();
-        StudentsResponse       studentsResponse = StudentsResponseMother.create(Arrays.asList(student, anotherStudent));
+        StudentResponse        student          = StudentResponseMother.random();
+        StudentResponse        otherStudent     = StudentResponseMother.random();
+        StudentsResponse       studentsResponse = StudentsResponseMother.create(Arrays.asList(student, otherStudent));
 
-        NewCoursesNewsletterEmail email = NewCoursesNewsletterEmailMother.create(student, coursesResponse);
-        NewCoursesNewsletterEmail anotherEmail = NewCoursesNewsletterEmailMother.create(
-            anotherStudent,
-            coursesResponse
-        );
+        NewCoursesNewsletter newsletter      = NewCoursesNewsletterMother.create(student, coursesResponse);
+        NewCoursesNewsletter otherNewsletter = NewCoursesNewsletterMother.create(otherStudent, coursesResponse);
 
         NewCoursesNewsletterEmailSent domainEvent = NewCoursesNewsletterEmailSentMother.create(
-            email.id(),
+            newsletter.id(),
             student.id()
         );
-        NewCoursesNewsletterEmailSent anotherDomainEvent = NewCoursesNewsletterEmailSentMother.create(
-            anotherEmail.id(),
-            anotherStudent.id()
+        NewCoursesNewsletterEmailSent otherDomainEvent = NewCoursesNewsletterEmailSentMother.create(
+            otherNewsletter.id(),
+            otherStudent.id()
         );
 
         shouldAsk(coursesQuery, coursesResponse);
         shouldAsk(studentsQuery, studentsResponse);
 
-        shouldGenerateUuids(email.id().value(), anotherEmail.id().value());
+        shouldGenerateUuids(newsletter.id().value(), otherNewsletter.id().value());
 
         handler.handle(command);
 
-        shouldHaveSentEmail(email);
-        shouldHaveSentEmail(anotherEmail);
-
+        shouldHaveSentEmail(newsletter);
         shouldHavePublished(domainEvent);
-        shouldHavePublished(anotherDomainEvent);
+
+        shouldHaveSentEmail(otherNewsletter);
+        shouldHavePublished(otherDomainEvent);
     }
 }

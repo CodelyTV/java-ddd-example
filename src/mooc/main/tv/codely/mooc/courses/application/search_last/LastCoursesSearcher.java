@@ -22,7 +22,7 @@ public final class LastCoursesSearcher {
     public CoursesResponse search(int courses) {
         Criteria criteria = new Criteria(
             Filters.none(),
-            Order.desc("creation_date"),
+            Order.none(),
             Optional.of(courses),
             Optional.empty()
         );

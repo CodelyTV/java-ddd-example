@@ -5,11 +5,11 @@ import tv.codely.mooc.students.application.StudentResponse;
 
 import java.util.Objects;
 
-public final class NewCoursesNewsletterEmail extends Email {
+public final class NewCoursesNewsletter extends Email {
     private final StudentResponse student;
     private final CoursesResponse courses;
 
-    public NewCoursesNewsletterEmail(EmailId id, StudentResponse student, CoursesResponse courses) {
+    public NewCoursesNewsletter(EmailId id, StudentResponse student, CoursesResponse courses) {
         super(id, "news@codely.tv", student.email(), "Último cursos en CodelyTV", formatBody(student, courses));
 
         this.student = student;
@@ -24,12 +24,12 @@ public final class NewCoursesNewsletterEmail extends Email {
         );
     }
 
-    public static NewCoursesNewsletterEmail send(String id, StudentResponse student, CoursesResponse courses) {
-        NewCoursesNewsletterEmail email = new NewCoursesNewsletterEmail(new EmailId(id), student, courses);
+    public static NewCoursesNewsletter send(String id, StudentResponse student, CoursesResponse courses) {
+        NewCoursesNewsletter newsletter = new NewCoursesNewsletter(new EmailId(id), student, courses);
 
-        email.record(new NewCoursesNewsletterEmailSent(id, student.id()));
+        newsletter.record(new NewCoursesNewsletterEmailSent(id, student.id()));
 
-        return email;
+        return newsletter;
     }
 
     @Override
@@ -43,7 +43,7 @@ public final class NewCoursesNewsletterEmail extends Email {
         if (!super.equals(o)) {
             return false;
         }
-        NewCoursesNewsletterEmail that = (NewCoursesNewsletterEmail) o;
+        NewCoursesNewsletter that = (NewCoursesNewsletter) o;
         return student.equals(that.student) &&
                courses.equals(that.courses);
     }

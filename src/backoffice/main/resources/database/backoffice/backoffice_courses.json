@@ -7,12 +7,14 @@
           "index": true
         },
         "name": {
-          "type": "string",
-          "index": "not_analyzed"
+          "type": "text",
+          "index": true,
+          "fielddata": true
         },
         "duration": {
           "type": "text",
-          "index": true
+          "index": true,
+          "fielddata": true
         }
       }
     }

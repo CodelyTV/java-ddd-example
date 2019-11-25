@@ -1,5 +1,7 @@
 package tv.codely.shared.infrastructure.elasticsearch;
 
+import org.elasticsearch.action.admin.indices.delete.DeleteIndexRequest;
+import org.elasticsearch.action.delete.DeleteRequest;
 import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestClient;
@@ -40,5 +42,9 @@ public final class ElasticsearchClient {
 
     public String indexFor(String moduleName) {
         return String.format("%s_%s", indexPrefix(), moduleName);
+    }
+
+    public void delete(String index) throws IOException {
+        highLevelClient.indices().delete(new DeleteIndexRequest(index), RequestOptions.DEFAULT);
     }
 }

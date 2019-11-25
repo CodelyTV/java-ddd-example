@@ -17,7 +17,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
-@Service
 public class MySqlDomainEventsConsumer {
     private final SessionFactory            sessionFactory;
     private final DomainEventsInformation   domainEventsInformation;
