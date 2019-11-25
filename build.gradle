@@ -29,7 +29,7 @@ allprojects {
 
     implementation 'org.hibernate:hibernate-core:5.4.5.Final'
     implementation 'org.springframework:spring-orm:5.1.10.RELEASE'
-    implementation 'org.apache.tomcat:tomcat-dbcp:9.0.26'
+    implementation 'org.apache.tomcat:tomcat-dbcp:9.0.29'
     implementation 'com.sun.xml.bind:jaxb-impl:2.1.2'
     implementation 'javax.xml.bind:jaxb-api:2.3.1'
     implementation 'org.springframework:spring-context-support:5.2.1.RELEASE'
