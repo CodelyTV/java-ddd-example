@@ -1,6 +1,7 @@
 package tv.codely.backoffice.shared.infrastructure.persistence;
 
 import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import tv.codely.shared.infrastructure.bus.event.DomainEventsInformation;
@@ -15,7 +16,7 @@ public class BackofficeMySqlEventBusConfiguration {
     private final SpringApplicationEventBus bus;
 
     public BackofficeMySqlEventBusConfiguration(
-        SessionFactory sessionFactory,
+        @Qualifier("backoffice-session_factory") SessionFactory sessionFactory,
         DomainEventsInformation domainEventsInformation,
         SpringApplicationEventBus bus
     ) {
@@ -25,12 +26,12 @@ public class BackofficeMySqlEventBusConfiguration {
     }
 
     @Bean
-    public MySqlEventBus mysqlEventBus() {
+    public MySqlEventBus backofficeMysqlEventBus() {
         return new MySqlEventBus(sessionFactory);
     }
 
     @Bean
-    public MySqlDomainEventsConsumer mySqlDomainEventsConsumer() {
+    public MySqlDomainEventsConsumer backofficeMySqlDomainEventsConsumer() {
         return new MySqlDomainEventsConsumer(sessionFactory, domainEventsInformation, bus);
     }
 }
