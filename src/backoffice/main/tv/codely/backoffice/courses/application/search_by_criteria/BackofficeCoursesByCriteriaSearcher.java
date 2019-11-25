@@ -28,7 +28,10 @@ public final class BackofficeCoursesByCriteriaSearcher {
         Criteria criteria = new Criteria(filters, order, limit, offset);
 
         return new BackofficeCoursesResponse(
-            repository.matching(criteria).stream().map(BackofficeCourseResponse::fromAggregate).collect(Collectors.toList())
+            repository.matching(criteria)
+                      .stream()
+                      .map(BackofficeCourseResponse::fromAggregate)
+                      .collect(Collectors.toList())
         );
     }
 }

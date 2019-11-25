@@ -1,6 +1,5 @@
 package tv.codely.mooc.notifications.domain;
 
-import tv.codely.mooc.students.domain.StudentId;
 import tv.codely.mooc.students.domain.StudentIdMother;
 
 public final class NewCoursesNewsletterEmailSentMother {

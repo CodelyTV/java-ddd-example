@@ -16,7 +16,7 @@ public class MoocRabbitMqEventBusConfiguration {
         RabbitMqPublisher publisher,
         @Qualifier("moocMysqlEventBus") MySqlEventBus failoverPublisher
     ) {
-        this.publisher = publisher;
+        this.publisher         = publisher;
         this.failoverPublisher = failoverPublisher;
     }
 

@@ -84,6 +84,9 @@ public final class ElasticsearchCriteriaConverter {
     }
 
     private QueryBuilder wildcardTransformer(Filter filter) {
-        return QueryBuilders.wildcardQuery(filter.field().value(), String.format("*%s*", filter.value().value().toLowerCase()));
+        return QueryBuilders.wildcardQuery(
+            filter.field().value(),
+            String.format("*%s*", filter.value().value().toLowerCase())
+        );
     }
 }

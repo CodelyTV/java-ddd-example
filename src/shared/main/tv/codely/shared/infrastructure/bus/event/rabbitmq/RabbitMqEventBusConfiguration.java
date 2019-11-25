@@ -1,6 +1,5 @@
 package tv.codely.shared.infrastructure.bus.event.rabbitmq;
 
-import io.github.cdimascio.dotenv.Dotenv;
 import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.context.annotation.Bean;
@@ -20,7 +19,7 @@ import java.util.stream.Collectors;
 public class RabbitMqEventBusConfiguration {
     private final DomainEventSubscribersInformation domainEventSubscribersInformation;
     private final DomainEventsInformation           domainEventsInformation;
-    private final Parameter config;
+    private final Parameter                         config;
     private final String                            exchangeName;
 
     public RabbitMqEventBusConfiguration(

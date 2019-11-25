@@ -34,19 +34,19 @@ final class Request {
     private String name;
     private String duration;
 
-    String name() {
-        return name;
-    }
-
-    String duration() {
-        return duration;
-    }
-
     public void setDuration(String duration) {
         this.duration = duration;
     }
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    String name() {
+        return name;
+    }
+
+    String duration() {
+        return duration;
     }
 }

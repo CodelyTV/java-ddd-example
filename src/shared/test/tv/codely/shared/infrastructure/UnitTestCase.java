@@ -16,6 +16,13 @@ public abstract class UnitTestCase {
     protected QueryBus      queryBus;
     protected UuidGenerator uuidGenerator;
 
+    @BeforeEach
+    protected void setUp() {
+        eventBus      = mock(EventBus.class);
+        queryBus      = mock(QueryBus.class);
+        uuidGenerator = mock(UuidGenerator.class);
+    }
+
     public void shouldHavePublished(List<DomainEvent> domainEvents) {
         verify(eventBus, atLeastOnce()).publish(domainEvents);
     }
@@ -34,12 +41,5 @@ public abstract class UnitTestCase {
 
     public void shouldAsk(Query query, Response response) throws QueryHandlerExecutionError, QueryNotRegisteredError {
         when(queryBus.ask(query)).thenReturn(response);
-    }
-
-    @BeforeEach
-    protected void setUp() {
-        eventBus      = mock(EventBus.class);
-        queryBus      = mock(QueryBus.class);
-        uuidGenerator = mock(UuidGenerator.class);
     }
 }

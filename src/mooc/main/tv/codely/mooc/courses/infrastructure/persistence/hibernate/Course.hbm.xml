@@ -6,7 +6,7 @@
 <hibernate-mapping>
     <class name="tv.codely.mooc.courses.domain.Course" table="courses">
         <composite-id name="id" class="tv.codely.mooc.courses.domain.CourseId" access="field">
-            <key-property column="id" name="value" length="36" access="field"/>
+            <key-property column="id" name="value" length="36" access="field" />
         </composite-id>
 
         <component name="name" class="tv.codely.mooc.courses.domain.CourseName" access="field">

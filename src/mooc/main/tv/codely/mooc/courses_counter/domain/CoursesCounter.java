@@ -23,6 +23,10 @@ public final class CoursesCounter {
         this.existingCourses = null;
     }
 
+    public static CoursesCounter initialize(String id) {
+        return new CoursesCounter(new CoursesCounterId(id), CoursesCounterTotal.initialize(), new ArrayList<>());
+    }
+
     public CoursesCounterId id() {
         return id;
     }
@@ -33,10 +37,6 @@ public final class CoursesCounter {
 
     public List<CourseId> existingCourses() {
         return existingCourses;
-    }
-
-    public static CoursesCounter initialize(String id) {
-        return new CoursesCounter(new CoursesCounterId(id), CoursesCounterTotal.initialize(), new ArrayList<>());
     }
 
     public boolean hasIncremented(CourseId id) {

@@ -7,7 +7,7 @@ import tv.codely.shared.domain.bus.command.*;
 @Service
 public final class InMemoryCommandBus implements CommandBus {
     private final CommandHandlersInformation information;
-    private final ApplicationContext context;
+    private final ApplicationContext         context;
 
     public InMemoryCommandBus(CommandHandlersInformation information, ApplicationContext context) {
         this.information = information;

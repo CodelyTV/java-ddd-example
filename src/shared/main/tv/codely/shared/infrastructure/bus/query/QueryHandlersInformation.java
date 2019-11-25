@@ -21,6 +21,16 @@ public final class QueryHandlersInformation {
         indexedQueryHandlers = formatHandlers(classes);
     }
 
+    public Class<? extends QueryHandler> search(Class<? extends Query> queryClass) throws QueryNotRegisteredError {
+        Class<? extends QueryHandler> queryHandlerClass = indexedQueryHandlers.get(queryClass);
+
+        if (null == queryHandlerClass) {
+            throw new QueryNotRegisteredError(queryClass);
+        }
+
+        return queryHandlerClass;
+    }
+
     private HashMap<Class<? extends Query>, Class<? extends QueryHandler>> formatHandlers(
         Set<Class<? extends QueryHandler>> queryHandlers
     ) {
@@ -34,15 +44,5 @@ public final class QueryHandlersInformation {
         }
 
         return handlers;
-    }
-
-    public Class<? extends QueryHandler> search(Class<? extends Query> queryClass) throws QueryNotRegisteredError {
-        Class<? extends QueryHandler> queryHandlerClass = indexedQueryHandlers.get(queryClass);
-
-        if (null == queryHandlerClass) {
-            throw new QueryNotRegisteredError(queryClass);
-        }
-
-        return queryHandlerClass;
     }
 }

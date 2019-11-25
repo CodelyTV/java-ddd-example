@@ -14,6 +14,13 @@ import static org.mockito.Mockito.*;
 public abstract class NotificationsModuleUnitTestCase extends UnitTestCase {
     protected EmailSender sender;
 
+    @BeforeEach
+    protected void setUp() {
+        super.setUp();
+
+        sender = mock(EmailSender.class);
+    }
+
     public void shouldHaveSentEmail(Email email) {
         ArgumentCaptor<Email> argument = ArgumentCaptor.forClass(Email.class);
 
@@ -22,12 +29,5 @@ public abstract class NotificationsModuleUnitTestCase extends UnitTestCase {
         List<Email> emails = argument.getAllValues();
 
         assertTrue(emails.contains(email));
-    }
-
-    @BeforeEach
-    protected void setUp() {
-        super.setUp();
-
-        sender = mock(EmailSender.class);
     }
 }

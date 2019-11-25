@@ -3,8 +3,8 @@ package tv.codely.mooc.shared.infrastructure.bus.event.mysql;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import tv.codely.mooc.MoocContextInfrastructureTestCase;
-import tv.codely.shared.domain.course.CourseCreatedDomainEvent;
 import tv.codely.mooc.courses.domain.CourseCreatedDomainEventMother;
+import tv.codely.shared.domain.course.CourseCreatedDomainEvent;
 import tv.codely.shared.infrastructure.bus.event.mysql.MySqlDomainEventsConsumer;
 import tv.codely.shared.infrastructure.bus.event.mysql.MySqlEventBus;
 
@@ -14,8 +14,7 @@ import java.util.Collections;
 @Transactional
 class MySqlEventBusShould extends MoocContextInfrastructureTestCase {
     @Autowired
-    private MySqlEventBus eventBus;
-
+    private MySqlEventBus             eventBus;
     @Autowired
     private MySqlDomainEventsConsumer consumer;
 

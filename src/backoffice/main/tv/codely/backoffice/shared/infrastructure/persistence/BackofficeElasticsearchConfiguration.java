@@ -5,7 +5,6 @@ import org.elasticsearch.client.Request;
 import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestClient;
 import org.elasticsearch.client.RestHighLevelClient;
-import org.elasticsearch.client.indices.CreateIndexRequest;
 import org.elasticsearch.client.indices.GetIndexRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -64,7 +63,7 @@ public class BackofficeElasticsearchConfiguration {
             String indexName = Objects.requireNonNull(jsonIndex.getFilename()).replace(".json", "");
 
             if (!indexExists(indexName, client)) {
-                String             indexBody = new Scanner(
+                String indexBody = new Scanner(
                     jsonIndex.getInputStream(),
                     "UTF-8"
                 ).useDelimiter("\\A").next();

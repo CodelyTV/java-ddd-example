@@ -2,13 +2,13 @@ package tv.codely.mooc.courses_counter.application.increment;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import tv.codely.shared.domain.course.CourseCreatedDomainEvent;
 import tv.codely.mooc.courses.domain.CourseCreatedDomainEventMother;
 import tv.codely.mooc.courses.domain.CourseId;
 import tv.codely.mooc.courses.domain.CourseIdMother;
 import tv.codely.mooc.courses_counter.CoursesCounterModuleUnitTestCase;
 import tv.codely.mooc.courses_counter.domain.CoursesCounter;
 import tv.codely.mooc.courses_counter.domain.CoursesCounterMother;
+import tv.codely.shared.domain.course.CourseCreatedDomainEvent;
 
 final class IncrementCoursesCounterOnCourseCreatedShould extends CoursesCounterModuleUnitTestCase {
     IncrementCoursesCounterOnCourseCreated subscriber;
