@@ -18,7 +18,7 @@ public class Starter {
 
         String  applicationName = args[0];
         String  commandName     = args[1];
-        boolean isServerCommand    = commandName.equals("server");
+        boolean isServerCommand = commandName.equals("server");
 
         ensureApplicationExist(applicationName);
         ensureCommandExist(applicationName, commandName);
