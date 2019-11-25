@@ -4,7 +4,6 @@ public enum OrderType {
     ASC("asc"),
     DESC("desc"),
     NONE("none");
-
     private final String type;
 
     OrderType(String type) {

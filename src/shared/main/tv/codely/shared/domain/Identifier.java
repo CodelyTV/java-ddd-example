@@ -21,10 +21,6 @@ public abstract class Identifier implements Serializable {
         return value;
     }
 
-    private void ensureValidUuid(String value) throws IllegalArgumentException {
-        UUID.fromString(value);
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -40,5 +36,9 @@ public abstract class Identifier implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(value);
+    }
+
+    private void ensureValidUuid(String value) throws IllegalArgumentException {
+        UUID.fromString(value);
     }
 }

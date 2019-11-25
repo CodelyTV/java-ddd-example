@@ -63,11 +63,11 @@ public final class HibernateConfigurationFactory {
         dataSource.setUsername(username);
         dataSource.setPassword(password);
 
-        Resource mysqlResource  = resourceResolver.getResource(String.format(
+        Resource mysqlResource = resourceResolver.getResource(String.format(
             "classpath:database/%s.sql",
             databaseName
         ));
-        String   mysqlSentences = new Scanner(mysqlResource.getInputStream(), "UTF-8").useDelimiter("\\A").next();
+        String mysqlSentences = new Scanner(mysqlResource.getInputStream(), "UTF-8").useDelimiter("\\A").next();
 
         dataSource.setConnectionInitSqls(new ArrayList<>(Arrays.asList(mysqlSentences.split(";"))));
 

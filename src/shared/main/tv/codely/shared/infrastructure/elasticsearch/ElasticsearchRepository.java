@@ -13,11 +13,11 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public abstract class ElasticsearchRepository<T> {
-    private final ElasticsearchClient client;
+    private final ElasticsearchClient            client;
     private final ElasticsearchCriteriaConverter criteriaConverter;
 
     public ElasticsearchRepository(ElasticsearchClient client) {
-        this.client = client;
+        this.client            = client;
         this.criteriaConverter = new ElasticsearchCriteriaConverter();
     }
 

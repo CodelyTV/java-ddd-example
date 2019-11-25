@@ -16,7 +16,7 @@ public class BackofficeRabbitMqEventBusConfiguration {
         RabbitMqPublisher publisher,
         @Qualifier("backofficeMysqlEventBus") MySqlEventBus failoverPublisher
     ) {
-        this.publisher = publisher;
+        this.publisher         = publisher;
         this.failoverPublisher = failoverPublisher;
     }
 

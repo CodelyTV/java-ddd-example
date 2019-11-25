@@ -21,21 +21,9 @@ public final class DomainEventSubscribersInformation {
         this(scanDomainEventSubscribers());
     }
 
-    public Collection<DomainEventSubscriberInformation> all() {
-        return information.values();
-    }
-
-    public String[] rabbitMqFormattedNames() {
-        return information.values()
-                          .stream()
-                          .map(DomainEventSubscriberInformation::formatRabbitMqQueueName)
-                          .distinct()
-                          .toArray(String[]::new);
-    }
-
     private static HashMap<Class<?>, DomainEventSubscriberInformation> scanDomainEventSubscribers() {
         Reflections   reflections = new Reflections("tv.codely");
-        Set<Class<?>> subscribers     = reflections.getTypesAnnotatedWith(DomainEventSubscriber.class);
+        Set<Class<?>> subscribers = reflections.getTypesAnnotatedWith(DomainEventSubscriber.class);
 
         HashMap<Class<?>, DomainEventSubscriberInformation> subscribersInformation = new HashMap<>();
 
@@ -49,5 +37,17 @@ public final class DomainEventSubscribersInformation {
         }
 
         return subscribersInformation;
+    }
+
+    public Collection<DomainEventSubscriberInformation> all() {
+        return information.values();
+    }
+
+    public String[] rabbitMqFormattedNames() {
+        return information.values()
+                          .stream()
+                          .map(DomainEventSubscriberInformation::formatRabbitMqQueueName)
+                          .distinct()
+                          .toArray(String[]::new);
     }
 }

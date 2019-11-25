@@ -28,7 +28,9 @@ public abstract class DomainEvent {
     }
 
     public abstract String eventName();
+
     public abstract HashMap<String, Serializable> toPrimitives();
+
     public abstract DomainEvent fromPrimitives(
         String aggregateId,
         HashMap<String, Serializable> body,

@@ -21,6 +21,16 @@ public final class CommandHandlersInformation {
         indexedCommandHandlers = formatHandlers(classes);
     }
 
+    public Class<? extends CommandHandler> search(Class<? extends Command> commandClass) throws CommandNotRegisteredError {
+        Class<? extends CommandHandler> commandHandlerClass = indexedCommandHandlers.get(commandClass);
+
+        if (null == commandHandlerClass) {
+            throw new CommandNotRegisteredError(commandClass);
+        }
+
+        return commandHandlerClass;
+    }
+
     private HashMap<Class<? extends Command>, Class<? extends CommandHandler>> formatHandlers(
         Set<Class<? extends CommandHandler>> commandHandlers
     ) {
@@ -34,15 +44,5 @@ public final class CommandHandlersInformation {
         }
 
         return handlers;
-    }
-
-    public Class<? extends CommandHandler> search(Class<? extends Command> commandClass) throws CommandNotRegisteredError {
-        Class<? extends CommandHandler> commandHandlerClass = indexedCommandHandlers.get(commandClass);
-
-        if (null == commandHandlerClass) {
-            throw new CommandNotRegisteredError(commandClass);
-        }
-
-        return commandHandlerClass;
     }
 }

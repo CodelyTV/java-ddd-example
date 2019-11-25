@@ -29,6 +29,14 @@ public final class DomainEventsInformation {
         return indexedDomainEvents.get(name);
     }
 
+    public String forClass(Class<? extends DomainEvent> domainEventClass) {
+        return indexedDomainEvents.entrySet()
+                                  .stream()
+                                  .filter(entry -> Objects.equals(entry.getValue(), domainEventClass))
+                                  .map(Map.Entry::getKey)
+                                  .findFirst().orElse("");
+    }
+
     private HashMap<String, Class<? extends DomainEvent>> formatEvents(
         Set<Class<? extends DomainEvent>> domainEvents
     ) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
@@ -41,13 +49,5 @@ public final class DomainEventsInformation {
         }
 
         return events;
-    }
-
-    public String forClass(Class<? extends DomainEvent> domainEventClass) {
-        return indexedDomainEvents.entrySet()
-                                  .stream()
-                                  .filter(entry -> Objects.equals(entry.getValue(), domainEventClass))
-                                  .map(Map.Entry::getKey)
-                                  .findFirst().orElse("");
     }
 }

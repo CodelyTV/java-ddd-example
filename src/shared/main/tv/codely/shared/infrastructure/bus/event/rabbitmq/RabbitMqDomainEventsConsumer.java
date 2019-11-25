@@ -55,7 +55,7 @@ public final class RabbitMqDomainEventsConsumer {
 
     @RabbitListener(id = CONSUMER_NAME, autoStartup = "false")
     public void consumer(Message message) throws Exception {
-        String         serializedMessage = new String(message.getBody());
+        String      serializedMessage = new String(message.getBody());
         DomainEvent domainEvent       = deserializer.deserialize(serializedMessage);
 
         String queue = message.getMessageProperties().getConsumerQueue();
@@ -77,6 +77,10 @@ public final class RabbitMqDomainEventsConsumer {
         } catch (Exception error) {
             handleConsumptionError(message, queue);
         }
+    }
+
+    public void withSubscribersInformation(DomainEventSubscribersInformation information) {
+        this.information = information;
     }
 
     private void handleConsumptionError(Message message, String queue) {
@@ -112,10 +116,6 @@ public final class RabbitMqDomainEventsConsumer {
 
     private boolean hasBeenRedeliveredTooMuch(Message message) {
         return (int) message.getMessageProperties().getHeaders().getOrDefault("redelivery_count", 0) >= MAX_RETRIES;
-    }
-
-    public void withSubscribersInformation(DomainEventSubscribersInformation information) {
-        this.information = information;
     }
 
     private Object subscriberFor(String queue) throws Exception {
