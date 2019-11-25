@@ -44,7 +44,7 @@ allprojects {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.3.2'
     testImplementation 'org.mockito:mockito-core:2.+'
     testImplementation 'com.github.javafaker:javafaker:1.0.1'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.3.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.5.2'
   }
 
   dependencyManagement {
