@@ -38,7 +38,7 @@ allprojects {
     implementation 'org.springframework.boot:spring-boot-starter-amqp'
     implementation 'org.elasticsearch.client:elasticsearch-rest-client:6.8.4'
     implementation 'org.elasticsearch.client:elasticsearch-rest-high-level-client:6.8.4'
-    runtime 'mysql:mysql-connector-java:8.0.17'
+    runtime 'mysql:mysql-connector-java:8.0.18'
 
     // Test
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.3.2'
