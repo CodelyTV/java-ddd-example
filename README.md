@@ -27,10 +27,7 @@ Here you have the [course on CodelyTV Pro where we explain step by step all this
 
 ## ☝️ How to update dependencies
 
-* Gradle (current version: 5.6 - [releases](https://gradle.org/releases/)):
-`./gradlew wrapper --gradle-version=5.6 --distribution-type=bin` or modifying the [gradle-wrapper.properties](gradle/wrapper/gradle-wrapper.properties#L3)
-* JUnit (current version: 5.5.1 - [releases](https://junit.org/junit5/docs/snapshot/release-notes/index.html)):
-[`build.gradle:11`](build.gradle#L11-L12)
+* Gradle ([releases](https://gradle.org/releases/)): `./gradlew wrapper --gradle-version=WANTED_VERSION --distribution-type=bin`
 
 ## 💡 Related repositories
 
