@@ -41,4 +41,14 @@ public final class Criteria {
     public boolean hasFilters() {
         return filters.filters().size() > 0;
     }
+
+    public String serialize() {
+        return String.format(
+            "%s~~%s~~%s~~%s",
+            filters.serialize(),
+            order.serialize(),
+            offset.orElse(0),
+            limit.orElse(0)
+        );
+    }
 }
