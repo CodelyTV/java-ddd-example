@@ -1,7 +1,5 @@
-package tv.codely.apps.mooc.backend.controller;
+package tv.codely.apps;
 
-import org.hibernate.SessionFactory;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -13,9 +11,7 @@ import org.springframework.test.web.servlet.ResultMatcher;
 import tv.codely.shared.domain.bus.event.DomainEvent;
 import tv.codely.shared.domain.bus.event.EventBus;
 
-import javax.transaction.Transactional;
 import java.util.Arrays;
-import java.util.Collections;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -26,7 +22,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-@Transactional
 public abstract class ApplicationTestCase {
     @Autowired
     private MockMvc  mockMvc;
@@ -39,8 +34,8 @@ public abstract class ApplicationTestCase {
         String expectedResponse
     ) throws Exception {
         ResultMatcher response = expectedResponse.isEmpty()
-            ? content().string("")
-            : content().json(expectedResponse);
+                                 ? content().string("")
+                                 : content().json(expectedResponse);
 
         mockMvc
             .perform(get(endpoint))

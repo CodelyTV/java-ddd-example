@@ -3,6 +3,7 @@ package tv.codely.apps;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.context.ConfigurableApplicationContext;
+import tv.codely.apps.backoffice.backend.BackofficeBackendApplication;
 import tv.codely.apps.backoffice.frontend.BackofficeFrontendApplication;
 import tv.codely.apps.mooc.backend.MoocBackendApplication;
 import tv.codely.shared.infrastructure.cli.ConsoleCommand;
@@ -67,6 +68,7 @@ public class Starter {
         HashMap<String, Class<?>> applications = new HashMap<>();
 
         applications.put("mooc_backend", MoocBackendApplication.class);
+        applications.put("backoffice_backend", BackofficeBackendApplication.class);
         applications.put("backoffice_frontend", BackofficeFrontendApplication.class);
 
         return applications;
@@ -76,6 +78,8 @@ public class Starter {
         HashMap<String, HashMap<String, Class<?>>> commands = new HashMap<>();
 
         commands.put("mooc_backend", MoocBackendApplication.commands());
+        commands.put("backoffice_backend", BackofficeBackendApplication.commands());
+        commands.put("backoffice_frontend", BackofficeFrontendApplication.commands());
 
         return commands;
     }

@@ -10,6 +10,7 @@ public final class HealthCheckGetController {
     @GetMapping("/health-check")
     public HashMap<String, String> index() {
         HashMap<String, String> status = new HashMap<>();
+        status.put("application", "backoffice_frontend");
         status.put("status", "ok");
 
         return status;
