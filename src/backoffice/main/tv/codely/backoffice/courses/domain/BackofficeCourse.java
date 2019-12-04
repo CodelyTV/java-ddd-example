@@ -10,12 +10,6 @@ public final class BackofficeCourse {
     private final String name;
     private final String duration;
 
-    public BackofficeCourse() {
-        id       = null;
-        name     = null;
-        duration = null;
-    }
-
     public BackofficeCourse(String id, String name, String duration) {
         this.id       = id;
         this.name     = name;
@@ -28,18 +22,6 @@ public final class BackofficeCourse {
             (String) plainData.get("name"),
             (String) plainData.get("duration")
         );
-    }
-
-    public String id() {
-        return id;
-    }
-
-    public String name() {
-        return name;
-    }
-
-    public String duration() {
-        return duration;
     }
 
     public HashMap<String, Serializable> toPrimitives() {

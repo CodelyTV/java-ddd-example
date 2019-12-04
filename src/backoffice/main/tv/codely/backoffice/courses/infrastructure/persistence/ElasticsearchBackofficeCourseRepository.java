@@ -22,6 +22,9 @@ public final class ElasticsearchBackofficeCourseRepository extends Elasticsearch
         persist(course.id(), course.toPrimitives());
     }
 
+
+
+
     @Override
     public List<BackofficeCourse> searchAll() {
         return searchAllInElastic(BackofficeCourse::fromPrimitives);
