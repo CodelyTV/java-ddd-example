@@ -28,6 +28,12 @@ public class MySqlBackofficeCourseRepository extends HibernateRepository<Backoff
                 rse);
     }
 
+
+
+
+
+
+
     @Override
     public List<BackofficeCourse> searchAll() {
         return all();
