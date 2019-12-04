@@ -15,10 +15,7 @@ import java.util.List;
 @Transactional("backoffice-transaction_manager")
 public class MySqlBackofficeCourseRepository extends HibernateRepository<BackofficeCourse> implements BackofficeCourseRepository {
     public MySqlBackofficeCourseRepository(@Qualifier("backoffice-session_factory") SessionFactory sessionFactory) {
-        super(sessionFactory, BackofficeCo
-
-
-              urse.class);
+        super(sessionFactory, BackofficeCourse.class);
     }
 
     @Override
