@@ -1,17 +1,24 @@
-package tv.codely.shared.infrastructure.spring;
+package tv.codely.apps.backoffice.backend.middleware;
+
+import tv.codely.backoffice.auth.application.authenticate.AuthenticateUserCommand;
+import tv.codely.backoffice.auth.domain.InvalidAuthCredentials;
+import tv.codely.backoffice.auth.domain.InvalidAuthUsername;
+import tv.codely.shared.domain.bus.command.CommandBus;
+import tv.codely.shared.domain.bus.command.CommandHandlerExecutionError;
+import tv.codely.shared.domain.bus.command.CommandNotRegisteredError;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Base64;
-import java.util.HashMap;
 
 public final class BasicHttpAuthMiddleware implements Filter {
-    private final HashMap<String, String> validUsers = new HashMap<String, String>() {{
-        put("javi", "barbitas");
-        put("rafa", "pelazo");
-    }};
+    private final CommandBus bus;
+
+    public BasicHttpAuthMiddleware(CommandBus bus) {
+        this.bus = bus;
+    }
 
     @Override
     public void doFilter(
@@ -42,16 +49,15 @@ public final class BasicHttpAuthMiddleware implements Filter {
         String   user = auth[0];
         String   pass = auth[1];
 
-        if (isValid(user, pass)) {
+        try {
+            bus.dispatch(new AuthenticateUserCommand(user, pass));
+
             request.setAttribute("authentication_username", user);
+
             chain.doFilter(request, response);
-        } else {
+        } catch (InvalidAuthUsername | InvalidAuthCredentials | CommandHandlerExecutionError | CommandNotRegisteredError error) {
             setInvalidCredentials(response);
         }
-    }
-
-    private boolean isValid(String user, String pass) {
-        return validUsers.containsKey(user) && validUsers.get(user).equals(pass);
     }
 
     private String[] decodeAuth(String authString) {
