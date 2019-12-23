@@ -8,7 +8,6 @@ import tv.codely.mooc.courses_counter.application.find.CoursesCounterResponse;
 import tv.codely.mooc.courses_counter.application.find.FindCoursesCounterQuery;
 import tv.codely.shared.domain.bus.query.QueryBus;
 import tv.codely.shared.domain.bus.query.QueryHandlerExecutionError;
-import tv.codely.shared.domain.bus.query.QueryNotRegisteredError;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -27,7 +26,7 @@ public final class CoursesGetWebController {
     public ModelAndView index(
         @ModelAttribute("inputs") HashMap<String, Serializable> inputs,
         @ModelAttribute("errors") HashMap<String, List<String>> errors
-    ) throws QueryNotRegisteredError, QueryHandlerExecutionError {
+    ) throws QueryHandlerExecutionError {
         CoursesCounterResponse counterResponse = bus.ask(new FindCoursesCounterQuery());
 
         return new ModelAndView("pages/courses/courses", new HashMap<String, Serializable>() {{

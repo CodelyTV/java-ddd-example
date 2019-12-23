@@ -19,7 +19,6 @@ import tv.codely.mooc.students.application.search_all.SearchAllStudentsQuery;
 import tv.codely.mooc.students.application.search_all.SearchAllStudentsQueryMother;
 import tv.codely.shared.domain.bus.command.CommandHandlerExecutionError;
 import tv.codely.shared.domain.bus.query.QueryHandlerExecutionError;
-import tv.codely.shared.domain.bus.query.QueryNotRegisteredError;
 
 import java.util.Arrays;
 
@@ -36,7 +35,7 @@ final class SendNewCoursesNewsletterCommandHandlerShould extends NotificationsMo
     }
 
     @Test
-    void not_send_the_newsletter_when_there_are_no_courses() throws QueryNotRegisteredError, QueryHandlerExecutionError, CommandHandlerExecutionError {
+    void not_send_the_newsletter_when_there_are_no_courses() throws QueryHandlerExecutionError, CommandHandlerExecutionError {
         SendNewCoursesNewsletterCommand command = SendNewCoursesNewsletterCommandMother.random();
 
         SearchLastCoursesQuery coursesQuery    = SearchLastCoursesQueryMother.create(3);
@@ -48,7 +47,7 @@ final class SendNewCoursesNewsletterCommandHandlerShould extends NotificationsMo
     }
 
     @Test
-    void not_send_the_newsletter_when_there_are_no_students() throws QueryNotRegisteredError, QueryHandlerExecutionError, CommandHandlerExecutionError {
+    void not_send_the_newsletter_when_there_are_no_students() throws QueryHandlerExecutionError, CommandHandlerExecutionError {
         SendNewCoursesNewsletterCommand command = SendNewCoursesNewsletterCommandMother.random();
 
         SearchLastCoursesQuery coursesQuery    = SearchLastCoursesQueryMother.create(3);
@@ -64,7 +63,7 @@ final class SendNewCoursesNewsletterCommandHandlerShould extends NotificationsMo
     }
 
     @Test
-    void send_the_new_courses_newsletter() throws QueryNotRegisteredError, QueryHandlerExecutionError, CommandHandlerExecutionError {
+    void send_the_new_courses_newsletter() throws QueryHandlerExecutionError, CommandHandlerExecutionError {
         SendNewCoursesNewsletterCommand command = SendNewCoursesNewsletterCommandMother.random();
 
         SearchLastCoursesQuery coursesQuery    = SearchLastCoursesQueryMother.create(3);

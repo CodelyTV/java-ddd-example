@@ -7,11 +7,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import tv.codely.mooc.courses.application.CourseResponse;
 import tv.codely.mooc.courses.application.find.FindCourseQuery;
+import tv.codely.mooc.courses.domain.CourseNotExist;
 import tv.codely.shared.domain.DomainError;
 import tv.codely.shared.domain.bus.command.CommandBus;
 import tv.codely.shared.domain.bus.query.QueryBus;
 import tv.codely.shared.domain.bus.query.QueryHandlerExecutionError;
-import tv.codely.shared.domain.bus.query.QueryNotRegisteredError;
 import tv.codely.shared.infrastructure.spring.ApiController;
 
 import java.io.Serializable;
@@ -27,7 +27,7 @@ public final class CourseGetController extends ApiController {
     }
 
     @GetMapping("/courses/{id}")
-    public ResponseEntity<HashMap<String, Serializable>> index(@PathVariable String id) throws QueryHandlerExecutionError, QueryNotRegisteredError {
+    public ResponseEntity<HashMap<String, Serializable>> index(@PathVariable String id) throws QueryHandlerExecutionError {
         CourseResponse course = ask(new FindCourseQuery(id));
 
         return ResponseEntity.ok().body(new HashMap<String, Serializable>() {{
@@ -39,6 +39,8 @@ public final class CourseGetController extends ApiController {
 
     @Override
     protected HashMap<Class<? extends DomainError>, HttpStatus> errorMapping() {
-        return null;
+        return new HashMap<Class<? extends DomainError>, HttpStatus>() {{
+            put(CourseNotExist.class, HttpStatus.NOT_FOUND);
+        }};
     }
 }

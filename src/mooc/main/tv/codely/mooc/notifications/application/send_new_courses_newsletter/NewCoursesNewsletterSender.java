@@ -11,8 +11,6 @@ import tv.codely.shared.domain.Service;
 import tv.codely.shared.domain.UuidGenerator;
 import tv.codely.shared.domain.bus.event.EventBus;
 import tv.codely.shared.domain.bus.query.QueryBus;
-import tv.codely.shared.domain.bus.query.QueryHandlerExecutionError;
-import tv.codely.shared.domain.bus.query.QueryNotRegisteredError;
 
 @Service
 public final class NewCoursesNewsletterSender {
@@ -34,7 +32,7 @@ public final class NewCoursesNewsletterSender {
         this.eventBus      = eventBus;
     }
 
-    public void send() throws QueryNotRegisteredError, QueryHandlerExecutionError {
+    public void send() {
         CoursesResponse courses = queryBus.ask(new SearchLastCoursesQuery(TOTAL_COURSES));
 
         if (courses.courses().size() > 0) {

@@ -27,7 +27,7 @@ public final class NewsletterNotificationPutController extends ApiController {
     @PutMapping(value = "/newsletter/{id}")
     public ResponseEntity<String> index(
         @PathVariable String id
-    ) throws CommandNotRegisteredError, CommandHandlerExecutionError {
+    ) throws CommandHandlerExecutionError {
         dispatch(new SendNewCoursesNewsletterCommand(id));
 
         return new ResponseEntity<>(HttpStatus.CREATED);

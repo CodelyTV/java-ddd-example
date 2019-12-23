@@ -1,5 +1,5 @@
 package tv.codely.shared.domain.bus.command;
 
 public interface CommandBus {
-    void dispatch(Command command) throws CommandNotRegisteredError, CommandHandlerExecutionError;
+    void dispatch(Command command) throws CommandHandlerExecutionError;
 }
