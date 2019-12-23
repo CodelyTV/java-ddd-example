@@ -9,20 +9,23 @@ import tv.codely.mooc.notifications.application.send_new_courses_newsletter.Send
 import tv.codely.shared.domain.bus.command.CommandBus;
 import tv.codely.shared.domain.bus.command.CommandHandlerExecutionError;
 import tv.codely.shared.domain.bus.command.CommandNotRegisteredError;
+import tv.codely.shared.domain.bus.query.QueryBus;
+import tv.codely.shared.infrastructure.spring.ApiController;
 
 @RestController
-public final class NewsletterNotificationPutController {
-    private final CommandBus bus;
-
-    public NewsletterNotificationPutController(CommandBus bus) {
-        this.bus = bus;
+public final class NewsletterNotificationPutController extends ApiController {
+    public NewsletterNotificationPutController(
+        QueryBus queryBus,
+        CommandBus commandBus
+    ) {
+        super(queryBus, commandBus);
     }
 
     @PutMapping(value = "/newsletter/{id}")
     public ResponseEntity<String> index(
         @PathVariable String id
     ) throws CommandNotRegisteredError, CommandHandlerExecutionError {
-        bus.dispatch(new SendNewCoursesNewsletterCommand(id));
+        dispatch(new SendNewCoursesNewsletterCommand(id));
 
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
