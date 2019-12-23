@@ -3,6 +3,9 @@ rootProject.name = 'java-ddd-skeleton'
 include ':shared'
 project(':shared').projectDir = new File('src/shared')
 
+include ':analytics'
+project(':analytics').projectDir = new File('src/analytics')
+
 include ':backoffice'
 project(':backoffice').projectDir = new File('src/backoffice')
 
