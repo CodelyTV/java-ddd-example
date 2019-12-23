@@ -7,11 +7,14 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import tv.codely.mooc.courses.application.create.CreateCourseCommand;
+import tv.codely.shared.domain.DomainError;
 import tv.codely.shared.domain.bus.command.CommandBus;
 import tv.codely.shared.domain.bus.command.CommandHandlerExecutionError;
 import tv.codely.shared.domain.bus.command.CommandNotRegisteredError;
 import tv.codely.shared.domain.bus.query.QueryBus;
 import tv.codely.shared.infrastructure.spring.ApiController;
+
+import java.util.HashMap;
 
 @RestController
 public final class CoursesPutController extends ApiController {
@@ -30,6 +33,11 @@ public final class CoursesPutController extends ApiController {
         dispatch(new CreateCourseCommand(id, request.name(), request.duration()));
 
         return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @Override
+    protected HashMap<Class<? extends DomainError>, HttpStatus> errorMapping() {
+        return null;
     }
 }
 

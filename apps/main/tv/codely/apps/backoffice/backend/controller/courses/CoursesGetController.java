@@ -1,8 +1,10 @@
 package tv.codely.apps.backoffice.backend.controller.courses;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import tv.codely.backoffice.courses.application.BackofficeCoursesResponse;
 import tv.codely.backoffice.courses.application.search_by_criteria.SearchBackofficeCoursesByCriteriaQuery;
+import tv.codely.shared.domain.DomainError;
 import tv.codely.shared.domain.bus.command.CommandBus;
 import tv.codely.shared.domain.bus.query.QueryBus;
 import tv.codely.shared.domain.bus.query.QueryHandlerExecutionError;
@@ -42,6 +44,11 @@ public final class CoursesGetController extends ApiController {
             put("name", response.name());
             put("duration", response.duration());
         }}).collect(Collectors.toList());
+    }
+
+    @Override
+    protected HashMap<Class<? extends DomainError>, HttpStatus> errorMapping() {
+        return null;
     }
 
     private List<HashMap<String, String>> parseFilters(HashMap<String, Serializable> params) {
