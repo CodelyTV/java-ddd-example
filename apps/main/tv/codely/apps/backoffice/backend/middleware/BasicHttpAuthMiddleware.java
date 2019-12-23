@@ -5,7 +5,6 @@ import tv.codely.backoffice.auth.domain.InvalidAuthCredentials;
 import tv.codely.backoffice.auth.domain.InvalidAuthUsername;
 import tv.codely.shared.domain.bus.command.CommandBus;
 import tv.codely.shared.domain.bus.command.CommandHandlerExecutionError;
-import tv.codely.shared.domain.bus.command.CommandNotRegisteredError;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
@@ -55,7 +54,7 @@ public final class BasicHttpAuthMiddleware implements Filter {
             request.setAttribute("authentication_username", user);
 
             chain.doFilter(request, response);
-        } catch (InvalidAuthUsername | InvalidAuthCredentials | CommandHandlerExecutionError | CommandNotRegisteredError error) {
+        } catch (InvalidAuthUsername | InvalidAuthCredentials | CommandHandlerExecutionError error) {
             setInvalidCredentials(response);
         }
     }

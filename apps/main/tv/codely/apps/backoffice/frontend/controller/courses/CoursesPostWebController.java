@@ -9,7 +9,6 @@ import org.springframework.web.servlet.view.RedirectView;
 import tv.codely.mooc.courses.application.create.CreateCourseCommand;
 import tv.codely.shared.domain.bus.command.CommandBus;
 import tv.codely.shared.domain.bus.command.CommandHandlerExecutionError;
-import tv.codely.shared.domain.bus.command.CommandNotRegisteredError;
 import tv.codely.shared.infrastructure.validation.ValidationResponse;
 import tv.codely.shared.infrastructure.validation.Validator;
 
@@ -33,7 +32,7 @@ public final class CoursesPostWebController {
     public RedirectView index(
         @RequestParam HashMap<String, Serializable> request,
         RedirectAttributes attributes
-    ) throws Exception, CommandHandlerExecutionError {
+    ) throws Exception {
         ValidationResponse validationResponse = Validator.validate(request, rules);
 
         return validationResponse.hasErrors()
@@ -52,7 +51,7 @@ public final class CoursesPostWebController {
         return new RedirectView("/courses");
     }
 
-    private RedirectView createCourse(HashMap<String, Serializable> request) throws CommandNotRegisteredError, CommandHandlerExecutionError {
+    private RedirectView createCourse(HashMap<String, Serializable> request) throws CommandHandlerExecutionError {
         bus.dispatch(new CreateCourseCommand(
             request.get("id").toString(),
             request.get("name").toString(),

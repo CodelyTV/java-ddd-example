@@ -15,11 +15,7 @@ public final class FindCourseQueryHandler implements QueryHandler<FindCourseQuer
     }
 
     @Override
-    public CourseResponse handle(FindCourseQuery query) {
-        try {
-            return finder.find(new CourseId(query.id()));
-        } catch (CourseNotExist error) {
-            return null;
-        }
+    public CourseResponse handle(FindCourseQuery query) throws CourseNotExist {
+        return finder.find(new CourseId(query.id()));
     }
 }

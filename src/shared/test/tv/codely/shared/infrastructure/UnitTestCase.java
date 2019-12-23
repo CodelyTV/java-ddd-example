@@ -39,7 +39,7 @@ public abstract class UnitTestCase {
         when(uuidGenerator.generate()).thenReturn(uuid, others);
     }
 
-    public void shouldAsk(Query query, Response response) throws QueryHandlerExecutionError, QueryNotRegisteredError {
+    public void shouldAsk(Query query, Response response) {
         when(queryBus.ask(query)).thenReturn(response);
     }
 }

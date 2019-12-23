@@ -1,6 +1,6 @@
 package tv.codely.shared.domain;
 
-public abstract class DomainError extends Throwable {
+public abstract class DomainError extends RuntimeException {
     private final String errorCode;
     private final String errorMessage;
 
@@ -11,11 +11,11 @@ public abstract class DomainError extends Throwable {
         this.errorMessage = errorMessage;
     }
 
-    public String getErrorCode() {
+    public String errorCode() {
         return errorCode;
     }
 
-    public String getErrorMessage() {
+    public String errorMessage() {
         return errorMessage;
     }
 }

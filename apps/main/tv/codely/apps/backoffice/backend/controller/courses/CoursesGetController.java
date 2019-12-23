@@ -8,7 +8,6 @@ import tv.codely.shared.domain.DomainError;
 import tv.codely.shared.domain.bus.command.CommandBus;
 import tv.codely.shared.domain.bus.query.QueryBus;
 import tv.codely.shared.domain.bus.query.QueryHandlerExecutionError;
-import tv.codely.shared.domain.bus.query.QueryNotRegisteredError;
 import tv.codely.shared.infrastructure.spring.ApiController;
 
 import java.io.Serializable;
@@ -28,7 +27,7 @@ public final class CoursesGetController extends ApiController {
     @GetMapping("/courses")
     public List<HashMap<String, String>> index(
         @RequestParam HashMap<String, Serializable> params
-    ) throws QueryNotRegisteredError, QueryHandlerExecutionError {
+    ) throws QueryHandlerExecutionError {
         BackofficeCoursesResponse courses = ask(
             new SearchBackofficeCoursesByCriteriaQuery(
                 parseFilters(params),
