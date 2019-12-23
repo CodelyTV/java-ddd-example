@@ -10,13 +10,16 @@ import tv.codely.mooc.courses.application.create.CreateCourseCommand;
 import tv.codely.shared.domain.bus.command.CommandBus;
 import tv.codely.shared.domain.bus.command.CommandHandlerExecutionError;
 import tv.codely.shared.domain.bus.command.CommandNotRegisteredError;
+import tv.codely.shared.domain.bus.query.QueryBus;
+import tv.codely.shared.infrastructure.spring.ApiController;
 
 @RestController
-public final class CoursesPutController {
-    private final CommandBus bus;
-
-    public CoursesPutController(CommandBus bus) {
-        this.bus = bus;
+public final class CoursesPutController extends ApiController {
+    public CoursesPutController(
+        QueryBus queryBus,
+        CommandBus commandBus
+    ) {
+        super(queryBus, commandBus);
     }
 
     @PutMapping(value = "/courses/{id}")
@@ -24,7 +27,7 @@ public final class CoursesPutController {
         @PathVariable String id,
         @RequestBody Request request
     ) throws CommandNotRegisteredError, CommandHandlerExecutionError {
-        bus.dispatch(new CreateCourseCommand(id, request.name(), request.duration()));
+        dispatch(new CreateCourseCommand(id, request.name(), request.duration()));
 
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
