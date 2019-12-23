@@ -6,11 +6,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
 import tv.codely.mooc.notifications.application.send_new_courses_newsletter.SendNewCoursesNewsletterCommand;
+import tv.codely.shared.domain.DomainError;
 import tv.codely.shared.domain.bus.command.CommandBus;
 import tv.codely.shared.domain.bus.command.CommandHandlerExecutionError;
 import tv.codely.shared.domain.bus.command.CommandNotRegisteredError;
 import tv.codely.shared.domain.bus.query.QueryBus;
 import tv.codely.shared.infrastructure.spring.ApiController;
+
+import java.util.HashMap;
 
 @RestController
 public final class NewsletterNotificationPutController extends ApiController {
@@ -28,5 +31,10 @@ public final class NewsletterNotificationPutController extends ApiController {
         dispatch(new SendNewCoursesNewsletterCommand(id));
 
         return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @Override
+    protected HashMap<Class<? extends DomainError>, HttpStatus> errorMapping() {
+        return null;
     }
 }
