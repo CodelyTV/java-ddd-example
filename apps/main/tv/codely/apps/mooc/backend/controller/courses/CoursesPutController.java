@@ -35,7 +35,7 @@ public final class CoursesPutController extends ApiController {
     }
 
     @Override
-    protected HashMap<Class<? extends DomainError>, HttpStatus> errorMapping() {
+    public HashMap<Class<? extends DomainError>, HttpStatus> errorMapping() {
         return null;
     }
 }

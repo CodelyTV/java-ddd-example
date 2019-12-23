@@ -38,7 +38,7 @@ public final class CourseGetController extends ApiController {
     }
 
     @Override
-    protected HashMap<Class<? extends DomainError>, HttpStatus> errorMapping() {
+    public HashMap<Class<? extends DomainError>, HttpStatus> errorMapping() {
         return new HashMap<Class<? extends DomainError>, HttpStatus>() {{
             put(CourseNotExist.class, HttpStatus.NOT_FOUND);
         }};

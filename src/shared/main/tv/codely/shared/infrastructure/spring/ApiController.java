@@ -28,5 +28,5 @@ public abstract class ApiController {
         return queryBus.ask(query);
     }
 
-    abstract protected HashMap<Class<? extends DomainError>, HttpStatus> errorMapping();
+    abstract public HashMap<Class<? extends DomainError>, HttpStatus> errorMapping();
 }
