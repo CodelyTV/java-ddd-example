@@ -29,7 +29,7 @@ public final class HealthCheckGetController extends ApiController {
     }
 
     @Override
-    protected HashMap<Class<? extends DomainError>, HttpStatus> errorMapping() {
+    public HashMap<Class<? extends DomainError>, HttpStatus> errorMapping() {
         return null;
     }
 }
