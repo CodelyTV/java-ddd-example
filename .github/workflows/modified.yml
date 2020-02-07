@@ -13,4 +13,4 @@ jobs:
       - name: View modified context
         run: |
           echo "Modified contexts"
-          make modified-contexts
+          git status -s | grep "src/" | awk -F '/' '{print $2}' | uniq
