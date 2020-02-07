@@ -9,6 +9,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+
+      - name: Fetch master
         run: git fetch --all
 
       - name: View modified context
