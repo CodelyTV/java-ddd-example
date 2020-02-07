@@ -8,28 +8,22 @@ import tv.codely.mooc.students.application.StudentResponse;
 import tv.codely.mooc.students.application.StudentsResponse;
 import tv.codely.mooc.students.application.search_all.SearchAllStudentsQuery;
 import tv.codely.shared.domain.Service;
-import tv.codely.shared.domain.UuidGenerator;
 import tv.codely.shared.domain.bus.event.EventBus;
 import tv.codely.shared.domain.bus.query.QueryBus;
 
+import java.util.UUID;
+
 @Service
 public final class NewCoursesNewsletterSender {
-    private final static Integer       TOTAL_COURSES = 3;
-    private final        QueryBus      queryBus;
-    private final        EmailSender   sender;
-    private final        UuidGenerator uuidGenerator;
-    private final        EventBus      eventBus;
+    private final static Integer     TOTAL_COURSES = 3;
+    private final        QueryBus    queryBus;
+    private final        EmailSender sender;
+    private final        EventBus    eventBus;
 
-    public NewCoursesNewsletterSender(
-        QueryBus queryBus,
-        UuidGenerator uuidGenerator,
-        EmailSender sender,
-        EventBus eventBus
-    ) {
-        this.queryBus      = queryBus;
-        this.uuidGenerator = uuidGenerator;
-        this.sender        = sender;
-        this.eventBus      = eventBus;
+    public NewCoursesNewsletterSender(QueryBus queryBus, EmailSender sender, EventBus eventBus) {
+        this.queryBus = queryBus;
+        this.sender   = sender;
+        this.eventBus = eventBus;
     }
 
     public void send() {
@@ -43,7 +37,7 @@ public final class NewCoursesNewsletterSender {
     }
 
     public void send(StudentResponse student, CoursesResponse courses) {
-        NewCoursesNewsletter newsletter = NewCoursesNewsletter.send(uuidGenerator.generate(), student, courses);
+        NewCoursesNewsletter newsletter = NewCoursesNewsletter.send(UUID.randomUUID().toString(), student, courses);
 
         sender.send(newsletter);
 

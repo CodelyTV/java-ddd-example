@@ -30,7 +30,7 @@ final class SendNewCoursesNewsletterCommandHandlerShould extends NotificationsMo
         super.setUp();
 
         handler = new SendNewCoursesNewsletterCommandHandler(
-            new NewCoursesNewsletterSender(queryBus, uuidGenerator, sender, eventBus)
+            new NewCoursesNewsletterSender(queryBus, sender, eventBus)
         );
     }
 
@@ -88,8 +88,6 @@ final class SendNewCoursesNewsletterCommandHandlerShould extends NotificationsMo
 
         shouldAsk(coursesQuery, coursesResponse);
         shouldAsk(studentsQuery, studentsResponse);
-
-        shouldGenerateUuids(newsletter.id().value(), otherNewsletter.id().value());
 
         handler.handle(command);
 
