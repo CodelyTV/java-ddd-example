@@ -13,4 +13,4 @@ jobs:
       - name: View modified context
         run: |
           echo "Modified contexts"
-          git diff --name-status master | grep "src/" | awk -F '/' '{print $2}' | uniq
+          git diff --name-status origin/master | grep "src/" | awk -F '/' '{print $2}' | uniq
