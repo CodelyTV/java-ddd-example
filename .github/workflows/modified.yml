@@ -13,7 +13,5 @@ jobs:
       - name: Fetch master
         run: git fetch --all
 
-      - name: View modified context
-        run: |
-          echo "Modified contexts"
-          git diff --name-status origin/master | grep "src/" | awk -F '/' '{print $2}' | uniq
+      - name: 😮 Modified contexts in this Pull Request
+        run: git diff --name-status origin/master | grep "src/" | awk -F '/' '{print $2}' | uniq
