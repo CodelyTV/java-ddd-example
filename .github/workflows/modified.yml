@@ -12,5 +12,5 @@ jobs:
 
       - name: View modified context
         run: |
-        echo "Modified contexts"
-        make modified-contexts
+          echo "Modified contexts"
+          make modified-contexts
