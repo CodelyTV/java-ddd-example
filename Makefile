@@ -23,4 +23,3 @@ start-mooc_backend:
 
 start-backoffice_frontend:
 	@./gradlew :run --args='backoffice_frontend server'
-z
