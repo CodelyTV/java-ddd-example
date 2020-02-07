@@ -11,6 +11,7 @@ public final class BackofficeCoursesResponse implements Response {
         this.courses = courses;
     }
 
+
     public List<BackofficeCourseResponse> courses() {
         return courses;
     }

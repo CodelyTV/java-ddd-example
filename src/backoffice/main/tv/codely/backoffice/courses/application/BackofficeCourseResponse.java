@@ -8,6 +8,7 @@ public final class BackofficeCourseResponse implements Response {
     private final String name;
     private final String duration;
 
+
     public BackofficeCourseResponse(String id, String name, String duration) {
         this.id       = id;
         this.name     = name;

@@ -14,6 +14,7 @@ public final class CourseResponse implements Response {
         this.duration = duration;
     }
 
+
     public static CourseResponse fromAggregate(Course course) {
         return new CourseResponse(course.id().value(), course.name().value(), course.duration().value());
     }
