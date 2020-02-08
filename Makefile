@@ -1,4 +1,4 @@
-.PONY: all build test
+.PONY: all build test ping-mysql
 
 all: build
 
@@ -16,6 +16,9 @@ test:
 
 run:
 	@./gradlew :run
+	
+ping-mysql:
+	docker exec codelytv-java_ddd_skeleton-mysql mysqladmin --user=root --password= --host "127.0.0.1" ping --silent &> /dev/null
 
 # Start the app
 start-mooc_backend:
