@@ -11,7 +11,8 @@ jobs:
         uses: rgomezcasas/autolabel@master
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          fail_if_xl: 'true'
           xs_max_size: 1
-          s_max_size: 5
+          s_max_size: 3
           m_max_size: 10
           l_max_size: 15
