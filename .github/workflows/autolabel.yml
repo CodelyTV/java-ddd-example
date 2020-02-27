@@ -1,0 +1,13 @@
+name: CI
+
+on: [pull_request]
+
+jobs:
+  autolabel:
+    runs-on: ubuntu-latest
+    name: Label the PR
+    steps:
+      - name: Autolabel
+        uses: rgomezcasas/autolabel@master
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
