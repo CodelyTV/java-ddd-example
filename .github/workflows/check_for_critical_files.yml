@@ -12,9 +12,11 @@ jobs:
       - name: Fetch master
         run: git fetch --all
 
+      - name: WTF
+        run: git diff-tree --no-commit-id --name-only -r ${{ github.sha }}
+
       - name: Check if there are important files commited
-        run: |
-          ! git diff-tree --no-commit-id --name-only -r ${{ github.sha }} | grep -q .env
+        run: ! git diff-tree --no-commit-id --name-only -r ${{ github.sha }} | grep -q .env
 
       - name: Comment if there are important files commited
         if: failure()
