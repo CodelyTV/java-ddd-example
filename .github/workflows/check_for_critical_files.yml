@@ -1,0 +1,25 @@
+name: Check for critical files
+
+on: [push]
+
+jobs:
+  labeler:
+    runs-on: ubuntu-latest
+    name: Check if there are any critical files modified
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Fetch master
+        run: git fetch --all
+
+      - name: Check if there are important files commited
+        run: |
+          ! git diff-tree --no-commit-id --name-only -r ${{ github.sha }} | grep -q ".env"
+
+      - name: Comment if there are important files commited
+        if: failure()
+        uses: peter-evans/commit-comment@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          body: |
+            Take care, you've commited critical files!
