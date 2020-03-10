@@ -14,10 +14,10 @@ jobs:
         uses: samuelmeuli/action-snapcraft@v1
 
       - name: Install dependencies
-        run: snap install yq
+        run: sudo snap install yq
 
       - name: Fetch master
         run: git fetch --all
 
       - name: 😮 Modified contexts in this Pull Request
-        run: git diff --name-status origin/master | grep "src/" | awk -F '/' '{print $2}' | uniq
+        run: sh .github/monorepo_assign.sh
