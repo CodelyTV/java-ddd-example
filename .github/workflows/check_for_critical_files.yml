@@ -15,6 +15,9 @@ jobs:
       - name: WTF
         run: git diff-tree --no-commit-id --name-only -r ${{ github.sha }}
 
+      - name: WTF2
+        run: git show --pretty="" --name-only ${{ github.sha }}
+
       - name: Check if there are important files commited
         run: |
           ! git diff-tree --no-commit-id --name-only -r ${{ github.sha }} | grep -q .env
