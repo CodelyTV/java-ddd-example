@@ -9,9 +9,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Fetch master
-        run: git fetch --all
-
       - name: WTF
         run: |
           git diff-tree --no-commit-id --name-only -r "${{ github.sha }}"
@@ -19,6 +16,10 @@ jobs:
       - name: WTF2
         run: |
           git show --pretty="" --name-only "${{ github.sha }}"
+
+      - name: WTF2
+        run: |
+          git show --name-status ${{ github.sha }}
 
       - name: Check if there are important files commited
         run: |
