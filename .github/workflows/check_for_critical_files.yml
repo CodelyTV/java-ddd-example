@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Check if there are any critical files modified
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v1
 
       - name: WTF
         run: |
