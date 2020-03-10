@@ -1,4 +1,4 @@
 assign:
-  core: ["src/mooc", "src/shared"]
+  mooc: ["src/mooc", "src/shared"]
   retention: ["src/retention"]
   backoffice: ["src/backoffice", "src/analytics"]

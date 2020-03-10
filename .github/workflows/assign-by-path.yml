@@ -1,0 +1,12 @@
+name: assign-by-path
+
+on: [push]
+
+jobs:
+  assigner:
+    runs-on: ubuntu-latest
+    name: 👤 Assign by path
+    steps:
+      - uses: codelytv/assign-by-path@v1-alpha
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
