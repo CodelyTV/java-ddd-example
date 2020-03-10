@@ -10,6 +10,12 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: Install Snapcraft
+        uses: samuelmeuli/action-snapcraft@v1
+
+      - name: Install dependencies
+        run: snap install yq
+
       - name: Fetch master
         run: git fetch --all
 
