@@ -17,9 +17,9 @@ jobs:
         run: |
           git show --pretty="" --name-only "${{ github.sha }}"
 
-      - name: WTF2
+      - name: WTF3
         run: |
-          git show --name-status ${{ github.sha }}
+          git show ${{ github.sha }}
 
       - name: Check if there are important files commited
         run: |
