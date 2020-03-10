@@ -1,11 +1,11 @@
-function directory_has_been_modified {
+directory_has_been_modified() {
   local directory=$1
   local changed_directories=$(git diff --name-status origin/master | grep "src/" | awk -F '/' '{print $2}' | uniq)
 
   [[ $changed_directories == *"$directory"* ]]
 }
 
-function team_has_been_modified {
+team_has_been_modified() {
   local IFS=$'\n'
   local directories=($1)
   local i
@@ -20,7 +20,7 @@ function team_has_been_modified {
   done
 }
 
-function assign_to {
+assign_to() {
   local IFS=$'\n'
   local teams=($1)
   local i
