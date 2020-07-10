@@ -1,5 +1,7 @@
 package tv.codely.mooc.students.domain;
 
+import java.util.Objects;
+
 public final class Student {
     private final StudentId id;
     private final String    name;
@@ -27,5 +29,21 @@ public final class Student {
 
     public String email() {
         return email;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Student student = (Student) o;
+        return Objects.equals(id, student.id) &&
+            Objects.equals(name, student.name) &&
+            Objects.equals(surname, student.surname) &&
+            Objects.equals(email, student.email);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, surname, email);
     }
 }
