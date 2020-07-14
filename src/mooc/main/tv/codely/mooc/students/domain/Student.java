@@ -4,11 +4,11 @@ import java.util.Objects;
 
 public final class Student {
     private final StudentId id;
-    private final String    name;
-    private final String    surname;
-    private final String    email;
+    private final StudentName name;
+    private final StudentSurName surname;
+    private final StudentEmail email;
 
-    public Student(StudentId id, String name, String surname, String email) {
+    public Student(StudentId id, StudentName name, StudentSurName surname, StudentEmail email) {
         this.id      = id;
         this.name    = name;
         this.surname = surname;
@@ -19,17 +19,11 @@ public final class Student {
         return id;
     }
 
-    public String name() {
-        return name;
-    }
+    public StudentName name() { return name; }
 
-    public String surname() {
-        return surname;
-    }
+    public StudentSurName surname() { return surname; }
 
-    public String email() {
-        return email;
-    }
+    public StudentEmail email() { return email; }
 
     @Override
     public boolean equals(Object o) {

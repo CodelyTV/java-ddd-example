@@ -6,6 +6,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import tv.codely.mooc.students.application.register.RegisterStudent;
+import tv.codely.mooc.students.application.register.RegisterStudentRequest;
+import tv.codely.mooc.students.domain.StudentId;
 import tv.codely.shared.domain.DomainError;
 import tv.codely.shared.domain.bus.command.CommandBus;
 import tv.codely.shared.domain.bus.query.QueryBus;
@@ -15,14 +18,17 @@ import java.util.HashMap;
 
 @RestController
 public class StudentPostController extends ApiController {
+    private final RegisterStudent register;
 
-    public StudentPostController(QueryBus queryBus, CommandBus commandBus) {
+    public StudentPostController(QueryBus queryBus, CommandBus commandBus, RegisterStudent register) {
         super(queryBus, commandBus);
+        this.register = register;
     }
 
     @PostMapping(value = "/students/{id}")
-    public ResponseEntity createStudent(@PathVariable String id, @RequestBody Request request){
-        return new ResponseEntity(HttpStatus.CREATED);
+    public ResponseEntity<String> registerStudent(@PathVariable String id, @RequestBody Request request){
+        this.register.register(new RegisterStudentRequest(id, request.name(), request.surname(), request.email()));
+        return new ResponseEntity<String>(HttpStatus.CREATED);
     }
 
     @Override

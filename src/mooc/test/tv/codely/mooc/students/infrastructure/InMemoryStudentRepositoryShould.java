@@ -2,9 +2,7 @@ package tv.codely.mooc.students.infrastructure;
 
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
-import tv.codely.mooc.students.domain.Student;
-import tv.codely.mooc.students.domain.StudentId;
-import tv.codely.mooc.students.domain.StudentIdMother;
+import tv.codely.mooc.students.domain.*;
 import tv.codely.shared.domain.UuidGenerator;
 
 import java.util.Optional;
@@ -21,7 +19,12 @@ class InMemoryStudentRepositoryShould {
 
         InMemoryStudentRepository repository = new InMemoryStudentRepository(uuidGenerator);
 
-        Student student = new Student(StudentIdMother.random(), "Goku", "Son", "songoku@kamehouse.com");
+        Student student = new Student(
+            new StudentId("1aab45ba-3c7a-4344-8936-78466eca77fa"),
+            new StudentName("Goku"),
+            new StudentSurName("Son"),
+            new StudentEmail("songoku@kamehouse.com")
+        );
 
         repository.save(student);
     }
@@ -32,7 +35,12 @@ class InMemoryStudentRepositoryShould {
 
         InMemoryStudentRepository repository = new InMemoryStudentRepository(uuidGenerator);
 
-        Student student = new Student(StudentIdMother.random(), "Goku", "Son", "songoku@kamehouse.com");
+        Student student = new Student(
+            new StudentId("1aab45ba-3c7a-4344-8936-78466eca77fa"),
+            new StudentName("Goku"),
+            new StudentSurName("Son"),
+            new StudentEmail("songoku@kamehouse.com")
+        );
 
         repository.save(student);
 

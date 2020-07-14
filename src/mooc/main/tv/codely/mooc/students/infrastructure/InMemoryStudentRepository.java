@@ -1,8 +1,6 @@
 package tv.codely.mooc.students.infrastructure;
 
-import tv.codely.mooc.students.domain.Student;
-import tv.codely.mooc.students.domain.StudentId;
-import tv.codely.mooc.students.domain.StudentRepository;
+import tv.codely.mooc.students.domain.*;
 import tv.codely.shared.domain.Service;
 import tv.codely.shared.domain.UuidGenerator;
 
@@ -23,8 +21,18 @@ public final class InMemoryStudentRepository implements StudentRepository {
     @Override
     public List<Student> searchAll() {
         return Arrays.asList(
-            new Student(new StudentId(generator.generate()), "name", "surname", "email@mail.com"),
-            new Student(new StudentId(generator.generate()), "Other name", "Other surname", "another@mail.com")
+            new Student(
+                new StudentId(generator.generate()),
+                new StudentName("name"),
+                new StudentSurName("surname"),
+                new StudentEmail("email@mail.com")
+            ),
+            new Student(
+                new StudentId(generator.generate()),
+                new StudentName("other name"),
+                new StudentSurName("other surname"),
+                new StudentEmail("another@mail.com")
+            )
         );
     }
 
