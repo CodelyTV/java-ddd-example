@@ -16,8 +16,8 @@ Here you have the [course on CodelyTV Pro where we explain step by step all this
 
 ## 🏁 How To Start
 
-1. Install Java 8: `brew cask install corretto8`
-2. Set it as your default JVM: `export JAVA_HOME='/Library/Java/JavaVirtualMachines/amazon-corretto-8.jdk/Contents/Home'`
+1. Install Java 11: `brew cask install corretto`
+2. Set it as your default JVM: `export JAVA_HOME='/Library/Java/JavaVirtualMachines/amazon-corretto-11.jdk/Contents/Home'`
 3. Clone this repository: `git clone https://github.com/CodelyTV/java-ddd-skeleton`.
 4. Bring up the Docker environment: `make up`.
 5. Execute some [Gradle lifecycle tasks](https://docs.gradle.org/current/userguide/java_plugin.html#lifecycle_tasks) in order to check everything is OK:
