@@ -24,4 +24,7 @@ public final class InMemoryStudentRepository implements StudentRepository {
             new Student(new StudentId(generator.generate()), "Other name", "Other surname", "another@mail.com")
         );
     }
+
+    @Override
+    public void register(Student student) {}
 }
