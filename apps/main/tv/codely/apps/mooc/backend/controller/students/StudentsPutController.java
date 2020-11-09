@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import tv.codely.mooc.students.application.register.RegisterStudentRequest;
 import tv.codely.mooc.students.application.register.StudentRegistrar;
 
 @RestController
@@ -19,7 +20,7 @@ public final class StudentsPutController {
 
     @PutMapping(value = "/students/{id}")
     public ResponseEntity<String> index(@PathVariable String id, @RequestBody Request request) {
-        registrar.register(id, request.name(), request.surname(), request.email());
+        registrar.register(new RegisterStudentRequest(id, request.name(), request.surname(), request.email()));
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 }

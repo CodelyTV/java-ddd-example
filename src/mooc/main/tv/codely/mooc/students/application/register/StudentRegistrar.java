@@ -1,6 +1,8 @@
 package tv.codely.mooc.students.application.register;
 
-import tv.codely.mooc.students.domain.*;
+import tv.codely.mooc.students.domain.Student;
+import tv.codely.mooc.students.domain.StudentId;
+import tv.codely.mooc.students.domain.StudentRepository;
 import tv.codely.shared.domain.Service;
 
 @Service
@@ -11,8 +13,8 @@ public class StudentRegistrar {
         this.repository = repository;
     }
 
-    public void register(String id, String name, String surname, String email) {
-        Student student = Student.create(new StudentId(id), name, surname, email);
+    public void register(RegisterStudentRequest request) {
+        Student student = Student.create(new StudentId(request.id()), request.name(), request.surname(), request.email());
         repository.register(student);
     }
 }

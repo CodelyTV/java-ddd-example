@@ -14,14 +14,16 @@ final class StudentRegistrarTestShould {
         StudentRepository repository = mock(StudentRepository.class);
         StudentRegistrar  registrar  = new StudentRegistrar(repository);
 
-        StudentId id   = new StudentId(UuidMother.random());
-        String name    = "name";
-        String surname = "surname";
-        String email   = "email";
+        StudentId id      = new StudentId(UuidMother.random());
+        String    name    = "name";
+        String    surname = "surname";
+        String    email   = "email";
+
+        RegisterStudentRequest request = new RegisterStudentRequest(id.value(), name, surname, email);
 
         Student student = new Student(id, name, surname, email);
 
-        registrar.register(id.value(), student.name(), student.surname(), student.email());
+        registrar.register(request);
 
         verify(repository, atLeastOnce()).register(student);
     }
