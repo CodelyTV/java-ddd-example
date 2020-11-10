@@ -9,7 +9,7 @@ public final class StudentsPutControllerShould extends MoocApplicationTestCase {
         assertRequestWithBody(
             "PUT",
             "/students/1bab45ba-3c7a-4344-8936-78466eca17fa",
-            "{\"name\": \"some-name\", \"surname\": \"some-surname\", \"email\": \"some-email\"}",
+            "{\"name\": \"some-name\", \"surname\": \"some-surname\", \"email\": \"email@email.com\"}",
             201
         );
     }
