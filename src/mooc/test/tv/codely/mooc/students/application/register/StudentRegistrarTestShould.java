@@ -1,8 +1,9 @@
 package tv.codely.mooc.students.application.register;
 
 import org.junit.jupiter.api.Test;
-import tv.codely.mooc.students.domain.*;
-import tv.codely.shared.domain.UuidMother;
+import tv.codely.mooc.students.domain.Student;
+import tv.codely.mooc.students.domain.StudentMother;
+import tv.codely.mooc.students.domain.StudentRepository;
 
 import static org.mockito.Mockito.*;
 
@@ -12,16 +13,8 @@ final class StudentRegistrarTestShould {
         StudentRepository repository = mock(StudentRepository.class);
         StudentRegistrar  registrar  = new StudentRegistrar(repository);
 
-        StudentId      id      = new StudentId(UuidMother.random());
-        StudentName    name    = new StudentName("name");
-        StudentSurname surname = new StudentSurname("surname");
-        StudentEmail   email   = new StudentEmail("email@email.com");
-
-        RegisterStudentRequest request = new RegisterStudentRequest(
-            id.value(), name.value(), surname.value(), email.value()
-        );
-
-        Student student = new Student(id, name, surname, email);
+        RegisterStudentRequest request = RegisterStudentRequestMother.random();
+        Student                student = StudentMother.fromRequest(request);
 
         registrar.register(request);
 
