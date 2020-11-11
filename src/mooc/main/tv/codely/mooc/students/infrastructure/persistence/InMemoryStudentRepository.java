@@ -1,13 +1,11 @@
-package tv.codely.mooc.students.infrastructure;
+package tv.codely.mooc.students.infrastructure.persistence;
 
 import tv.codely.mooc.students.domain.*;
-import tv.codely.shared.domain.Service;
 import tv.codely.shared.domain.UuidGenerator;
 
 import java.util.Arrays;
 import java.util.List;
 
-@Service
 public final class InMemoryStudentRepository implements StudentRepository {
     private UuidGenerator generator;
 

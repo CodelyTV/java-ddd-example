@@ -6,4 +6,8 @@ public final class StudentName extends StringValueObject {
     public StudentName(String value) {
         super(value);
     }
+
+    private StudentName() {
+        super("");
+    }
 }

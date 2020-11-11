@@ -6,15 +6,15 @@ import java.util.Objects;
 
 public abstract class EmailValueObject {
     private static final EmailValidator emailValidator = new EmailValidator();
-    private final        String         email;
+    private              String         value;
 
-    public EmailValueObject(String email) {
-        ensureValidEmail(email);
-        this.email = email;
+    public EmailValueObject(String value) {
+        ensureValidEmail(value);
+        this.value = value;
     }
 
     public String value() {
-        return email;
+        return value;
     }
 
     private void ensureValidEmail(String value) {
@@ -37,11 +37,11 @@ public abstract class EmailValueObject {
             return false;
         }
         EmailValueObject that = (EmailValueObject) o;
-        return Objects.equals(email, that.email);
+        return Objects.equals(value, that.value);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(email);
+        return Objects.hash(value);
     }
 }
