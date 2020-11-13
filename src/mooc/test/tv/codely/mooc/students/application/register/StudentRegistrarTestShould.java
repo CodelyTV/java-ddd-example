@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Test;
 import tv.codely.mooc.students.StudentsModuleUnitTestCase;
 import tv.codely.mooc.students.domain.Student;
 import tv.codely.mooc.students.domain.StudentMother;
+import tv.codely.mooc.students.domain.StudentRegisteredDomainEventMother;
+import tv.codely.shared.domain.student.StudentRegisteredDomainEvent;
 
 final class StudentRegistrarTestShould extends StudentsModuleUnitTestCase {
     StudentRegistrar registrar;
@@ -13,16 +15,18 @@ final class StudentRegistrarTestShould extends StudentsModuleUnitTestCase {
     protected void setUp() {
         super.setUp();
 
-        registrar = new StudentRegistrar(repository);
+        registrar = new StudentRegistrar(repository, eventBus);
     }
 
     @Test
     void register_a_valid_student() {
-        RegisterStudentRequest request = RegisterStudentRequestMother.random();
-        Student                student = StudentMother.fromRequest(request);
+        RegisterStudentRequest       request     = RegisterStudentRequestMother.random();
+        Student                      student     = StudentMother.fromRequest(request);
+        StudentRegisteredDomainEvent domainEvent = StudentRegisteredDomainEventMother.fromStudent(student);
 
         registrar.register(request);
 
         shouldHaveSaved(student);
+        shouldHavePublished(domainEvent);
     }
 }

@@ -1,8 +1,11 @@
 package tv.codely.mooc.students.domain;
 
+import tv.codely.shared.domain.AggregateRoot;
+import tv.codely.shared.domain.student.StudentRegisteredDomainEvent;
+
 import java.util.Objects;
 
-public final class Student {
+public final class Student extends AggregateRoot {
     private final StudentId      id;
     private final StudentName    name;
     private final StudentSurname surname;
@@ -23,7 +26,11 @@ public final class Student {
     }
 
     public static Student create(StudentId id, StudentName name, StudentSurname surname, StudentEmail email) {
-        return new Student(id, name, surname, email);
+        Student student = new Student(id, name, surname, email);
+
+        student.record(new StudentRegisteredDomainEvent(id.value(), name.value(), surname.value(), email.value()));
+
+        return student;
     }
 
     public StudentId id() {
