@@ -1,12 +1,14 @@
 package tv.codely.mooc.students.application.register;
 
-public final class RegisterStudentRequest {
+import tv.codely.shared.domain.bus.command.Command;
+
+public final class RegisterStudentCommand implements Command {
     private final String id;
     private final String name;
     private final String surname;
     private final String email;
 
-    public RegisterStudentRequest(String id, String name, String surname, String email) {
+    public RegisterStudentCommand(String id, String name, String surname, String email) {
         this.id      = id;
         this.name    = name;
         this.surname = surname;

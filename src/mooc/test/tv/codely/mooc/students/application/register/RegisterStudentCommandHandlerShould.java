@@ -8,23 +8,23 @@ import tv.codely.mooc.students.domain.StudentMother;
 import tv.codely.mooc.students.domain.StudentRegisteredDomainEventMother;
 import tv.codely.shared.domain.student.StudentRegisteredDomainEvent;
 
-final class StudentRegistrarTestShould extends StudentsModuleUnitTestCase {
-    StudentRegistrar registrar;
+final class RegisterStudentCommandHandlerShould extends StudentsModuleUnitTestCase {
+    private RegisterStudentCommandHandler handler;
 
     @BeforeEach
     protected void setUp() {
         super.setUp();
 
-        registrar = new StudentRegistrar(repository, eventBus);
+        handler = new RegisterStudentCommandHandler(new StudentRegistrar(repository, eventBus));
     }
 
     @Test
     void register_a_valid_student() {
-        RegisterStudentRequest       request     = RegisterStudentRequestMother.random();
-        Student                      student     = StudentMother.fromRequest(request);
+        RegisterStudentCommand       command     = RegisterStudentCommandMother.random();
+        Student                      student     = StudentMother.fromCommand(command);
         StudentRegisteredDomainEvent domainEvent = StudentRegisteredDomainEventMother.fromStudent(student);
 
-        registrar.register(request);
+        handler.handle(command);
 
         shouldHaveSaved(student);
         shouldHavePublished(domainEvent);

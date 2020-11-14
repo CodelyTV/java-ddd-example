@@ -14,13 +14,14 @@ public class StudentRegistrar {
         this.eventBus   = eventBus;
     }
 
-    public void register(RegisterStudentRequest request) {
-        Student student = Student.create(
-            new StudentId(request.id()),
-            new StudentName(request.name()),
-            new StudentSurname(request.surname()),
-            new StudentEmail(request.email())
-        );
+    public void register(
+        StudentId id,
+        StudentName name,
+        StudentSurname surname,
+        StudentEmail email
+    ) {
+        Student student = Student.create(id, name, surname, email);
+
         repository.register(student);
         eventBus.publish(student.pullDomainEvents());
     }

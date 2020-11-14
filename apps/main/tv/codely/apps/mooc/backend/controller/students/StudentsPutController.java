@@ -6,22 +6,33 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import tv.codely.mooc.students.application.register.RegisterStudentRequest;
-import tv.codely.mooc.students.application.register.StudentRegistrar;
+import tv.codely.mooc.students.application.register.RegisterStudentCommand;
+import tv.codely.shared.domain.DomainError;
+import tv.codely.shared.domain.bus.command.CommandBus;
+import tv.codely.shared.domain.bus.query.QueryBus;
+import tv.codely.shared.infrastructure.spring.ApiController;
+
+import java.util.HashMap;
 
 @RestController
-public final class StudentsPutController {
+public final class StudentsPutController extends ApiController {
 
-    private final StudentRegistrar registrar;
-
-    public StudentsPutController(StudentRegistrar registrar) {
-        this.registrar = registrar;
+    public StudentsPutController(
+        QueryBus queryBus,
+        CommandBus commandBus
+    ) {
+        super(queryBus, commandBus);
     }
 
     @PutMapping(value = "/students/{id}")
     public ResponseEntity<String> index(@PathVariable String id, @RequestBody Request request) {
-        registrar.register(new RegisterStudentRequest(id, request.name(), request.surname(), request.email()));
+        dispatch(new RegisterStudentCommand(id, request.name(), request.surname(), request.email()));
         return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @Override
+    public HashMap<Class<? extends DomainError>, HttpStatus> errorMapping() {
+        return null;
     }
 }
 
