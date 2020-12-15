@@ -40,6 +40,8 @@ allprojects {
     implementation 'org.elasticsearch.client:elasticsearch-rest-high-level-client:6.8.4'
     runtime 'mysql:mysql-connector-java:8.0.18'
 
+    implementation 'org.twitter4j:twitter4j-core:4.0.7'
+
     // Test
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.5.2'
     testImplementation 'org.mockito:mockito-core:2.+'
