@@ -1,10 +1,11 @@
 package tv.codely.mooc.courses.application.search_last;
 
+import tv.codely.mooc.courses.application.CoursesResponse;
 import tv.codely.shared.domain.bus.query.Query;
 
 import java.util.Objects;
 
-public final class SearchLastCoursesQuery implements Query {
+public final class SearchLastCoursesQuery implements Query<CoursesResponse> {
     private final Integer total;
 
     public SearchLastCoursesQuery(Integer total) {

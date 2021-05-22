@@ -19,16 +19,13 @@ import java.util.HashMap;
 
 @RestController
 public final class CourseGetController extends ApiController {
-    public CourseGetController(
-        QueryBus queryBus,
-        CommandBus commandBus
-    ) {
+    public CourseGetController(QueryBus queryBus, CommandBus commandBus) {
         super(queryBus, commandBus);
     }
 
     @GetMapping("/courses/{id}")
     public ResponseEntity<HashMap<String, Serializable>> index(@PathVariable String id) throws QueryHandlerExecutionError {
-        CourseResponse course = ask(new FindCourseQuery(id));
+        final var course = ask(new FindCourseQuery(id));
 
         return ResponseEntity.ok().body(new HashMap<String, Serializable>() {{
             put("id", course.id());

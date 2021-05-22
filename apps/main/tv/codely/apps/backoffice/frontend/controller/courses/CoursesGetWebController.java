@@ -27,7 +27,7 @@ public final class CoursesGetWebController {
         @ModelAttribute("inputs") HashMap<String, Serializable> inputs,
         @ModelAttribute("errors") HashMap<String, List<String>> errors
     ) throws QueryHandlerExecutionError {
-        CoursesCounterResponse counterResponse = bus.ask(new FindCoursesCounterQuery());
+        final var counterResponse = bus.ask(new FindCoursesCounterQuery());
 
         return new ModelAndView("pages/courses/courses", new HashMap<String, Serializable>() {{
             put("title", "Courses");

@@ -21,7 +21,7 @@ public final class CoursesCounterGetController extends ApiController {
 
     @GetMapping("/courses-counter")
     public HashMap<String, Integer> index() throws QueryHandlerExecutionError {
-        CoursesCounterResponse response = ask(new FindCoursesCounterQuery());
+        final var response = ask(new FindCoursesCounterQuery());
 
         return new HashMap<String, Integer>() {{
             put("total", response.total());

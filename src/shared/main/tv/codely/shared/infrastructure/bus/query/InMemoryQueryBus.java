@@ -15,7 +15,7 @@ public final class InMemoryQueryBus implements QueryBus {
     }
 
     @Override
-    public Response ask(Query query) throws QueryHandlerExecutionError {
+    public <R extends Response> R ask(Query<R> query) throws QueryHandlerExecutionError {
         try {
             Class<? extends QueryHandler> queryHandlerClass = information.search(query.getClass());
 

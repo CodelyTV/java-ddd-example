@@ -33,10 +33,10 @@ public final class NewCoursesNewsletterSender {
     }
 
     public void send() {
-        CoursesResponse courses = queryBus.ask(new SearchLastCoursesQuery(TOTAL_COURSES));
+        final var courses = queryBus.ask(new SearchLastCoursesQuery(TOTAL_COURSES));
 
         if (courses.courses().size() > 0) {
-            StudentsResponse students = queryBus.ask(new SearchAllStudentsQuery());
+            final var students = queryBus.ask(new SearchAllStudentsQuery());
 
             students.students().forEach(student -> send(student, courses));
         }

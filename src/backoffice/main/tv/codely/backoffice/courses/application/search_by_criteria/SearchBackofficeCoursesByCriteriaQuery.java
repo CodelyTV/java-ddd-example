@@ -1,12 +1,13 @@
 package tv.codely.backoffice.courses.application.search_by_criteria;
 
+import tv.codely.backoffice.courses.application.BackofficeCoursesResponse;
 import tv.codely.shared.domain.bus.query.Query;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
-public final class SearchBackofficeCoursesByCriteriaQuery implements Query {
+public final class SearchBackofficeCoursesByCriteriaQuery implements Query<BackofficeCoursesResponse> {
     private final List<HashMap<String, String>> filters;
     private final Optional<String>              orderBy;
     private final Optional<String>              orderType;

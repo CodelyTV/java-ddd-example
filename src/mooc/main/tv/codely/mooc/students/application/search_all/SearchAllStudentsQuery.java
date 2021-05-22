@@ -1,10 +1,11 @@
 package tv.codely.mooc.students.application.search_all;
 
+import tv.codely.mooc.students.application.StudentsResponse;
 import tv.codely.shared.domain.bus.query.Query;
 
 import java.util.Objects;
 
-public final class SearchAllStudentsQuery implements Query {
+public final class SearchAllStudentsQuery implements Query<StudentsResponse> {
     @Override
     public boolean equals(Object o) {
         if (this == o) {

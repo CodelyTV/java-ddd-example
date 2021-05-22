@@ -8,6 +8,7 @@ import tv.codely.shared.domain.bus.command.CommandHandlerExecutionError;
 import tv.codely.shared.domain.bus.query.Query;
 import tv.codely.shared.domain.bus.query.QueryBus;
 import tv.codely.shared.domain.bus.query.QueryHandlerExecutionError;
+import tv.codely.shared.domain.bus.query.Response;
 
 import java.util.HashMap;
 
@@ -24,7 +25,7 @@ public abstract class ApiController {
         commandBus.dispatch(command);
     }
 
-    protected <R> R ask(Query query) throws QueryHandlerExecutionError {
+    protected <R extends Response> R ask(Query<R> query) throws QueryHandlerExecutionError {
         return queryBus.ask(query);
     }
 
