@@ -7,7 +7,7 @@ import java.util.Objects;
 
 public final class Course extends AggregateRoot {
     private final CourseId       id;
-    private final CourseName     name;
+    private CourseName           name;
     private final CourseDuration duration;
 
     public Course(CourseId id, CourseName name, CourseDuration duration) {
@@ -40,6 +40,10 @@ public final class Course extends AggregateRoot {
 
     public CourseDuration duration() {
         return duration;
+    }
+
+    public void rename(CourseName newName) {
+        this.name = newName;
     }
 
     @Override
