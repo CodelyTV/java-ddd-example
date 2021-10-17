@@ -3,6 +3,8 @@ package tv.codely.mooc.courses.application;
 import tv.codely.mooc.courses.domain.Course;
 import tv.codely.shared.domain.bus.query.Response;
 
+import java.util.Objects;
+
 public final class CourseResponse implements Response {
     private final String id;
     private final String name;
@@ -28,5 +30,18 @@ public final class CourseResponse implements Response {
 
     public String duration() {
         return duration;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CourseResponse that = (CourseResponse) o;
+        return Objects.equals(id, that.id) && Objects.equals(name, that.name) && Objects.equals(duration, that.duration);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, duration);
     }
 }
