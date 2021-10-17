@@ -10,5 +10,7 @@ public interface CourseRepository {
 
     Optional<Course> search(CourseId id);
 
+    List<Course> findAll();
+
     List<Course> matching(Criteria criteria);
 }
