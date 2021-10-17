@@ -25,4 +25,8 @@ public abstract class CoursesModuleUnitTestCase extends UnitTestCase {
     public void shouldHaveSearched(CourseId id) {
         verify(repository, atLeastOnce()).search(id);
     }
+
+    public void shouldHaveFindAll() {
+        verify(repository, atLeastOnce()).findAll();
+    }
 }
