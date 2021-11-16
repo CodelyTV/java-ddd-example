@@ -43,7 +43,7 @@ final class AuthenticateUserCommandHandlerShould extends AuthModuleUnitTestCase 
     }
 
     @Test
-    void throw_an_exception_when_the_password_does_not_math() {
+    void throw_an_exception_when_the_password_does_not_match() {
         assertThrows(InvalidAuthCredentials.class, () -> {
             AuthenticateUserCommand command  = AuthenticateUserCommandMother.random();
             AuthUser                authUser = AuthUserMother.withUsernameAndPassword(command.username(),
