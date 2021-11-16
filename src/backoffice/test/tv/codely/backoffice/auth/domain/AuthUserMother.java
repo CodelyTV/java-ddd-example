@@ -15,7 +15,7 @@ public final class AuthUserMother {
         return create(AuthUsernameMother.create(command.username()), AuthPasswordMother.create(command.password()));
     }
 
-    public static AuthUser withUsername(String username) {
-        return create(AuthUsernameMother.create(username), AuthPasswordMother.random());
+    public static AuthUser withUsernameAndPassword(String username, String password) {
+        return create(AuthUsernameMother.create(username), AuthPasswordMother.create(password));
     }
 }

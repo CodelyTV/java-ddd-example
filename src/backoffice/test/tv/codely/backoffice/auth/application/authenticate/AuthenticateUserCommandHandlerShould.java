@@ -46,7 +46,8 @@ final class AuthenticateUserCommandHandlerShould extends AuthModuleUnitTestCase 
     void throw_an_exception_when_the_password_does_not_math() {
         assertThrows(InvalidAuthCredentials.class, () -> {
             AuthenticateUserCommand command  = AuthenticateUserCommandMother.random();
-            AuthUser                authUser = AuthUserMother.withUsername(command.username());
+            AuthUser                authUser = AuthUserMother.withUsernameAndPassword(command.username(),
+                                                                                      command.password().concat("👎"));
 
             shouldSearch(authUser.username(), authUser);
 
