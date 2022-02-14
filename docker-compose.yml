@@ -4,6 +4,7 @@ services:
   mysql:
     container_name: codelytv-java_ddd_skeleton-mysql
     image: mysql:8
+    platform: linux/amd64
     ports:
       - "3360:3306"
     environment:
@@ -19,6 +20,7 @@ services:
   rabbitmq:
     container_name: codelytv-java_ddd_skeleton-rabbitmq
     image: 'rabbitmq:3.7-management'
+    platform: linux/amd64
     restart: unless-stopped
     ports:
       - 5630:5672
@@ -30,6 +32,7 @@ services:
   elasticsearch:
     container_name: codelytv-java_ddd_skeleton-elasticsearch
     image: 'elasticsearch:6.8.4'
+    platform: linux/amd64
     restart: unless-stopped
     ports:
       - 9300:9300
@@ -43,6 +46,7 @@ services:
       context: .
       dockerfile: Dockerfile
     restart: unless-stopped
+    platform: linux/amd64
     ports:
       - "8030:8080"
     volumes:
