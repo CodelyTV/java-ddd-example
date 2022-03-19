@@ -2,6 +2,7 @@ package tv.codely.mooc.courses;
 
 import org.junit.jupiter.api.BeforeEach;
 import tv.codely.mooc.courses.domain.Course;
+import tv.codely.mooc.courses.domain.CourseId;
 import tv.codely.mooc.courses.domain.CourseRepository;
 import tv.codely.shared.infrastructure.UnitTestCase;
 
@@ -19,5 +20,13 @@ public abstract class CoursesModuleUnitTestCase extends UnitTestCase {
 
     public void shouldHaveSaved(Course course) {
         verify(repository, atLeastOnce()).save(course);
+    }
+
+    public void shouldHaveSearched(CourseId id) {
+        verify(repository, atLeastOnce()).search(id);
+    }
+
+    public void shouldHaveFindAll() {
+        verify(repository, atLeastOnce()).findAll();
     }
 }

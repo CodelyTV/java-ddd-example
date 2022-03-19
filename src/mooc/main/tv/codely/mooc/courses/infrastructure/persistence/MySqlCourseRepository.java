@@ -31,6 +31,11 @@ public class MySqlCourseRepository extends HibernateRepository<Course> implement
     }
 
     @Override
+    public List<Course> findAll() {
+        return all();
+    }
+
+    @Override
     public List<Course> matching(Criteria criteria) {
         return byCriteria(criteria);
     }
