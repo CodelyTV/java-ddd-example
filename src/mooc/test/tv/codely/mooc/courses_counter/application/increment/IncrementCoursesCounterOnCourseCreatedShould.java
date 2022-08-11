@@ -44,7 +44,7 @@ final class IncrementCoursesCounterOnCourseCreatedShould extends CoursesCounterM
         CourseId       courseId           = CourseIdMother.create(event.aggregateId());
         CoursesCounter existingCounter    = CoursesCounterMother.random();
         CoursesCounter incrementedCounter = CoursesCounterMother.incrementing(existingCounter, courseId);
-
+        System.out.println(existingCounter);
         shouldSearch(existingCounter);
 
         subscriber.on(event);

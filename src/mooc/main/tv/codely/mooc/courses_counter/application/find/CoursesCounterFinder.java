@@ -4,6 +4,8 @@ import tv.codely.mooc.courses_counter.domain.CoursesCounter;
 import tv.codely.mooc.courses_counter.domain.CoursesCounterNotInitialized;
 import tv.codely.mooc.courses_counter.domain.CoursesCounterRepository;
 import tv.codely.shared.domain.Service;
+import org.springframework.beans.factory.annotation.Autowired;
+
 
 @Service
 public final class CoursesCounterFinder {

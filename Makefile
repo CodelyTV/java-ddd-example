@@ -33,3 +33,6 @@ start-mooc_backend:
 .PHONY: start-backoffice_frontend
 start-backoffice_frontend:
 	@./gradlew :run --args='backoffice_frontend server'
+.PHONY: start-backoffice_backend
+start-backoffice_backend:
+	@./gradlew :run --args='backoffice_backend server'
