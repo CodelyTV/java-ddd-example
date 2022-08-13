@@ -12,9 +12,9 @@ public class CourseNameUpdater {
     private final CourseRepository repository;
     private final DomainCourseFinder domainCourseFinder;
 
-    public CourseNameUpdater(CourseRepository repository, DomainCourseFinder domainCourseFinder) {
+    public CourseNameUpdater(CourseRepository repository) {
         this.repository = repository;
-        this.domainCourseFinder = domainCourseFinder;
+        this.domainCourseFinder = new DomainCourseFinder(this.repository);
     }
 
     public void renameCourse(final CourseId courseId, final CourseName newCourseName) {
