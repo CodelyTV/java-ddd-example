@@ -6,14 +6,17 @@ import tv.codely.mooc.courses.domain.CourseName;
 import tv.codely.mooc.courses.domain.CourseRepository;
 import tv.codely.mooc.courses.domain.service.DomainCourseFinder;
 import tv.codely.shared.domain.Service;
+import tv.codely.shared.domain.bus.event.EventBus;
 
 @Service
 public class CourseNameUpdater {
     private final CourseRepository repository;
     private final DomainCourseFinder domainCourseFinder;
+    private final EventBus eventBus;
 
-    public CourseNameUpdater(CourseRepository repository) {
+    public CourseNameUpdater(CourseRepository repository, EventBus eventBus) {
         this.repository = repository;
+        this.eventBus = eventBus;
         this.domainCourseFinder = new DomainCourseFinder(this.repository);
     }
 
@@ -22,9 +25,10 @@ public class CourseNameUpdater {
 
         this.repository.save(buildNewCourse(course, newCourseName));
 
+        this.eventBus.publish(course.pullDomainEvents());
     }
 
     private Course buildNewCourse(final Course course, final CourseName newCourseName) {
-        return new Course(course.id(), newCourseName, course.duration());
+        return Course.rename(course.id(), newCourseName, course.duration());
     }
 }
