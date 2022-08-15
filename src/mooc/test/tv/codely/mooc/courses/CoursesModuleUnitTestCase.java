@@ -20,4 +20,8 @@ public abstract class CoursesModuleUnitTestCase extends UnitTestCase {
     public void shouldHaveSaved(Course course) {
         verify(repository, atLeastOnce()).save(course);
     }
+
+    public void shouldNotHaveSaved() {
+        verify(repository, never()).save(any(Course.class));
+    }
 }
