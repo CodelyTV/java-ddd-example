@@ -7,7 +7,7 @@ up:
 
 .PHONY: build
 build:
-	@./gradlew build --warning-mode all
+	@./gradlew build --warning-mode all 
 
 .PHONY: run-tests
 run-tests:

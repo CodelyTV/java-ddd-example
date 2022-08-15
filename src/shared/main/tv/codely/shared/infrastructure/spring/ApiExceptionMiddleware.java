@@ -8,7 +8,7 @@ import tv.codely.shared.domain.DomainError;
 import tv.codely.shared.domain.Utils;
 import tv.codely.shared.domain.bus.command.CommandHandlerExecutionError;
 import tv.codely.shared.domain.bus.query.QueryHandlerExecutionError;
-
+import org.springframework.web.util.ServletRequestPathUtils;
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -33,7 +33,11 @@ public final class ApiExceptionMiddleware implements Filter {
         HttpServletRequest  httpRequest  = ((HttpServletRequest) request);
         HttpServletResponse httpResponse = ((HttpServletResponse) response);
 
+
         try {
+             if (!ServletRequestPathUtils.hasParsedRequestPath(httpRequest)) {
+                ServletRequestPathUtils.parseAndCache(httpRequest);
+            }
             Object possibleController = (
                 (HandlerMethod) Objects.requireNonNull(
                     mapping.getHandler(httpRequest)).getHandler()
