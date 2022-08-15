@@ -9,11 +9,11 @@
             <div class="text-sm lg:flex-grow">
                 <a href="#"
                    class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
-                    Usuarios
+                   Users
                 </a>
                 <a href="/courses"
                    class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
-                    Cursos
+                   Courses
                 </a>
                 <a href="#" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white">
                     Vídeos

@@ -1,9 +1,9 @@
 <form class="w-full max-w-lg float-right" method="post" action="/courses">
-    <h2 class="block uppercase tracking-wide text-gray-700 text-3xl font-bold mb-2">Crear curso</h2>
+    <h2 class="block uppercase tracking-wide text-gray-700 text-3xl font-bold mb-2">Create course</h2>
     <div class="flex flex-wrap mb-6 -mx-3">
         <div class="w-full md:w-full px-3 mb-6 md:mb-0">
             <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
-                Identificador
+                identifer
             </label>
             <input class="<#if errors['id']?? >border border-red-500</#if> appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                    id="grid-first-name" type="text" name="id" placeholder="En formado UUID"
@@ -19,7 +19,7 @@
     <div class="flex flex-wrap -mx-3 mb-6">
         <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
             <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
-                Nombre
+               Name
             </label>
             <input class="<#if errors['name']?? >border border-red-500</#if> appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                    id="grid-first-name" type="text" name="name" placeholder="DDD en PHP"
@@ -33,7 +33,7 @@
         </div>
         <div class="w-full md:w-1/2 px-3">
             <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
-                Duración (en inglés)
+                Duration(English)
             </label>
             <input class="<#if errors['duration']?? >border border-red-500</#if> appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                    id="grid-last-name" type="text" name="duration" placeholder="8 days"
@@ -48,7 +48,7 @@
     <div class="flex flex-wrap mb-6">
         <button class="md:w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                 type="submit">
-            Crear curso!
+            Create course!
         </button>
     </div>
 </form>

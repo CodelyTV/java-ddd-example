@@ -1,4 +1,4 @@
-<h3 class="font-sans text-gray-800 text-center text-3xl mb-10">Cursos existentes</h3>
+<h3 class="font-sans text-gray-800 text-center text-3xl mb-10">Existing courses</h3>
 
 
 <form action="" method="get" id="courses-filters" name="filter-courses">
@@ -10,13 +10,13 @@
         <button class="md:w-1/4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                 id="add-field-button"
                 onclick="addFilter(event)">
-            Añadir filtro
+            Add filter
         </button>
 
         <button class="md:w-1/4 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                 id="filter-button"
                 onclick="filterCourses(event)">
-            👉 Filtrar 👈
+            👉 filter 👈
         </button>
     </div>
 </form>
@@ -27,10 +27,10 @@
             Id
         </th>
         <th class="py-4 px-6 bg-grey-lightest font-bold uppercase text-sm text-grey-dark border-b border-grey-light">
-            Nombre
+            Name
         </th>
         <th class="py-4 px-6 bg-grey-lightest font-bold uppercase text-sm text-grey-dark border-b border-grey-light">
-            Duración
+            Duration
         </th>
     </tr>
     </thead>
@@ -89,7 +89,7 @@
                                   totalRows +
                                   "][field]\" id=\"field\"\n" +
                                   "                class=\"block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline\">\n" +
-                                  "            <option value=\"id\">Identificador</option>\n" +
+                                  "            <option value=\"id\">identifer</option>\n" +
                                   "            <option value=\"name\">Nombre</option>\n" +
                                   "            <option value=\"duration\">Duración</option>\n" +
                                   "        </select>\n" +
