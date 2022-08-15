@@ -50,3 +50,5 @@ Here you have the [course on CodelyTV Pro where we explain step by step all this
 * ⚡ [Scala Basic Skeleton (g8 template)](https://github.com/CodelyTV/scala-basic-skeleton.g8)
 * ⚛ [Scala Examples](https://github.com/CodelyTV/scala-examples)
 * 🥦 [Scala DDD Example](https://github.com/CodelyTV/scala-ddd-example)
+升级到gradle-7.5.1
+./gradlew wrapper --gradle-version=7.5.1 --distribution-type=bin
