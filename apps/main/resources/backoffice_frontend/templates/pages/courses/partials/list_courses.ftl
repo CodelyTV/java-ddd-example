@@ -142,12 +142,12 @@
 
         const urlParts = inputs.map(input => input.name + "=" + input.value);
 
-        const url = "http://localhost:8091/courses?" + urlParts.join("&");
+        const url = "http://192.168.120.181:8091/courses?" + urlParts.join("&");
 
         addCoursesList(url);
     }
 </script>
 
 <script>
-    addCoursesList("http://localhost:8091/courses");
+    addCoursesList("http://192.168.120.181:8091/courses");
 </script>

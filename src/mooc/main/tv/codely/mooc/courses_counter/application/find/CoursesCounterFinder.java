@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 @Service
 public final class CoursesCounterFinder {
+    @Autowired
     private CoursesCounterRepository repository;
 
     public CoursesCounterFinder(CoursesCounterRepository repository) {

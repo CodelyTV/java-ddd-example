@@ -22,7 +22,7 @@ services:
     restart: unless-stopped
     ports:
       - 5630:5672
-      - 8090:15672
+      - 8092:15672
     environment:
       - RABBITMQ_DEFAULT_USER=codelytv
       - RABBITMQ_DEFAULT_PASS=c0d3ly
