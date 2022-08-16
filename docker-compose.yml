@@ -5,7 +5,7 @@ services:
     container_name: codelytv-java_ddd_skeleton-mysql
     image: mysql:8
     ports:
-      - "3360:3306"
+      - "3306:3306"
     environment:
       - MYSQL_ROOT_PASSWORD=
       - MYSQL_ALLOW_EMPTY_PASSWORD=yes
@@ -21,7 +21,7 @@ services:
     image: 'rabbitmq:3.7-management'
     restart: unless-stopped
     ports:
-      - 5630:5672
+      - 5672:5672
       - 8092:15672
     environment:
       - RABBITMQ_DEFAULT_USER=codelytv

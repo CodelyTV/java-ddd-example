@@ -4,7 +4,9 @@ all: build
 .PHONY: up
 up:
 	@docker-compose up -d
-
+.PHONY: down
+down:
+	@docker-compose down
 .PHONY: build
 build:
 	@./gradlew build --warning-mode all 
