@@ -1,4 +1,4 @@
-package tv.codely.mooc.controller.courses;
+package tv.codely.mooc.controller.students;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -6,21 +6,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import tv.codely.mooc.shared.application.create.CourseCreator;
+import tv.codely.mooc.controller.courses.Request;
 
 @RestController
-public final class CoursesPutController {
+public class StudentPutController {
 
-    private final CourseCreator creator;
-
-    public CoursesPutController(CourseCreator creator) {
-        this.creator = creator;
-    }
-
-    @PutMapping("/courses/{id}")
+    @PutMapping("/student/{id}")
     public ResponseEntity index(@PathVariable String id, @RequestBody Request request) {
-        creator.create(id, request.getName(), request.getDuration());
 
-        return new ResponseEntity(HttpStatus.CREATED);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 }
