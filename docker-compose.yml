@@ -2,7 +2,7 @@ version: '3'
 
 services:
   mysql:
-    container_name: codelytv-java_ddd_skeleton-mysql
+    container_name: codelytv-java_ddd_example-mysql
     image: mysql:8
     platform: linux/amd64
     ports:
@@ -18,7 +18,7 @@ services:
     command: ["--default-authentication-plugin=mysql_native_password"]
 
   rabbitmq:
-    container_name: codelytv-java_ddd_skeleton-rabbitmq
+    container_name: codelytv-java_ddd_example-rabbitmq
     image: 'rabbitmq:3.7-management'
     platform: linux/amd64
     restart: unless-stopped
@@ -30,7 +30,7 @@ services:
       - RABBITMQ_DEFAULT_PASS=c0d3ly
 
   elasticsearch:
-    container_name: codelytv-java_ddd_skeleton-elasticsearch
+    container_name: codelytv-java_ddd_example-elasticsearch
     image: 'elasticsearch:6.8.4'
     platform: linux/amd64
     restart: unless-stopped
@@ -41,7 +41,7 @@ services:
       - discovery.type=single-node
 
   java:
-    container_name: codelytv-ddd_skeleton-java
+    container_name: codelytv-ddd_example-java
     build:
       context: .
       dockerfile: Dockerfile

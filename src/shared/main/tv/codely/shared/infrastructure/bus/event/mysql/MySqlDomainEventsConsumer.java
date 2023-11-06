@@ -1,5 +1,6 @@
 package tv.codely.shared.infrastructure.bus.event.mysql;
 
+import jakarta.transaction.Transactional;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.NativeQuery;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -8,7 +9,6 @@ import tv.codely.shared.domain.bus.event.DomainEvent;
 import tv.codely.shared.infrastructure.bus.event.DomainEventsInformation;
 import tv.codely.shared.infrastructure.bus.event.spring.SpringApplicationEventBus;
 
-import javax.transaction.Transactional;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.sql.Timestamp;
@@ -36,7 +36,7 @@ public class MySqlDomainEventsConsumer {
     @Transactional
     public void consume() {
         while (!shouldStop) {
-            NativeQuery query = sessionFactory.getCurrentSession().createSQLQuery(
+            NativeQuery query = sessionFactory.getCurrentSession().createNativeQuery(
                 "SELECT * FROM domain_events ORDER BY occurred_on ASC LIMIT :chunk"
             );
 

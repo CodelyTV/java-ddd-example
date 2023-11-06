@@ -1,17 +1,17 @@
 package tv.codely.shared.infrastructure.hibernate;
 
+import jakarta.persistence.criteria.*;
 import tv.codely.shared.domain.criteria.Criteria;
 import tv.codely.shared.domain.criteria.Filter;
 import tv.codely.shared.domain.criteria.FilterOperator;
 
-import javax.persistence.criteria.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.function.BiFunction;
 import java.util.stream.Collectors;
 
 public final class HibernateCriteriaConverter<T> {
-    private final CriteriaBuilder                                                 builder;
+    private final CriteriaBuilder builder;
     private final HashMap<FilterOperator, BiFunction<Filter, Root<T>, Predicate>> predicateTransformers = new HashMap<FilterOperator, BiFunction<Filter, Root<T>, Predicate>>() {{
         put(FilterOperator.EQUAL, HibernateCriteriaConverter.this::equalsPredicateTransformer);
         put(FilterOperator.NOT_EQUAL, HibernateCriteriaConverter.this::notEqualsPredicateTransformer);

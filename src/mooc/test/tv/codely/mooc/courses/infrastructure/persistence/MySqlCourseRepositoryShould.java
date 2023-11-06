@@ -6,7 +6,7 @@ import tv.codely.mooc.courses.domain.Course;
 import tv.codely.mooc.courses.domain.CourseIdMother;
 import tv.codely.mooc.courses.domain.CourseMother;
 
-import javax.transaction.Transactional;
+import jakarta.transaction.Transactional;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
