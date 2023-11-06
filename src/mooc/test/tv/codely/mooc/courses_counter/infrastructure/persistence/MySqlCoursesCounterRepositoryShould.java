@@ -5,10 +5,10 @@ import tv.codely.mooc.courses_counter.CoursesCounterModuleInfrastructureTestCase
 import tv.codely.mooc.courses_counter.domain.CoursesCounter;
 import tv.codely.mooc.courses_counter.domain.CoursesCounterMother;
 
-import javax.transaction.Transactional;
+import jakarta.transaction.Transactional;
 import java.util.Optional;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @Transactional
 class MySqlCoursesCounterRepositoryShould extends CoursesCounterModuleInfrastructureTestCase {

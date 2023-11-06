@@ -15,7 +15,7 @@ run-tests:
 
 .PHONY: test
 test:
-	@docker exec codelytv-ddd_skeleton-java ./gradlew test --warning-mode all
+	@docker exec codelytv-ddd_example-java ./gradlew test --warning-mode all
 
 .PHONY: run
 run:
@@ -23,13 +23,13 @@ run:
 
 .PHONY: ping-mysql
 ping-mysql:
-	@docker exec codelytv-java_ddd_skeleton-mysql mysqladmin --user=root --password= --host "127.0.0.1" ping --silent
+	@docker exec codelytv-java_ddd_example-mysql mysqladmin --user=root --password= --host "127.0.0.1" ping --silent
 
 # Start the app
 .PHONY: start-mooc_backend
 start-mooc_backend:
-	@./gradlew :run --args='mooc_backend server'
+	@./gradlew bootRun --args='mooc_backend server'
 
 .PHONY: start-backoffice_frontend
 start-backoffice_frontend:
-	@./gradlew :run --args='backoffice_frontend server'
+	@./gradlew bootRun --args='backoffice_frontend server'

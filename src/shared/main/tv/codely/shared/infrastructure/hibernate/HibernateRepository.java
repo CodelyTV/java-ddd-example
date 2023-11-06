@@ -1,22 +1,22 @@
 package tv.codely.shared.infrastructure.hibernate;
 
+import jakarta.persistence.criteria.CriteriaQuery;
 import org.hibernate.SessionFactory;
 import tv.codely.shared.domain.Identifier;
 import tv.codely.shared.domain.criteria.Criteria;
 
-import javax.persistence.criteria.CriteriaQuery;
 import java.util.List;
 import java.util.Optional;
 
 public abstract class HibernateRepository<T> {
     protected final SessionFactory             sessionFactory;
     protected final Class<T>                   aggregateClass;
-    protected final HibernateCriteriaConverter criteriaConverter;
+    protected final HibernateCriteriaConverter<T> criteriaConverter;
 
     public HibernateRepository(SessionFactory sessionFactory, Class<T> aggregateClass) {
         this.sessionFactory    = sessionFactory;
         this.aggregateClass    = aggregateClass;
-        this.criteriaConverter = new HibernateCriteriaConverter<T>(sessionFactory.getCriteriaBuilder());
+        this.criteriaConverter = new HibernateCriteriaConverter<>(sessionFactory.getCriteriaBuilder());
     }
 
     protected void persist(T entity) {

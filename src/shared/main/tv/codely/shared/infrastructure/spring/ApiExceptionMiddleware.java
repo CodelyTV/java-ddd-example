@@ -9,9 +9,9 @@ import tv.codely.shared.domain.Utils;
 import tv.codely.shared.domain.bus.command.CommandHandlerExecutionError;
 import tv.codely.shared.domain.bus.query.QueryHandlerExecutionError;
 
-import javax.servlet.*;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.*;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
@@ -41,7 +41,7 @@ public final class ApiExceptionMiddleware implements Filter {
 
             try {
                 chain.doFilter(request, response);
-            } catch (NestedServletException exception) {
+            } catch (Exception exception) {
                 if (possibleController instanceof ApiController) {
                     handleCustomError(response, httpResponse, (ApiController) possibleController, exception);
                 }
@@ -55,7 +55,7 @@ public final class ApiExceptionMiddleware implements Filter {
         ServletResponse response,
         HttpServletResponse httpResponse,
         ApiController possibleController,
-        NestedServletException exception
+        Exception exception
     ) throws IOException {
         HashMap<Class<? extends DomainError>, HttpStatus> errorMapping = possibleController
             .errorMapping();

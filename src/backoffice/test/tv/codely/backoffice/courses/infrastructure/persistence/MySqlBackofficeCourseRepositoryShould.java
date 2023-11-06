@@ -10,7 +10,7 @@ import tv.codely.backoffice.courses.domain.BackofficeCourseMother;
 import tv.codely.backoffice.courses.domain.BackofficeCourseRepository;
 import tv.codely.shared.domain.criteria.Criteria;
 
-import javax.transaction.Transactional;
+import jakarta.transaction.Transactional;
 import java.util.Arrays;
 
 import static org.hamcrest.MatcherAssert.assertThat;
