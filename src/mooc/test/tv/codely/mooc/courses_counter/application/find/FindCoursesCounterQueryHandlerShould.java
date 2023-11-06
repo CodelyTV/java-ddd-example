@@ -7,7 +7,7 @@ import tv.codely.mooc.courses_counter.domain.CoursesCounter;
 import tv.codely.mooc.courses_counter.domain.CoursesCounterMother;
 import tv.codely.mooc.courses_counter.domain.CoursesCounterNotInitialized;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final class FindCoursesCounterQueryHandlerShould extends CoursesCounterModuleUnitTestCase {

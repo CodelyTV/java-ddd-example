@@ -28,8 +28,8 @@ ping-mysql:
 # Start the app
 .PHONY: start-mooc_backend
 start-mooc_backend:
-	@./gradlew :run --args='mooc_backend server'
+	@./gradlew bootRun --args='mooc_backend server'
 
 .PHONY: start-backoffice_frontend
 start-backoffice_frontend:
-	@./gradlew :run --args='backoffice_frontend server'
+	@./gradlew bootRun --args='backoffice_frontend server'

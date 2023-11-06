@@ -41,7 +41,7 @@ public final class ApiExceptionMiddleware implements Filter {
 
             try {
                 chain.doFilter(request, response);
-            } catch (NestedServletException exception) {
+            } catch (Exception exception) {
                 if (possibleController instanceof ApiController) {
                     handleCustomError(response, httpResponse, (ApiController) possibleController, exception);
                 }
@@ -55,7 +55,7 @@ public final class ApiExceptionMiddleware implements Filter {
         ServletResponse response,
         HttpServletResponse httpResponse,
         ApiController possibleController,
-        NestedServletException exception
+        Exception exception
     ) throws IOException {
         HashMap<Class<? extends DomainError>, HttpStatus> errorMapping = possibleController
             .errorMapping();
