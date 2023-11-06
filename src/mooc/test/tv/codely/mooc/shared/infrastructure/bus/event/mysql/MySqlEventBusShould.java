@@ -8,7 +8,7 @@ import tv.codely.shared.domain.course.CourseCreatedDomainEvent;
 import tv.codely.shared.infrastructure.bus.event.mysql.MySqlDomainEventsConsumer;
 import tv.codely.shared.infrastructure.bus.event.mysql.MySqlEventBus;
 
-import javax.transaction.Transactional;
+import jakarta.transaction.Transactional;
 import java.util.Collections;
 
 @Transactional

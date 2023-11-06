@@ -13,6 +13,7 @@ import tv.codely.shared.domain.Service;
 import javax.sql.DataSource;
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -67,7 +68,7 @@ public final class HibernateConfigurationFactory {
             "classpath:database/%s.sql",
             databaseName
         ));
-        String mysqlSentences = new Scanner(mysqlResource.getInputStream(), "UTF-8").useDelimiter("\\A").next();
+        String mysqlSentences = new Scanner(mysqlResource.getInputStream(), StandardCharsets.UTF_8).useDelimiter("\\A").next();
 
         dataSource.setConnectionInitSqls(new ArrayList<>(Arrays.asList(mysqlSentences.split(";"))));
 
@@ -122,7 +123,8 @@ public final class HibernateConfigurationFactory {
         Properties hibernateProperties = new Properties();
         hibernateProperties.put(AvailableSettings.HBM2DDL_AUTO, "none");
         hibernateProperties.put(AvailableSettings.SHOW_SQL, "false");
-        hibernateProperties.put(AvailableSettings.DIALECT, "org.hibernate.dialect.MySQL8Dialect");
+        hibernateProperties.put(AvailableSettings.DIALECT, "org.hibernate.dialect.MySQLDialect");
+        hibernateProperties.put(AvailableSettings.TRANSFORM_HBM_XML, true);
 
         return hibernateProperties;
     }

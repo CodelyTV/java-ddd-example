@@ -7,7 +7,7 @@ import tv.codely.mooc.steps.domain.StepIdMother;
 import tv.codely.mooc.steps.domain.challenge.ChallengeStepMother;
 import tv.codely.mooc.steps.domain.video.VideoStepMother;
 
-import javax.transaction.Transactional;
+import jakarta.transaction.Transactional;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;

@@ -14,7 +14,7 @@ import tv.codely.shared.infrastructure.bus.event.rabbitmq.RabbitMqEventBus;
 import java.util.Collections;
 import java.util.HashMap;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public final class RabbitMqEventBusShould extends MoocContextInfrastructureTestCase {
     @Autowired
