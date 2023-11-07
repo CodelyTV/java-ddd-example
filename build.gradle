@@ -39,7 +39,8 @@ allprojects {
         implementation "org.elasticsearch.client:elasticsearch-rest-client:${elasticsearchVersion}"
         implementation "org.elasticsearch.client:elasticsearch-rest-high-level-client:${elasticsearchVersion}"
         implementation 'com.mysql:mysql-connector-j:8.1.0'
-
+		
+		
         // Test
         testImplementation 'org.junit.jupiter:junit-jupiter-api:5.5.2'
         testImplementation 'org.mockito:mockito-core:3.3.3'
