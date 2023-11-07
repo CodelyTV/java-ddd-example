@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.ResourcePatternResolver;
+import tv.codely.shared.domain.Utils;
 import tv.codely.shared.infrastructure.config.Parameter;
 import tv.codely.shared.infrastructure.config.ParameterNotExist;
 import tv.codely.shared.infrastructure.elasticsearch.ElasticsearchClient;
@@ -29,27 +30,33 @@ public class BackofficeElasticsearchConfiguration {
     }
 
     @Bean
-    public ElasticsearchClient elasticsearchClient() throws ParameterNotExist, IOException {
-        ElasticsearchClient client = new ElasticsearchClient(
-            new RestHighLevelClient(
-                RestClient.builder(
-                    new HttpHost(
-                        config.get("BACKOFFICE_ELASTICSEARCH_HOST"),
-                        config.getInt("BACKOFFICE_ELASTICSEARCH_PORT"),
-                        "http"
-                    )
-                )
-            ),
-            RestClient.builder(
-                new HttpHost(
-                    config.get("BACKOFFICE_ELASTICSEARCH_HOST"),
-                    config.getInt("BACKOFFICE_ELASTICSEARCH_PORT"),
-                    "http"
-                )).build(),
-            config.get("BACKOFFICE_ELASTICSEARCH_INDEX_PREFIX")
-        );
+    public ElasticsearchClient elasticsearchClient() throws ParameterNotExist, Exception {
+		ElasticsearchClient client = new ElasticsearchClient(
+			new RestHighLevelClient(
+				RestClient.builder(
+					new HttpHost(
+						config.get("BACKOFFICE_ELASTICSEARCH_HOST"),
+						config.getInt("BACKOFFICE_ELASTICSEARCH_PORT"),
+						"http"
+					)
+				)
+			),
+			RestClient.builder(
+				new HttpHost(
+					config.get("BACKOFFICE_ELASTICSEARCH_HOST"),
+					config.getInt("BACKOFFICE_ELASTICSEARCH_PORT"),
+					"http"
+				)).build(),
+			config.get("BACKOFFICE_ELASTICSEARCH_INDEX_PREFIX")
+		);
 
-        generateIndexIfNotExists(client, "backoffice");
+		Utils.retry(10, 10000, () -> {
+            try {
+                generateIndexIfNotExists(client, "backoffice");
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
 
         return client;
     }

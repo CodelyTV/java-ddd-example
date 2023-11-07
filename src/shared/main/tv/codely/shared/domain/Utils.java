@@ -47,4 +47,27 @@ public final class Utils {
     public static String toCamelFirstLower(String text) {
         return CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, text);
     }
+
+	public static void retry(int numberOfRetries, long waitTimeInMillis, Runnable operation) throws Exception {
+		for (int i = 0; i < numberOfRetries; i++) {
+			try {
+				operation.run();
+				return; // Success, exit the method
+			} catch (Exception ex) {
+				System.out.println("Retry " + (i + 1) + "/" + numberOfRetries + " fail. Retrying…");
+				if (i >= numberOfRetries - 1) {
+					throw ex;
+				}
+
+				try {
+					Thread.sleep(waitTimeInMillis);
+				} catch (InterruptedException ie) {
+					Thread.currentThread().interrupt();
+
+					throw new Exception("Operation interrupted while retrying", ie);
+				}
+			}
+		}
+	}
+
 }

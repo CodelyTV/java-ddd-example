@@ -39,11 +39,6 @@ services:
       - "9200:9200"
     environment:
       - discovery.type=single-node
-    healthcheck:
-      test: [ "CMD-SHELL", "curl --silent --fail localhost:9200/_cluster/health || exit 1" ]
-      interval: 30s
-      timeout: 10s
-      retries: 5
 
   backoffice_backend_server_java:
     container_name: codely-java_ddd_example-backoffice_backend_server
@@ -55,6 +50,7 @@ services:
       - "8040:8040"
     volumes:
       - .:/app:delegated
+      - backoffice_backend_gradle_cache:/app/.gradle
     depends_on:
       - shared_mysql
       - shared_rabbitmq
@@ -71,6 +67,7 @@ services:
       - "8041:8041"
     volumes:
       - .:/app:delegated
+      - backoffice_frontend_gradle_cache:/app/.gradle
     depends_on:
       - shared_mysql
       - shared_rabbitmq
@@ -87,8 +84,14 @@ services:
       - "8030:8030"
     volumes:
       - .:/app:delegated
+      - mooc_backend_gradle_cache:/app/.gradle
     depends_on:
       - shared_mysql
       - shared_rabbitmq
       - backoffice_elasticsearch
     command: ["./gradlew", "bootRun", "--args", "mooc_backend server"]
+
+volumes:
+  backoffice_backend_gradle_cache:
+  backoffice_frontend_gradle_cache:
+  mooc_backend_gradle_cache:
