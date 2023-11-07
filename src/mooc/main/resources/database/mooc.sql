@@ -17,6 +17,7 @@ CREATE TABLE IF NOT EXISTS courses_counter (
     ENGINE = InnoDB
     DEFAULT CHARSET = utf8mb4
     COLLATE = utf8mb4_unicode_ci;
+INSERT IGNORE INTO courses_counter (id, total, existing_courses) VALUES ('efbaff16-8fcd-4689-9fc9-ec545d641c46', 0, '[]');
 
 CREATE TABLE IF NOT EXISTS steps (
     id    CHAR(36)     NOT NULL,

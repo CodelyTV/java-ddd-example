@@ -110,13 +110,19 @@ public final class HibernateConfigurationFactory {
     }
 
     private String[] mappingFilesIn(String path) {
-        String[] files = new File(path).list((current, name) -> new File(current, name).getName().contains(".hbm.xml"));
+		List<String> fileList = new ArrayList<>();
 
-        if (null == files) {
-            return new String[0];
-        }
+		String[] hbmFiles = new File(path).list((current, name) -> new File(current, name).getName().contains(".hbm.xml"));
+        String[] ormFiles = new File(path).list((current, name) -> new File(current, name).getName().contains(".orm.xml"));
 
-        return files;
+		if (hbmFiles != null) {
+			fileList.addAll(Arrays.asList(hbmFiles));
+		}
+		if (ormFiles != null) {
+			fileList.addAll(Arrays.asList(ormFiles));
+		}
+
+		return fileList.toArray(new String[0]);
     }
 
     private Properties hibernateProperties() {

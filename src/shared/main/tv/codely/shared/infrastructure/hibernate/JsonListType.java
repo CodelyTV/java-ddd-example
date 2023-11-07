@@ -19,7 +19,6 @@ import java.sql.Types;
 import java.util.*;
 
 public class JsonListType implements UserType, DynamicParameterizedType {
-    private static final int[] SQL_TYPES = new int[]{Types.LONGVARCHAR};
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
     private JavaType valueType = null;
     private Class<?> classType = null;
@@ -45,24 +44,6 @@ public class JsonListType implements UserType, DynamicParameterizedType {
     }
 
     @Override
-    public Object nullSafeGet(
-        ResultSet resultSet,
-        int i,
-        SharedSessionContractImplementor sharedSessionContractImplementor,
-        Object o
-    ) throws SQLException {
-        try {
-            String json = resultSet.getString(i);
-            if (json == null) {
-                return null;
-            }
-            return OBJECT_MAPPER.readValue(json, valueType);
-        } catch (IOException e) {
-            throw new SQLException("Exception deserializing JSON", e);
-        }
-    }
-
-    @Override
     public void nullSafeSet(
         PreparedStatement st,
         Object value,
@@ -72,21 +53,28 @@ public class JsonListType implements UserType, DynamicParameterizedType {
         nullSafeSet(st, value, index);
     }
 
-    public Object nullSafeGet(ResultSet rs, String[] names, Object owner) throws HibernateException, SQLException {
-        String value = rs.getString(names[0]).replace("\"value\"", "").replace("{:", "").replace("}", "");
-        Object result = null;
-        if (valueType == null) {
-            throw new HibernateException("Value type not set.");
-        }
-        if (value != null && !value.equals("")) {
-            try {
-                result = OBJECT_MAPPER.readValue(value, valueType);
-            } catch (IOException e) {
-                throw new HibernateException("Exception deserializing value " + value, e);
-            }
-        }
-        return result;
-    }
+	@Override
+	public Object nullSafeGet(
+		ResultSet resultSet,
+		int index,
+		SharedSessionContractImplementor session,
+		Object owner
+	) throws HibernateException, SQLException {
+
+		String value = resultSet.getString(index).replace("\"value\"", "").replace("{:", "").replace("}", "");
+		Object result = null;
+		if (valueType == null) {
+			throw new HibernateException("Value type not set.");
+		}
+		if (value != null && !value.equals("")) {
+			try {
+				result = OBJECT_MAPPER.readValue(value, valueType);
+			} catch (IOException e) {
+				throw new HibernateException("Exception deserializing value " + value, e);
+			}
+		}
+		return result;
+	}
 
     public void nullSafeSet(PreparedStatement st, Object value, int index) throws HibernateException, SQLException {
         StringWriter sw = new StringWriter();
