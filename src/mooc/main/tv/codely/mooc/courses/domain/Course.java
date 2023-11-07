@@ -2,6 +2,7 @@ package tv.codely.mooc.courses.domain;
 
 import tv.codely.shared.domain.AggregateRoot;
 import tv.codely.shared.domain.course.CourseCreatedDomainEvent;
+import tv.codely.shared.domain.course.CourseRenamedDomainEvent;
 
 import java.util.Objects;
 
@@ -27,6 +28,12 @@ public final class Course extends AggregateRoot {
 
         course.record(new CourseCreatedDomainEvent(id.value(), name.value(), duration.value()));
 
+        return course;
+    }
+
+    public static Course rename(final CourseId id, final CourseName name, final CourseDuration duration) {
+        final Course course = new Course(id, name, duration);
+        course.record(new CourseRenamedDomainEvent(id.value(), name.value(), duration.value()));
         return course;
     }
 

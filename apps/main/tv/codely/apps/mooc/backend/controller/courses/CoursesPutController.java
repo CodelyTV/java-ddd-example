@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import tv.codely.mooc.courses.application.create.CreateCourseCommand;
+import tv.codely.mooc.courses.application.update.RenameCourseCommand;
 import tv.codely.shared.domain.DomainError;
 import tv.codely.shared.domain.bus.command.CommandBus;
 import tv.codely.shared.domain.bus.command.CommandHandlerExecutionError;
@@ -32,6 +33,16 @@ public final class CoursesPutController extends ApiController {
         dispatch(new CreateCourseCommand(id, request.name(), request.duration()));
 
         return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @PutMapping(value = "/courses/{id}/renameCourse")
+    public ResponseEntity<String> renameCourse(
+        @PathVariable String id,
+        @RequestBody Request request
+    ) throws CommandHandlerExecutionError {
+        dispatch(new RenameCourseCommand(id, request.name()));
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @Override
