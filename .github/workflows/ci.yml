@@ -1,6 +1,10 @@
 name: CI
 
-on: [push]
+on:
+  push:
+    branches:
+      - main
+  pull_request:
 
 jobs:
   build:
@@ -8,17 +12,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v4
 
-      - name: Start all the environment
-        run: docker-compose up -d
+      - name: 🐳 Start all the environment
+        run: make start
 
-      - name: Wait for the environment to get up
+      - name: 🔦 Lint
+        run: make lint
+
+      - name: 🦭 Wait for the environment to get up
         run: |
           while ! make ping-mysql &>/dev/null; do
               echo "Waiting for database connection..."
               sleep 2
           done
 
-      - name: Run the tests
+      - name: ✅ Run the tests
         run: make test
