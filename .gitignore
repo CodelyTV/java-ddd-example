@@ -10,3 +10,6 @@ gradle-app.setting
 
 .env.local
 .env.*.local
+
+# Ignore .idea folder
+.idea/

@@ -8,15 +8,15 @@ import tv.codely.shared.domain.Service;
 
 @Service
 public final class CourseFinder {
-    private final CourseRepository repository;
+    private final tv.codely.mooc.courses.domain.CourseFinder finder;
 
     public CourseFinder(CourseRepository repository) {
-        this.repository = repository;
+        this.finder = new tv.codely.mooc.courses.domain.CourseFinder(repository);
     }
 
     public CourseResponse find(CourseId id) throws CourseNotExist {
-        return repository.search(id)
-                         .map(CourseResponse::fromAggregate)
-                         .orElseThrow(() -> new CourseNotExist(id));
+        return finder.find(id)
+            .map(CourseResponse::fromAggregate)
+            .orElseThrow(() -> new CourseNotExist(id));
     }
 }
