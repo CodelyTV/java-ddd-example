@@ -17,7 +17,7 @@ spotless {
         prettier(['prettier': '2.8.8', 'prettier-plugin-java': '2.2.0'])
                 .config(['parser': 'java', 'useTabs': true, 'printWidth': 120])
 
-        importOrder()
+        importOrder('\\#', 'java', '', 'tv.codely')
         removeUnusedImports()
 
         endWithNewline()
