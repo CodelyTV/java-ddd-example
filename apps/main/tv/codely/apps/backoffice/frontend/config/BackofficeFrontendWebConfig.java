@@ -13,33 +13,34 @@ import org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver;
 @Configuration
 @EnableWebMvc
 public class BackofficeFrontendWebConfig implements WebMvcConfigurer {
-    @Override
-    public void configureViewResolvers(ViewResolverRegistry registry) {
-        registry.freeMarker();
-    }
 
-    @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/**").addResourceLocations("classpath:/backoffice_frontend/public/");
-    }
+	@Override
+	public void configureViewResolvers(ViewResolverRegistry registry) {
+		registry.freeMarker();
+	}
 
-    @Bean
-    public ViewResolver getViewResolver() {
-        FreeMarkerViewResolver resolver = new FreeMarkerViewResolver();
-        resolver.setCache(false);
-        resolver.setSuffix(".ftl");
-        return resolver;
-    }
+	@Override
+	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+		registry.addResourceHandler("/**").addResourceLocations("classpath:/backoffice_frontend/public/");
+	}
 
-    @Bean
-    public FreeMarkerConfigurer freeMarkerConfigurer() {
-        FreeMarkerConfigurer configurer = new FreeMarkerConfigurer();
-        configurer.setTemplateLoaderPath("classpath:/backoffice_frontend/templates/");
-        configurer.setDefaultEncoding("UTF-8");
-//        configurer.setFreemarkerVariables(new HashMap<String, Object>() {{
-//            put("flash", new Flash());
-//        }});
+	@Bean
+	public ViewResolver getViewResolver() {
+		FreeMarkerViewResolver resolver = new FreeMarkerViewResolver();
+		resolver.setCache(false);
+		resolver.setSuffix(".ftl");
+		return resolver;
+	}
 
-        return configurer;
-    }
+	@Bean
+	public FreeMarkerConfigurer freeMarkerConfigurer() {
+		FreeMarkerConfigurer configurer = new FreeMarkerConfigurer();
+		configurer.setTemplateLoaderPath("classpath:/backoffice_frontend/templates/");
+		configurer.setDefaultEncoding("UTF-8");
+		//        configurer.setFreemarkerVariables(new HashMap<String, Object>() {{
+		//            put("flash", new Flash());
+		//        }});
+
+		return configurer;
+	}
 }
