@@ -7,13 +7,13 @@ build:
 	@./gradlew build --warning-mode all
 
 lint:
-	@docker exec codely-ddd_example-java ./gradlew spotlessCheck
+	@docker exec codely-java_ddd_example-mooc_backend_server ./gradlew spotlessCheck
 
 run-tests:
 	@./gradlew test --warning-mode all
 
 test:
-	@docker exec codely-ddd_example-java ./gradlew test --warning-mode all
+	@docker exec codely-java_ddd_example-mooc_backend_server ./gradlew test --warning-mode all
 
 run:
 	@./gradlew :run

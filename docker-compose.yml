@@ -44,3 +44,51 @@ services:
       interval: 30s
       timeout: 10s
       retries: 5
+
+  backoffice_backend_server_java:
+    container_name: codely-java_ddd_example-backoffice_backend_server
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - "8040:8040"
+    volumes:
+      - .:/app:delegated
+    depends_on:
+      - shared_mysql
+      - shared_rabbitmq
+      - backoffice_elasticsearch
+    command: ["./gradlew", "bootRun", "--args", "backoffice_backend server"]
+
+  backoffice_frontend_server_java:
+    container_name: codely-java_ddd_example-backoffice_frontend_server
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - "8041:8041"
+    volumes:
+      - .:/app:delegated
+    depends_on:
+      - shared_mysql
+      - shared_rabbitmq
+      - backoffice_elasticsearch
+    command: ["./gradlew", "bootRun", "--args", "backoffice_frontend server"]
+
+  mooc_backend_server_java:
+    container_name: codely-java_ddd_example-mooc_backend_server
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - "8030:8030"
+    volumes:
+      - .:/app:delegated
+    depends_on:
+      - shared_mysql
+      - shared_rabbitmq
+      - backoffice_elasticsearch
+    command: ["./gradlew", "bootRun", "--args", "mooc_backend server"]
