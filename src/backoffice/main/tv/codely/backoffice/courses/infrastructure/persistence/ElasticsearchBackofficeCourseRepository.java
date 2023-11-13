@@ -9,6 +9,7 @@ import tv.codely.shared.infrastructure.elasticsearch.ElasticsearchClient;
 import tv.codely.shared.infrastructure.elasticsearch.ElasticsearchRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Primary
 @Service
@@ -22,7 +23,12 @@ public final class ElasticsearchBackofficeCourseRepository extends Elasticsearch
         persist(course.id(), course.toPrimitives());
     }
 
-    @Override
+	@Override
+	public Optional<BackofficeCourse> search(String id) {
+		return this.searchById(id, BackofficeCourse::fromPrimitives);
+	}
+
+	@Override
     public List<BackofficeCourse> searchAll() {
         return searchAllInElastic(BackofficeCourse::fromPrimitives);
     }

@@ -7,7 +7,7 @@ import java.util.Objects;
 
 public final class BackofficeCourse {
     private final String id;
-    private final String name;
+    private  String name;
     private final String duration;
 
     public BackofficeCourse() {
@@ -29,6 +29,10 @@ public final class BackofficeCourse {
             (String) plainData.get("duration")
         );
     }
+
+	public void rename(String newName) {
+		this.name = newName;
+	}
 
     public String id() {
         return id;
