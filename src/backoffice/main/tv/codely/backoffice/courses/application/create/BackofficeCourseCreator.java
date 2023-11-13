@@ -13,6 +13,8 @@ public final class BackofficeCourseCreator {
     }
 
     public void create(String id, String name, String duration) {
-        this.repository.save(new BackofficeCourse(id, name, duration));
+		if (this.repository.search(id).isEmpty()) {
+			this.repository.save(new BackofficeCourse(id, name, duration));
+		}
     }
 }

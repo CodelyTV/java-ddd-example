@@ -70,8 +70,12 @@ public final class RabbitMqDomainEventsConsumer {
 
         try {
             subscriberOnMethod.invoke(subscriber, domainEvent);
+
+			System.out.println("ACK: Consumed correctly!");
         } catch (Exception error) {
-            handleConsumptionError(message, queue);
+			System.out.println("Error consuming");
+
+			handleConsumptionError(message, queue);
         }
     }
 
