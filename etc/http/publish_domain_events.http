@@ -1,0 +1,20 @@
+POST http://localhost:8030/domain-events
+Content-Type: application/json
+
+{
+  "eventName": "course.created",
+  "eventRaw": {
+    "data": {
+      "id": "{{$random.uuid}}",
+      "type": "course.created",
+      "occurred_on": "2023-11-14 10:00:00",
+      "attributes": {
+        "id": "{{$random.uuid}}",
+        "name": "Demo course",
+        "duration": "2 days"
+      }
+    },
+    "meta": {
+    }
+  }
+}

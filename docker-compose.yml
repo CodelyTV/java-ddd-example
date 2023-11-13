@@ -23,7 +23,7 @@ services:
     platform: linux/amd64
     restart: unless-stopped
     ports:
-      - "5630:5672"
+      - "5672:5672"
       - "8090:15672"
     environment:
       - RABBITMQ_DEFAULT_USER=codely
@@ -91,23 +91,7 @@ services:
       - backoffice_elasticsearch
     command: ["./gradlew", "bootRun", "--args", "mooc_backend server"]
 
-  test_server_java:
-    container_name: codely-java_ddd_example-test_server
-    build:
-      context: .
-      dockerfile: Dockerfile
-    restart: unless-stopped
-    volumes:
-      - .:/app:delegated
-      - test_gradle_cache:/app/.gradle
-    depends_on:
-      - shared_mysql
-      - shared_rabbitmq
-      - backoffice_elasticsearch
-    tty: true
-
 volumes:
   backoffice_backend_gradle_cache:
   backoffice_frontend_gradle_cache:
   mooc_backend_gradle_cache:
-  test_gradle_cache:
