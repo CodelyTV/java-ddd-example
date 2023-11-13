@@ -1,0 +1,55 @@
+version: '3'
+
+services:
+  shared_mysql:
+    container_name: codely-java_ddd_example-mysql
+    image: mysql:8
+    platform: linux/amd64
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+    entrypoint:
+      sh -c "
+        echo 'CREATE DATABASE IF NOT EXISTS mooc;CREATE DATABASE IF NOT EXISTS backoffice;' > /docker-entrypoint-initdb.d/init.sql;
+        /usr/local/bin/docker-entrypoint.sh --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+      "
+    command: ["--default-authentication-plugin=mysql_native_password"]
+
+  shared_rabbitmq:
+    container_name: codely-java_ddd_example-rabbitmq
+    image: 'rabbitmq:3.7-management'
+    platform: linux/amd64
+    restart: unless-stopped
+    ports:
+      - "5630:5672"
+      - "8090:15672"
+    environment:
+      - RABBITMQ_DEFAULT_USER=codely
+      - RABBITMQ_DEFAULT_PASS=c0d3ly
+
+  backoffice_elasticsearch:
+    container_name: codely-java_ddd_example-elasticsearch
+    image: 'elasticsearch:6.8.4'
+    platform: linux/amd64
+    restart: unless-stopped
+    ports:
+      - "9300:9300"
+      - "9200:9200"
+    environment:
+      - discovery.type=single-node
+
+  test_server_java:
+    container_name: codely-java_ddd_example-test_server
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    volumes:
+      - .:/app:delegated
+    depends_on:
+      - shared_mysql
+      - shared_rabbitmq
+      - backoffice_elasticsearch
+    tty: true
