@@ -44,6 +44,6 @@ public final class DomainEventSubscriberInformation {
     }
 
     public String formatRabbitMqQueueName() {
-        return String.format("codelytv.%s.%s.%s", contextName(), moduleName(), Utils.toSnake(className()));
+        return String.format("codely.%s.%s.%s", contextName(), moduleName(), Utils.toSnake(className()));
     }
 }

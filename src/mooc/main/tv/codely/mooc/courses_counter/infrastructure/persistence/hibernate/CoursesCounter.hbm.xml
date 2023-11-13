@@ -16,7 +16,7 @@
         </component>
 
         <property name="existingCourses" column="existing_courses" access="field">
-            <type name="json_string">
+            <type name="tv.codely.shared.infrastructure.hibernate.JsonListType">
                 <param name="list_of">tv.codely.mooc.courses.domain.CourseId</param>
             </type>
         </property>
