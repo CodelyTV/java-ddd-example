@@ -34,7 +34,7 @@ public final class CourseRenamedDomainEvent extends DomainEvent {
 
 	@Override
 	public String eventName() {
-		return "course.created";
+		return "course.renamed";
 	}
 
 	@Override

@@ -1,5 +1,6 @@
 package tv.codely.backoffice.courses.application.rename;
 
+import tv.codely.backoffice.courses.domain.BackofficeCourseNotFound;
 import tv.codely.backoffice.courses.domain.BackofficeCourseRepository;
 import tv.codely.shared.domain.Service;
 
@@ -13,10 +14,13 @@ public final class BackofficeCourseRenamer {
 
 	public void rename(String id, String name) {
 		this.repository.search(id)
-			.ifPresent(course -> {
-				course.rename(name);
+			.ifPresentOrElse(course -> {
+					course.rename(name);
 
-				this.repository.save(course);
-			});
+					this.repository.save(course);
+				},
+				() -> {
+					throw new BackofficeCourseNotFound(id);
+				});
 	}
 }

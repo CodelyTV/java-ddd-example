@@ -13,7 +13,6 @@ import tv.codely.shared.domain.bus.event.DomainEvent;
 import tv.codely.shared.infrastructure.bus.event.DomainEventJsonDeserializer;
 import tv.codely.shared.infrastructure.bus.event.DomainEventSubscribersInformation;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
@@ -21,13 +20,14 @@ import java.util.Map;
 @Service
 public final class RabbitMqDomainEventsConsumer {
     private final String                      CONSUMER_NAME          = "domain_events_consumer";
-    private final int                         MAX_RETRIES            = 2;
+    private final int                         MAX_RETRIES            = 10;
     private final DomainEventJsonDeserializer deserializer;
     private final ApplicationContext          context;
     private final RabbitMqPublisher           publisher;
     private final HashMap<String, Object>     domainEventSubscribers = new HashMap<>();
     RabbitListenerEndpointRegistry registry;
     private DomainEventSubscribersInformation information;
+	private String contextName;
 
     public RabbitMqDomainEventsConsumer(
         RabbitListenerEndpointRegistry registry,
@@ -43,12 +43,14 @@ public final class RabbitMqDomainEventsConsumer {
         this.publisher    = publisher;
     }
 
-    public void consume() {
+    public void consume(String contextName) {
+		this.contextName = contextName;
+
         AbstractMessageListenerContainer container = (AbstractMessageListenerContainer) registry.getListenerContainer(
             CONSUMER_NAME
         );
 
-        container.addQueueNames(information.rabbitMqFormattedNames());
+        container.addQueueNames(information.rabbitMqFormattedNamesFor(contextName));
 
         container.start();
     }
@@ -68,12 +70,6 @@ public final class RabbitMqDomainEventsConsumer {
 
         try {
             subscriberOnMethod.invoke(subscriber, domainEvent);
-        } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException error) {
-            throw new Exception(String.format(
-                "The subscriber <%s> should implement a method `on` listening the domain event <%s>",
-                queue,
-                domainEvent.eventName()
-            ));
         } catch (Exception error) {
             handleConsumptionError(message, queue);
         }
@@ -92,10 +88,14 @@ public final class RabbitMqDomainEventsConsumer {
     }
 
     private void sendToRetry(Message message, String queue) {
+		System.out.println("SENDING TO RETRY: " + contextName + " - " + queue);
+
         sendMessageTo(RabbitMqExchangeNameFormatter.retry("domain_events"), message, queue);
     }
 
     private void sendToDeadLetter(Message message, String queue) {
+		System.out.println("SENDING TO DEAD LETTER: " + contextName + " - " + queue);
+
         sendMessageTo(RabbitMqExchangeNameFormatter.deadLetter("domain_events"), message, queue);
     }
 

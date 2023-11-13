@@ -3,11 +3,10 @@ package tv.codely.backoffice.courses.application.rename;
 import org.springframework.context.event.EventListener;
 import tv.codely.shared.domain.Service;
 import tv.codely.shared.domain.bus.event.DomainEventSubscriber;
-import tv.codely.shared.domain.course.CourseCreatedDomainEvent;
 import tv.codely.shared.domain.course.CourseRenamedDomainEvent;
 
 @Service
-@DomainEventSubscriber({CourseCreatedDomainEvent.class})
+@DomainEventSubscriber({CourseRenamedDomainEvent.class})
 public final class RenameBackofficeCourseOnCourseRenamed {
 	private final BackofficeCourseRenamer renamer;
 
