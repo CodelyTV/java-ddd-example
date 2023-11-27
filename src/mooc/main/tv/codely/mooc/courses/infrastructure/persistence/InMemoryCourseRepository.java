@@ -5,6 +5,7 @@ import tv.codely.mooc.courses.domain.CourseId;
 import tv.codely.mooc.courses.domain.CourseRepository;
 import tv.codely.shared.domain.criteria.Criteria;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
@@ -21,7 +22,12 @@ public final class InMemoryCourseRepository implements CourseRepository {
         return Optional.ofNullable(courses.get(id.value()));
     }
 
-    @Override
+	@Override
+	public List<Course> findAll() {
+		return new ArrayList<>(courses.values());
+	}
+
+	@Override
     public List<Course> matching(Criteria criteria) {
         return null;
     }
