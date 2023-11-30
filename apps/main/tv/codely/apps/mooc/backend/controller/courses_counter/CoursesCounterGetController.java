@@ -27,7 +27,7 @@ public final class CoursesCounterGetController extends ApiController {
 
 		return new HashMap<String, Integer>() {
 			{
-				put("total", response.total());
+				put("testas total", response.total());
 			}
 		};
 	}
