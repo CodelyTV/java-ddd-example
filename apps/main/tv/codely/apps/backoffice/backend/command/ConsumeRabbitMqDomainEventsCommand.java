@@ -1,4 +1,4 @@
-package tv.codely.apps.mooc.backend.command;
+package tv.codely.apps.backoffice.backend.command;
 
 import tv.codely.shared.infrastructure.bus.event.rabbitmq.RabbitMqDomainEventsConsumer;
 import tv.codely.shared.infrastructure.cli.ConsoleCommand;
@@ -13,6 +13,6 @@ public final class ConsumeRabbitMqDomainEventsCommand extends ConsoleCommand {
 
 	@Override
 	public void execute(String[] args) {
-		consumer.consume("mooc");
+		consumer.consume("backoffice");
 	}
 }

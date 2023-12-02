@@ -46,7 +46,7 @@ public final class RabbitMqEventBusShould extends MoocContextInfrastructureTestC
 
         eventBus.publish(Collections.singletonList(domainEvent));
 
-        consumer.consume();
+        consumer.consume("mooc");
 
         eventually(() -> assertTrue(subscriber.hasBeenExecuted));
     }

@@ -1,0 +1,62 @@
+POST http://localhost:8030/domain-events
+Content-Type: application/json
+
+{
+  "eventName": "course.created",
+  "eventRaw": {
+    "data": {
+      "id": "{{$random.uuid}}",
+      "type": "course.created",
+      "occurred_on": "2023-11-14 10:00:00",
+      "attributes": {
+        "id": "c3a11f1d-512e-420b-aeae-e687a3c449aa",
+        "name": "Demo course",
+        "duration": "2 days"
+      }
+    },
+    "meta": {
+    }
+  }
+}
+
+###
+POST http://localhost:8030/domain-events
+Content-Type: application/json
+
+{
+  "eventName": "course.renamed",
+  "eventRaw": {
+    "data": {
+      "id": "{{$random.uuid}}",
+      "type": "course.renamed",
+      "occurred_on": "2023-11-14 10:00:00",
+      "attributes": {
+        "id": "7b081a3e-f90e-4efe-a3a5-81e853e89c8b",
+        "name": "Este es el nombre bueno"
+      }
+    },
+    "meta": {
+    }
+  }
+}
+
+###
+POST http://localhost:8030/domain-events
+Content-Type: application/json
+
+{
+  "eventName": "course.renamed",
+  "eventRaw": {
+    "data": {
+      "id": "{{$random.uuid}}",
+      "type": "course.renamed",
+      "occurred_on": "2022-11-14 10:00:00",
+      "attributes": {
+        "id": "7b081a3e-f90e-4efe-a3a5-81e853e89c8b",
+        "name": "Este es el nombre malo"
+      }
+    },
+    "meta": {
+    }
+  }
+}

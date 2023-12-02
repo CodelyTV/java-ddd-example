@@ -11,43 +11,44 @@ import java.util.Set;
 
 @Service
 public final class DomainEventSubscribersInformation {
-    HashMap<Class<?>, DomainEventSubscriberInformation> information;
+	HashMap<Class<?>, DomainEventSubscriberInformation> information;
 
-    public DomainEventSubscribersInformation(HashMap<Class<?>, DomainEventSubscriberInformation> information) {
-        this.information = information;
-    }
+	public DomainEventSubscribersInformation(HashMap<Class<?>, DomainEventSubscriberInformation> information) {
+		this.information = information;
+	}
 
-    public DomainEventSubscribersInformation() {
-        this(scanDomainEventSubscribers());
-    }
+	public DomainEventSubscribersInformation() {
+		this(scanDomainEventSubscribers());
+	}
 
-    private static HashMap<Class<?>, DomainEventSubscriberInformation> scanDomainEventSubscribers() {
-        Reflections   reflections = new Reflections("tv.codely");
-        Set<Class<?>> subscribers = reflections.getTypesAnnotatedWith(DomainEventSubscriber.class);
+	private static HashMap<Class<?>, DomainEventSubscriberInformation> scanDomainEventSubscribers() {
+		Reflections reflections = new Reflections("tv.codely");
+		Set<Class<?>> subscribers = reflections.getTypesAnnotatedWith(DomainEventSubscriber.class);
 
-        HashMap<Class<?>, DomainEventSubscriberInformation> subscribersInformation = new HashMap<>();
+		HashMap<Class<?>, DomainEventSubscriberInformation> subscribersInformation = new HashMap<>();
 
-        for (Class<?> subscriberClass : subscribers) {
-            DomainEventSubscriber annotation = subscriberClass.getAnnotation(DomainEventSubscriber.class);
+		for (Class<?> subscriberClass : subscribers) {
+			DomainEventSubscriber annotation = subscriberClass.getAnnotation(DomainEventSubscriber.class);
 
-            subscribersInformation.put(
-                subscriberClass,
-                new DomainEventSubscriberInformation(subscriberClass, Arrays.asList(annotation.value()))
-            );
-        }
+			subscribersInformation.put(
+				subscriberClass,
+				new DomainEventSubscriberInformation(subscriberClass, Arrays.asList(annotation.value()))
+			);
+		}
 
-        return subscribersInformation;
-    }
+		return subscribersInformation;
+	}
 
-    public Collection<DomainEventSubscriberInformation> all() {
-        return information.values();
-    }
+	public Collection<DomainEventSubscriberInformation> all() {
+		return information.values();
+	}
 
-    public String[] rabbitMqFormattedNames() {
-        return information.values()
-                          .stream()
-                          .map(DomainEventSubscriberInformation::formatRabbitMqQueueName)
-                          .distinct()
-                          .toArray(String[]::new);
-    }
+	public String[] rabbitMqFormattedNamesFor(String contextName) {
+		return information.values()
+			.stream()
+			.map(DomainEventSubscriberInformation::formatRabbitMqQueueName)
+			.distinct()
+			.filter(queueName -> queueName.contains("." + contextName + "."))
+			.toArray(String[]::new);
+	}
 }

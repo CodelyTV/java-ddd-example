@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfigurat
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.FilterType;
 
+import tv.codely.apps.backoffice.backend.command.ConsumeRabbitMqDomainEventsCommand;
 import tv.codely.shared.domain.Service;
 
 @SpringBootApplication(exclude = HibernateJpaAutoConfiguration.class)
@@ -17,8 +18,10 @@ import tv.codely.shared.domain.Service;
 public class BackofficeBackendApplication {
 
 	public static HashMap<String, Class<?>> commands() {
-		return new HashMap<String, Class<?>>() {
-			{}
+		return new HashMap<>() {
+			{
+				put("domain-events:rabbitmq:consume", ConsumeRabbitMqDomainEventsCommand.class);
+			}
 		};
 	}
 }

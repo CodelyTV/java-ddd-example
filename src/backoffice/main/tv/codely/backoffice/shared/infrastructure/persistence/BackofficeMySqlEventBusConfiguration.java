@@ -4,6 +4,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import tv.codely.shared.infrastructure.bus.event.DomainEventsInformation;
 import tv.codely.shared.infrastructure.bus.event.mysql.MySqlDomainEventsConsumer;
 import tv.codely.shared.infrastructure.bus.event.mysql.MySqlEventBus;

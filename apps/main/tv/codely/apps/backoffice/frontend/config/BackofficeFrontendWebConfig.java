@@ -1,7 +1,9 @@
 package tv.codely.apps.backoffice.frontend.config;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -9,6 +11,10 @@ import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver;
+
+import tv.codely.shared.infrastructure.bus.event.mysql.MySqlEventBus;
+import tv.codely.shared.infrastructure.bus.event.rabbitmq.RabbitMqEventBus;
+import tv.codely.shared.infrastructure.bus.event.rabbitmq.RabbitMqPublisher;
 
 @Configuration
 @EnableWebMvc
@@ -42,5 +48,14 @@ public class BackofficeFrontendWebConfig implements WebMvcConfigurer {
 		//        }});
 
 		return configurer;
+	}
+
+	@Primary
+	@Bean
+	public RabbitMqEventBus rabbitMqEventBus(
+		RabbitMqPublisher publisher,
+		@Qualifier("backofficeMysqlEventBus") MySqlEventBus failoverPublisher
+	) {
+		return new RabbitMqEventBus(publisher, failoverPublisher);
 	}
 }
