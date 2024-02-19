@@ -2,8 +2,12 @@ package tv.codely.mooc.students.infrastructure.persistence;
 
 import org.junit.jupiter.api.Test;
 import tv.codely.mooc.students.domain.Student;
+import tv.codely.mooc.students.domain.StudentEmail;
+import tv.codely.mooc.students.domain.StudentId;
+import tv.codely.mooc.students.domain.StudentName;
 
 import java.util.Optional;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -12,7 +16,11 @@ class InMemoryStudentRepositoryTest {
     @Test
     void save_a_student() {
         InMemoryStudentRepository repository = new InMemoryStudentRepository();
-        Student student = new Student("id", "name", "surname");
+        Student student = new Student(
+                new StudentId(UUID.randomUUID().toString()),
+                new StudentName("name"),
+                new StudentEmail("email@sad.com")
+        );
 
         repository.save(student);
     }
@@ -20,7 +28,10 @@ class InMemoryStudentRepositoryTest {
     @Test
     void return_an_existing_student() {
         InMemoryStudentRepository repository = new InMemoryStudentRepository();
-        Student student = new Student("id", "name", "surname");
+        Student student = new Student(
+                new StudentId(UUID.randomUUID().toString()),
+                new StudentName("name"),
+                new StudentEmail("as@d.com"));
 
         repository.save(student);
 
@@ -31,6 +42,8 @@ class InMemoryStudentRepositoryTest {
     void not_return_a_non_existing_student() {
         InMemoryStudentRepository repository = new InMemoryStudentRepository();
 
-        assertFalse(repository.search("randomId").isPresent());
+        assertFalse(repository.search(new StudentId(
+                UUID.randomUUID().toString()
+        )).isPresent());
     }
 }
