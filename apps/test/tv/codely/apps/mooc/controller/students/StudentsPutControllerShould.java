@@ -1,7 +1,7 @@
-package tv.codely.app.mooc.controller.students;
+package tv.codely.apps.mooc.controller.students;
 
 import org.junit.jupiter.api.Test;
-import tv.codely.app.mooc.controller.RequestTestCase;
+import tv.codely.apps.mooc.controller.RequestTestCase;
 
 public class StudentsPutControllerShould extends RequestTestCase {
 
@@ -10,7 +10,7 @@ public class StudentsPutControllerShould extends RequestTestCase {
         assertRequestWithBody(
             "PUT",
             "/students/1aab45ba-3c7a-4344-8936-78466eca77fa",
-            "{\"name\": \"The best student\", \"lastname\": \"The best lastname\"}",
+            "{\"name\": \"The best student\", \"email\": \"example@example.com\"}",
             201);
     }
 
