@@ -1,26 +1,26 @@
 package tv.codely.mooc.students.domain;
 
 public class Student {
-    private String id;
-    private String name;
-    private String surname;
+    private StudentId id;
+    private StudentName name;
+    private StudentEmail email;
 
-    public Student(String id, String name, String surname) {
+    public Student(StudentId id, StudentName name, StudentEmail email) {
         this.id = id;
         this.name = name;
-        this.surname = surname;
+        this.email = email;
     }
 
-    public String id() {
+    public StudentId id() {
         return id;
     }
 
-    public String name() {
+    public StudentName name() {
         return name;
     }
 
-    public String surname() {
-        return surname;
+    public StudentEmail email() {
+        return email;
     }
 
     @Override
