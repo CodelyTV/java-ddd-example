@@ -23,7 +23,7 @@ services:
     platform: linux/amd64
     restart: unless-stopped
     ports:
-      - "5630:5672"
+      - "5672:5672"
       - "8090:15672"
     environment:
       - RABBITMQ_DEFAULT_USER=codely
@@ -51,11 +51,28 @@ services:
     volumes:
       - .:/app:delegated
       - backoffice_backend_gradle_cache:/app/.gradle
+      - backoffice_backend_build:/app/build
     depends_on:
       - shared_mysql
       - shared_rabbitmq
       - backoffice_elasticsearch
     command: ["./gradlew", "bootRun", "--args", "backoffice_backend server"]
+
+  backoffice_backend_consumers_java:
+    container_name: codely-java_ddd_example-backoffice_backend_consumers
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    volumes:
+      - .:/app:delegated
+      - backoffice_consumers_gradle_cache:/app/.gradle
+      - backoffice_consumers_build:/app/build
+    depends_on:
+      - shared_mysql
+      - shared_rabbitmq
+      - backoffice_elasticsearch
+    command: ["./gradlew", "bootRun", "--args", "backoffice_backend domain-events:rabbitmq:consume"]
 
   backoffice_frontend_server_java:
     container_name: codely-java_ddd_example-backoffice_frontend_server
@@ -68,6 +85,7 @@ services:
     volumes:
       - .:/app:delegated
       - backoffice_frontend_gradle_cache:/app/.gradle
+      - backoffice_frontend_build:/app/build
     depends_on:
       - shared_mysql
       - shared_rabbitmq
@@ -85,29 +103,37 @@ services:
     volumes:
       - .:/app:delegated
       - mooc_backend_gradle_cache:/app/.gradle
+      - mooc_backend_build:/app/build
     depends_on:
       - shared_mysql
       - shared_rabbitmq
       - backoffice_elasticsearch
     command: ["./gradlew", "bootRun", "--args", "mooc_backend server"]
 
-  test_server_java:
-    container_name: codely-java_ddd_example-test_server
+  mooc_backend_consumers_java:
+    container_name: codely-java_ddd_example-mooc_backend_consumers
     build:
       context: .
       dockerfile: Dockerfile
     restart: unless-stopped
     volumes:
       - .:/app:delegated
-      - test_gradle_cache:/app/.gradle
+      - mooc_consumers_gradle_cache:/app/.gradle
+      - mooc_consumers_build:/app/build
     depends_on:
       - shared_mysql
       - shared_rabbitmq
       - backoffice_elasticsearch
-    tty: true
+    command: ["./gradlew", "bootRun", "--args", "mooc_backend domain-events:rabbitmq:consume"]
 
 volumes:
   backoffice_backend_gradle_cache:
+  backoffice_backend_build:
+  backoffice_consumers_gradle_cache:
+  backoffice_consumers_build:
   backoffice_frontend_gradle_cache:
+  backoffice_frontend_build:
   mooc_backend_gradle_cache:
-  test_gradle_cache:
+  mooc_backend_build:
+  mooc_consumers_gradle_cache:
+  mooc_consumers_build:

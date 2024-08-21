@@ -1,5 +1,7 @@
 package tv.codely.shared.infrastructure.elasticsearch;
 
+import org.elasticsearch.action.get.GetRequest;
+import org.elasticsearch.action.get.GetResponse;
 import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.RequestOptions;
@@ -27,7 +29,25 @@ public abstract class ElasticsearchRepository<T> {
         return searchAllInElastic(unserializer, new SearchSourceBuilder());
     }
 
-    protected List<T> searchAllInElastic(
+	protected Optional<T> searchById(String id, Function<Map<String, Object>, T> unserializer) {
+		GetRequest request = new GetRequest(client.indexFor(moduleName()), "_doc", id);
+
+		try {
+			GetResponse getResponse = client.highLevelClient().get(request, RequestOptions.DEFAULT);
+
+			if (!getResponse.isExists()) {
+				return Optional.empty();
+			}
+
+			return Optional.of(unserializer.apply(getResponse.getSourceAsMap()));
+		} catch (IOException e) {
+			e.printStackTrace();
+			return Optional.empty();
+		}
+	}
+
+
+	protected List<T> searchAllInElastic(
         Function<Map<String, Object>, T> unserializer,
         SearchSourceBuilder sourceBuilder
     ) {

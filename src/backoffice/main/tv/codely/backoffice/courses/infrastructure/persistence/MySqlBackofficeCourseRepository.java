@@ -10,6 +10,7 @@ import tv.codely.shared.domain.criteria.Criteria;
 import tv.codely.shared.infrastructure.hibernate.HibernateRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional("backoffice-transaction_manager")
@@ -23,7 +24,12 @@ public class MySqlBackofficeCourseRepository extends HibernateRepository<Backoff
         persist(course);
     }
 
-    @Override
+	@Override
+	public Optional<BackofficeCourse> search(String id) {
+		return byId(id);
+	}
+
+	@Override
     public List<BackofficeCourse> searchAll() {
         return all();
     }

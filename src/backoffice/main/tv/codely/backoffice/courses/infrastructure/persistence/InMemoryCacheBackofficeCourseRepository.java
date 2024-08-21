@@ -7,46 +7,58 @@ import tv.codely.shared.domain.criteria.Criteria;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
 public final class InMemoryCacheBackofficeCourseRepository implements BackofficeCourseRepository {
-    private final BackofficeCourseRepository              repository;
-    private       List<BackofficeCourse>                  courses         = new ArrayList<>();
-    private       HashMap<String, List<BackofficeCourse>> matchingCourses = new HashMap<>();
+	private final BackofficeCourseRepository repository;
+	private List<BackofficeCourse> courses = new ArrayList<>();
+	private HashMap<String, List<BackofficeCourse>> matchingCourses = new HashMap<>();
 
-    public InMemoryCacheBackofficeCourseRepository(BackofficeCourseRepository repository) {
-        this.repository = repository;
-    }
+	public InMemoryCacheBackofficeCourseRepository(BackofficeCourseRepository repository) {
+		this.repository = repository;
+	}
 
-    @Override
-    public void save(BackofficeCourse course) {
-        repository.save(course);
-    }
+	@Override
+	public void save(BackofficeCourse course) {
+		repository.save(course);
+	}
 
-    @Override
-    public List<BackofficeCourse> searchAll() {
-        return courses.isEmpty() ? searchAndFillCache() : courses;
-    }
+	@Override
+	public List<BackofficeCourse> searchAll() {
+		return courses.isEmpty() ? searchAndFillCache() : courses;
+	}
 
-    @Override
-    public List<BackofficeCourse> matching(Criteria criteria) {
-        return matchingCourses.containsKey(criteria.serialize())
-            ? matchingCourses.get(criteria.serialize())
-            : searchMatchingAndFillCache(criteria);
-    }
+	public Optional<BackofficeCourse> search(String id) {
+		return courses.stream()
+			.filter(course -> course.id().equals(id))
+			.findFirst()
+			.or(() -> {
+				Optional<BackofficeCourse> course = repository.search(id);
+				course.ifPresent(courses::add);
+				return course;
+			});
+	}
 
-    private List<BackofficeCourse> searchMatchingAndFillCache(Criteria criteria) {
-        List<BackofficeCourse> courses = repository.matching(criteria);
+	@Override
+	public List<BackofficeCourse> matching(Criteria criteria) {
+		return matchingCourses.containsKey(criteria.serialize())
+			? matchingCourses.get(criteria.serialize())
+			: searchMatchingAndFillCache(criteria);
+	}
 
-        this.matchingCourses.put(criteria.serialize(), courses);
+	private List<BackofficeCourse> searchMatchingAndFillCache(Criteria criteria) {
+		List<BackofficeCourse> courses = repository.matching(criteria);
 
-        return courses;
-    }
+		this.matchingCourses.put(criteria.serialize(), courses);
 
-    private List<BackofficeCourse> searchAndFillCache() {
-        List<BackofficeCourse> courses = repository.searchAll();
+		return courses;
+	}
 
-        this.courses = courses;
+	private List<BackofficeCourse> searchAndFillCache() {
+		List<BackofficeCourse> courses = repository.searchAll();
 
-        return courses;
-    }
+		this.courses = courses;
+
+		return courses;
+	}
 }

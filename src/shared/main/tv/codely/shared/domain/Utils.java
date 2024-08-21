@@ -28,6 +28,14 @@ public final class Utils {
         }
     }
 
+    public static String jsonEncode(Object map) {
+        try {
+            return new ObjectMapper().writeValueAsString(map);
+        } catch (JsonProcessingException e) {
+            return "";
+        }
+    }
+
     public static HashMap<String, Serializable> jsonDecode(String body) {
         try {
             return new ObjectMapper().readValue(body, HashMap.class);

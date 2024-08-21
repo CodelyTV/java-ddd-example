@@ -128,7 +128,7 @@ public class RabbitMqEventBusConfiguration {
         return new HashMap<String, Object>() {{
             put("x-dead-letter-exchange", exchange.getName());
             put("x-dead-letter-routing-key", routingKey);
-            put("x-message-ttl", 1000);
+            put("x-message-ttl", 3000);
         }};
     }
 }

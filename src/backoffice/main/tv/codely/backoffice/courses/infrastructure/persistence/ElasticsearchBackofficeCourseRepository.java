@@ -9,31 +9,37 @@ import tv.codely.shared.infrastructure.elasticsearch.ElasticsearchClient;
 import tv.codely.shared.infrastructure.elasticsearch.ElasticsearchRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Primary
 @Service
 public final class ElasticsearchBackofficeCourseRepository extends ElasticsearchRepository<BackofficeCourse> implements BackofficeCourseRepository {
-    public ElasticsearchBackofficeCourseRepository(ElasticsearchClient client) {
-        super(client);
-    }
+	public ElasticsearchBackofficeCourseRepository(ElasticsearchClient client) {
+		super(client);
+	}
 
-    @Override
-    public void save(BackofficeCourse course) {
-        persist(course.id(), course.toPrimitives());
-    }
+	@Override
+	public void save(BackofficeCourse course) {
+		persist(course.id(), course.toPrimitives());
+	}
 
-    @Override
-    public List<BackofficeCourse> searchAll() {
-        return searchAllInElastic(BackofficeCourse::fromPrimitives);
-    }
+	@Override
+	public Optional<BackofficeCourse> search(String id) {
+		return this.searchById(id, BackofficeCourse::fromPrimitives);
+	}
 
-    @Override
-    public List<BackofficeCourse> matching(Criteria criteria) {
-        return searchByCriteria(criteria, BackofficeCourse::fromPrimitives);
-    }
+	@Override
+	public List<BackofficeCourse> searchAll() {
+		return searchAllInElastic(BackofficeCourse::fromPrimitives);
+	}
 
-    @Override
-    protected String moduleName() {
-        return "courses";
-    }
+	@Override
+	public List<BackofficeCourse> matching(Criteria criteria) {
+		return searchByCriteria(criteria, BackofficeCourse::fromPrimitives);
+	}
+
+	@Override
+	protected String moduleName() {
+		return "courses";
+	}
 }
