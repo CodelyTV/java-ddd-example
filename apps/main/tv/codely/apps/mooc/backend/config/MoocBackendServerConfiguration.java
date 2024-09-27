@@ -6,8 +6,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
 import tv.codely.shared.infrastructure.spring.ApiExceptionMiddleware;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 
 @Configuration
+@ConditionalOnWebApplication
 public class MoocBackendServerConfiguration {
 
 	private final RequestMappingHandlerMapping mapping;
