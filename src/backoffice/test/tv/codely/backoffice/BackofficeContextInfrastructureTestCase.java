@@ -8,6 +8,7 @@ import tv.codely.backoffice.courses.ElasticsearchEnvironmentArranger;
 import tv.codely.shared.infrastructure.InfrastructureTestCase;
 
 import java.io.IOException;
+import java.util.logging.Logger;
 
 @ContextConfiguration(classes = BackofficeFrontendApplication.class)
 @SpringBootTest
@@ -15,7 +16,10 @@ public abstract class BackofficeContextInfrastructureTestCase extends Infrastruc
     @Autowired
     private ElasticsearchEnvironmentArranger elasticsearchArranger;
 
+    private static final Logger logger = Logger.getLogger(BackofficeContextInfrastructureTestCase.class.getName());
     protected void clearElasticsearch() throws IOException {
+        logger.info("Clearing Elasticsearch indices: backoffice, backoffice_courses");
         elasticsearchArranger.arrange("backoffice", "backoffice_courses");
     }
 }
+//Add the logging function
