@@ -1,4 +1,4 @@
-FROM openjdk:21-slim-buster
+FROM openjdk:21-slim
 WORKDIR /app
 
 RUN apt update && apt install -y curl git
